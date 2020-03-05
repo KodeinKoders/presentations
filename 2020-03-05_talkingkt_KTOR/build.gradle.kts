@@ -11,15 +11,22 @@ repositories {
 
 kotlin {
     target {
-        browser()
+        browser {
+            webpackTask {
+                outputFileName = "pres.js"
+            }
+            runTask {
+                outputFileName = "pres.js"
+            }
+        }
         useCommonJs()
 
         sourceSets["main"].dependencies {
             implementation(kotlin("stdlib-js"))
 
-            val reactVersion = "16.9.0"
+            val reactVersion = "16.13.0"
             val reactRouterVersion = "4.3.1"
-            val kotlinWrapperVersion = "pre.88-kotlin-1.3.60"
+            val kotlinWrapperVersion = "pre.92-kotlin-1.3.61"
 
             api("org.jetbrains:kotlin-react-dom:$reactVersion-$kotlinWrapperVersion")
             api("org.jetbrains:kotlin-react-router-dom:$reactRouterVersion-$kotlinWrapperVersion")
