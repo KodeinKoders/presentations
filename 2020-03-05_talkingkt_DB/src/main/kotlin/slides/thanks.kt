@@ -50,6 +50,14 @@ fun PresentationBuilder.thanks() = slide(infos) {
                         }
                         +" @salomonbrys"
                     }
+                    br {}
+                    styledA(href = "mailto:salomon@kodein.net") {
+                        css {
+                            color = Color("#007bfa")
+                            textDecoration = TextDecoration.none
+                        }
+                        +" salomon@kodein.net"
+                    }
                 }
             }
         }
@@ -63,11 +71,19 @@ fun PresentationBuilder.thanks() = slide(infos) {
 
     styledA(href = "https://github.com/Kodein-Framework/Kodein-DB") {
         css {
-            margin(top = 1.5.em, bottom = 2.em)
+            margin(top = 1.5.em)
             color = Color("#007bfa")
             textDecoration = TextDecoration.none
         }
         +"github.com/Kodein-Framework/Kodein-DB"
+    }
+
+    styledP() {
+        css {
+            margin(top = 2.5.em, bottom = 4.em)
+            fontSize = 0.7.em
+        }
+        +"kodeinkoders.github.io/pres/2020-03-05_talkingkt_DB"
     }
 
 }
