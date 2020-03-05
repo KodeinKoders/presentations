@@ -1,0 +1,18 @@
+# INTELLIJ
+.idea/
+*.ipr
+*.iml
+
+# SYSTEM FILES
+*~
+.DS_STORE
+
+# GRADLE
+.gradle
+build/
+out/
+gradle.properties
+gradle.props
+local.properties
+.gradletasknamecache
+
