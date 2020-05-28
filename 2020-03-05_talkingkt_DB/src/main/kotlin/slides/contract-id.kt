@@ -2,22 +2,24 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.*
-import kotlinx.html.unsafe
-import react.dom.*
-import styled.*
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
-import ws.kpres.sourceCode
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
+import org.kodein.kpres.sourceCode
+import react.dom.b
+import react.dom.div
+import react.dom.h1
+import react.dom.span
+import styled.css
+import styled.styledDiv
+import styled.styledSpan
 
-private val infos = SlideInfos(
+
+fun PresentationBuilder.contractId() = slide(
         stateCount = 10,
         notes = notes {
             1 ("L'ID définit le document")
         }
-)
-
-fun PresentationBuilder.contractId() = slide(infos) { props ->
+) { props ->
     h1 {
         styledSpan {
             css {

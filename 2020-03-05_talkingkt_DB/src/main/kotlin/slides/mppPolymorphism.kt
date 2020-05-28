@@ -4,16 +4,11 @@ import kotlinx.css.*
 import kotlinx.css.properties.LineHeight
 import kotlinx.css.properties.ms
 import kotlinx.css.properties.transition
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.sourceCode
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.sourceCode
 
 
-private val infos = SlideInfos(
-        stateCount = 4
-)
-
-fun PresentationBuilder.mppPolymorphism() = slide(infos) { props ->
+fun PresentationBuilder.mppPolymorphism() = slide(stateCount = 4) { props ->
 
     sourceCode(
             "kotlin",

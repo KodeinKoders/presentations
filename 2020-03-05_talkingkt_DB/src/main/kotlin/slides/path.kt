@@ -2,20 +2,13 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.*
+import org.kodein.kpres.PresentationBuilder
 import react.dom.br
-import react.dom.h1
 import react.dom.li
 import styled.*
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
 
 
-private val infos = SlideInfos(
-        stateCount = 11
-)
-
-fun PresentationBuilder.path() = slide(infos) { props ->
+fun PresentationBuilder.path() = slide(stateCount = 11) { props ->
 
     styledDiv {
         css {

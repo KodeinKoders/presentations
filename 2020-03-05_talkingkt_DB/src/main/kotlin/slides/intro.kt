@@ -2,23 +2,18 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
-import react.dom.br
-import react.dom.h1
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
 import styled.*
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
 
 
-private val infos = SlideInfos(
+fun PresentationBuilder.intro() = slide(
         notes = notes("""
             - Merci à TalkingKT
             - Presentation en Kotlin/JS
             - Salomon BRYS
         """.trimIndent())
-)
-
-fun PresentationBuilder.intro() = slide(infos) {
+) {
     styledH1 {
         css {
             margin(0.5.em)

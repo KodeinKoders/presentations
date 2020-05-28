@@ -4,21 +4,18 @@ import kotlinx.css.*
 import kotlinx.css.properties.LineHeight
 import kotlinx.css.properties.ms
 import kotlinx.css.properties.transition
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
-import ws.kpres.sourceCode
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
+import org.kodein.kpres.sourceCode
 
 
-private val infos = SlideInfos(
+fun PresentationBuilder.query() = slide(
         stateCount = 8,
         notes = notes {
             0 ("Un peu de recherche...")
             3 ("Configuration : objets")
         }
-)
-
-fun PresentationBuilder.query() = slide(infos) { props ->
+) { props ->
 
     sourceCode(
             "kotlin",

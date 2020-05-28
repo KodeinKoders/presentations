@@ -3,19 +3,14 @@ package ws.slides
 import kotlinx.css.*
 import kotlinx.css.properties.ms
 import kotlinx.css.properties.transition
+import org.kodein.kpres.PresentationBuilder
 import react.dom.*
 import styled.css
 import styled.styledLi
 import styled.styledUl
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
 
 
-private val infos = SlideInfos(
-        stateCount = 4
-)
-
-fun PresentationBuilder.migration() = slide(infos) { props ->
+fun PresentationBuilder.migration() = slide(stateCount = 4) { props ->
     h1 {
         +"Migration"
     }

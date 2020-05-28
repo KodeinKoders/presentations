@@ -2,12 +2,10 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.*
-import react.dom.*
-import styled.*
-import ws.comp.logo
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
+import org.kodein.kpres.PresentationBuilder
+import react.dom.br
+import react.dom.div
+import react.dom.span
 
 
 private val slideStyle: CSSBuilder.(Int) -> Unit = { state ->
@@ -122,16 +120,10 @@ private val slideStyle: CSSBuilder.(Int) -> Unit = { state ->
     }
 }
 
-private val infos = SlideInfos(
-        stateCount = 12
-)
-
-fun PresentationBuilder.layers() = slide(infos) {
-
-    attrs {
+fun PresentationBuilder.layers() = slide(
+        stateCount = 12,
         style = slideStyle
-    }
-
+) {
     div("vert root") {
         div("layer a7") {
             div("entry platform") { +"iOS & Native" }

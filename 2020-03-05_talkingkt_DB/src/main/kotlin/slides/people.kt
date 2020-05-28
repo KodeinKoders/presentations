@@ -2,14 +2,15 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.*
-import react.dom.h1
-import styled.*
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
+import styled.css
+import styled.styledDiv
+import styled.styledH3
+import styled.styledImg
 
 
-private val infos = SlideInfos(
+fun PresentationBuilder.people() = slide(
         stateCount = 5,
         notes = notes {
             0 ("Jane")
@@ -17,9 +18,7 @@ private val infos = SlideInfos(
             2 ("Jill")
             3 ("Jack")
         }
-)
-
-fun PresentationBuilder.people() = slide(infos) { props ->
+) { props ->
 
     fun CSSBuilder.portrait() {
         position = Position.absolute

@@ -74,7 +74,7 @@ private val Logo by functionalComponent<LogoProps> { props ->
 }
 
 fun RBuilder.logo(division: String, href: String? = null, zoom: Double = 1.0, handler: RHandler<LogoProps>) = child(
-        functionalComponent = Logo,
+        component = Logo,
         props = jsObject {
             this.division = { +division }
             this.href = href
@@ -84,7 +84,7 @@ fun RBuilder.logo(division: String, href: String? = null, zoom: Double = 1.0, ha
 )
 
 fun RBuilder.logo(division: RBuilder.() -> Unit, href: String? = null, zoom: Double = 1.0, handler: RHandler<LogoProps>) = child(
-        functionalComponent = Logo,
+        component = Logo,
         props = jsObject {
             this.division = division
             this.href = href

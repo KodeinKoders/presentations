@@ -2,18 +2,15 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.*
-import org.w3c.dom.Range
+import org.kodein.kpres.PresentationBuilder
 import react.dom.br
-import styled.*
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
+import styled.css
+import styled.styledDiv
+import styled.styledH2
+import styled.styledImg
 
 
-private val infos = SlideInfos(
-        stateCount = 9
-)
-
-fun PresentationBuilder.reactive() = slide(infos) { props ->
+fun PresentationBuilder.reactive() = slide(stateCount = 9) { props ->
 
 
     styledDiv {

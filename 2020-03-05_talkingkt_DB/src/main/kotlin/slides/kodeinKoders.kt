@@ -5,18 +5,16 @@ import kotlinx.css.properties.s
 import kotlinx.css.properties.scale
 import kotlinx.css.properties.transform
 import kotlinx.css.properties.transition
-import react.dom.img
+import org.kodein.kpres.Flip
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
 import styled.css
 import styled.styledDiv
 import styled.styledImg
 import ws.comp.logo
-import ws.kpres.Flip
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
 
 
-private val infos = SlideInfos(
+fun PresentationBuilder.kodeinKoders() = slide(
         stateCount = 2,
         containerStyle = {
             ".inner-container" {
@@ -29,9 +27,7 @@ private val infos = SlideInfos(
             - Spécialisée sur Kotlin/Multiplatform et Kotlin/Native
             - Aspect business
         """)
-)
-
-fun PresentationBuilder.kodeinKoders() = slide(infos) { props ->
+) { props ->
     logo(division = "Koders", href = "https://kodein.net", zoom = 1.0 ) {
         +"painless technology"
     }

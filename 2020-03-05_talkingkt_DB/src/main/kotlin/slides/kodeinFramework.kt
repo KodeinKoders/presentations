@@ -4,6 +4,9 @@ import kotlinx.css.*
 import kotlinx.css.properties.ms
 import kotlinx.css.properties.s
 import kotlinx.css.properties.transition
+import org.kodein.kpres.Flip
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
 import react.dom.img
 import react.dom.li
 import react.dom.span
@@ -11,7 +14,6 @@ import styled.css
 import styled.styledImg
 import styled.styledUl
 import ws.comp.logo
-import ws.kpres.*
 import ws.utils.li
 
 
@@ -63,7 +65,7 @@ private fun CSSBuilder.targetsStyle(state: Int) {
     }
 }
 
-private val infos = SlideInfos(
+fun PresentationBuilder.kodeinFramework() = slide(
         stateCount = 5,
         containerStyle = {
             ".inner-container" {
@@ -80,9 +82,7 @@ private val infos = SlideInfos(
             3 ("Plans pour le web (un jour)")
             4 ("**Jamais serveur !!**")
         }
-)
-
-fun PresentationBuilder.kodeinFramework() = slide(infos) { props ->
+) { props ->
     logo(division = "Framework", href = "https://kodein.org", zoom = 0.8) {
         +"painless "
         styledImg(src = "images/kotlin-white.svg") {

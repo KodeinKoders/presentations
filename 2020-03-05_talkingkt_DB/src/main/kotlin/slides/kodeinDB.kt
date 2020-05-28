@@ -3,23 +3,22 @@ package ws.slides
 import kotlinx.css.*
 import kotlinx.css.properties.ms
 import kotlinx.css.properties.transition
-import styled.*
+import org.kodein.kpres.PresentationBuilder
+import styled.css
+import styled.styledImg
+import styled.styledP
+import styled.styledSpan
 import ws.comp.logo
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
 
 
-private val infos = SlideInfos(
+fun PresentationBuilder.kodeinDB() = slide(
         stateCount = 2,
         containerStyle = {
             ".inner-container" {
                 backgroundColor = if (it < 1) Color("#46AF6D") else Color("#1B93D2")
             }
         }
-)
-
-fun PresentationBuilder.kodeinDB() = slide(infos) { props ->
+) { props ->
 
     logo(
             division = {

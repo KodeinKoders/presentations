@@ -1,12 +1,14 @@
 package ws
 
 import kotlinx.css.*
-import kotlinx.css.properties.*
+import kotlinx.css.properties.LineHeight
+import kotlinx.css.properties.boxShadow
+import kotlinx.css.properties.ms
+import kotlinx.css.properties.transition
 import react.dom.render
-import styled.StyledComponents
 import styled.injectGlobal
-import ws.kpres.Move
-import ws.kpres.presentation
+import org.kodein.kpres.Move
+import org.kodein.kpres.presentation
 import ws.slides.*
 import kotlin.browser.document
 
@@ -58,7 +60,7 @@ fun CSSBuilder.globalCSS() {
 fun main() {
     render(document.getElementById("app")) {
 
-        StyledComponents.injectGlobal { globalCSS() }
+        injectGlobal { globalCSS() }
 
         presentation(
                 defaultTransition = Move

@@ -1,21 +1,18 @@
 package ws.slides
 
 import kotlinx.css.*
-import kotlinx.css.properties.*
+import kotlinx.css.properties.LineHeight
+import kotlinx.css.properties.ms
+import kotlinx.css.properties.transition
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.sourceCode
 import react.dom.h1
-import react.dom.h2
-import react.dom.span
-import styled.*
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
-import ws.kpres.sourceCode
+import styled.css
+import styled.styledH2
+import styled.styledSpan
 
-private val infos = SlideInfos(
-        stateCount = 6
-)
 
-fun PresentationBuilder.contractImmut() = slide(infos) { props ->
+fun PresentationBuilder.contractImmut() = slide(stateCount = 6) { props ->
     h1 {
         styledSpan {
             css {

@@ -1,16 +1,13 @@
 package ws.slides
 
 import kotlinx.css.*
-import kotlinx.css.properties.TextDecoration
 import kotlinx.css.properties.ms
 import kotlinx.css.properties.transition
-import react.dom.*
+import org.kodein.kpres.PresentationBuilder
+import react.dom.h1
+import react.dom.li
 import styled.css
-import styled.styledA
-import styled.styledLi
 import styled.styledUl
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
 
 
 fun PresentationBuilder.next() = slide {

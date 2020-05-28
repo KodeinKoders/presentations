@@ -1,23 +1,20 @@
 package ws.slides
 
 import kotlinx.css.*
-import kotlinx.css.properties.*
-import styled.css
-import styled.styledH2
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
-import ws.kpres.sourceCode
+import kotlinx.css.properties.LineHeight
+import kotlinx.css.properties.ms
+import kotlinx.css.properties.transition
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
+import org.kodein.kpres.sourceCode
 
 
-private val infos = SlideInfos(
+fun PresentationBuilder.reactiveContext() = slide(
         stateCount = 5,
         notes = notes {
             0 ("Comment passer un contexte aux listeners ?")
         }
-)
-
-fun PresentationBuilder.reactiveContext() = slide(infos) { props ->
+) { props ->
 
 //    styledH2 {
 //        css {

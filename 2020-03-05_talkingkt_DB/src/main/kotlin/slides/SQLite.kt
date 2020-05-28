@@ -1,25 +1,20 @@
 package ws.slides
 
 import kotlinx.css.*
-import kotlinx.css.properties.KeyframesBuilder
 import kotlinx.css.properties.ms
 import kotlinx.css.properties.s
 import kotlinx.css.properties.transition
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.SlideContentProps
+import org.kodein.kpres.sourceCode
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.asList
 import react.*
 import react.dom.div
-import react.dom.h1
 import react.dom.li
-import react.dom.span
 import styled.*
-import ws.kpres.*
 import ws.utils.getValue
 
-
-private val infos = SlideInfos(
-        stateCount = 8
-)
 
 private fun RBuilder.entry(state: Int, thisState: Int, name: String, lang: String, code: String) {
     li {
@@ -186,4 +181,4 @@ private val SQLiteSlide by functionalComponent<SlideContentProps> { props ->
     }
 }
 
-fun PresentationBuilder.SQLite() = slide(infos) { child(SQLiteSlide, it) }
+fun PresentationBuilder.SQLite() = slide(stateCount = 8) { child(SQLiteSlide, it) }

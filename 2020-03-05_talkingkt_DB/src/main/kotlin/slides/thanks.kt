@@ -2,18 +2,13 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
+import org.kodein.kpres.PresentationBuilder
 import react.dom.br
 import react.dom.h1
-import react.dom.h2
 import styled.*
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
 
 
-private val infos = SlideInfos(
-)
-
-fun PresentationBuilder.thanks() = slide(infos) {
+fun PresentationBuilder.thanks() = slide {
 
     h1 { +"Thank you!" }
 

@@ -2,19 +2,15 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.*
-import react.dom.h4
-import react.dom.img
-import styled.*
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.sourceCode
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.sourceCode
+import styled.css
+import styled.styledDiv
+import styled.styledH4
+import styled.styledImg
 
 
-private val infos = SlideInfos(
-        stateCount = 8
-)
-
-fun PresentationBuilder.polymorphism() = slide(infos) { props ->
+fun PresentationBuilder.polymorphism() = slide(stateCount = 8) { props ->
 
     styledDiv {
         css {

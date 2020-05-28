@@ -2,20 +2,19 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.*
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
+import org.kodein.kpres.sourceCode
 import react.dom.b
 import styled.css
 import styled.styledH2
 import styled.styledImg
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
-import ws.kpres.sourceCode
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
 
-private val infos = SlideInfos(
+fun PresentationBuilder.composite() = slide(
         stateCount = 9,
         notes = notes {
             0 ("Ajoutons la date de naissance...")
@@ -23,9 +22,7 @@ private val infos = SlideInfos(
             6 ("Index **inutile** en étant **malin**")
             8 ("Que se passe-t-il si l'ID change ?")
         }
-)
-
-fun PresentationBuilder.composite() = slide(infos) { props ->
+) { props ->
 
     sourceCode(
             "kotlin",

@@ -4,16 +4,12 @@ import kotlinx.css.*
 import kotlinx.css.properties.LineHeight
 import kotlinx.css.properties.ms
 import kotlinx.css.properties.transition
-import styled.StyledComponents.css
-import styled.css
-import styled.styledDiv
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
-import ws.kpres.sourceCode
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
+import org.kodein.kpres.sourceCode
 
 
-private val infos = SlideInfos(
+fun PresentationBuilder.simpleUsage() = slide(
         stateCount = 8,
         notes = notes {
             0 ("Une data class toute simple")
@@ -22,9 +18,7 @@ private val infos = SlideInfos(
             5 ("Base de données NoSQL = indexes explicites")
             6 ("Plusieurs utilisateurs peuvent avoir la même addresse")
         }
-)
-
-fun PresentationBuilder.simpleUsage() = slide(infos) { props ->
+) { props ->
 
     sourceCode(
             "kotlin",

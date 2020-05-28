@@ -5,6 +5,8 @@ import kotlinx.css.opacity
 import kotlinx.css.properties.ms
 import kotlinx.css.properties.transition
 import kotlinx.css.width
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
 import react.dom.b
 import react.dom.h1
 import react.dom.i
@@ -12,12 +14,9 @@ import react.dom.p
 import styled.css
 import styled.styledDiv
 import styled.styledP
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
 
 
-private val infos = SlideInfos(
+fun PresentationBuilder.batchAndSnapshot() = slide(
         stateCount = 3,
         notes = notes {
             0 ("""
@@ -40,9 +39,7 @@ private val infos = SlideInfos(
                 ce qui vous assure de ne jamais recevoir de nouvelles données incohérentes avec les précédentes.
             """)
         }
-)
-
-fun PresentationBuilder.batchAndSnapshot() = slide(infos) { props ->
+) { props ->
     h1 {
         +"Batch & Snapshot:"
     }

@@ -2,18 +2,13 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.*
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.sourceCode
 import styled.css
 import styled.styledH2
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.sourceCode
 
 
-private val infos = SlideInfos(
-        stateCount = 4
-)
-
-fun PresentationBuilder.reactiveGlobal() = slide(infos) { props ->
+fun PresentationBuilder.reactiveGlobal() = slide(stateCount = 4) { props ->
 
     styledH2 {
         css {

@@ -4,24 +4,22 @@ import kotlinx.css.*
 import kotlinx.css.properties.borderLeft
 import kotlinx.css.properties.ms
 import kotlinx.css.properties.transition
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
 import react.dom.br
 import styled.css
 import styled.styledBlockQuote
 import styled.styledDiv
 import styled.styledSmall
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
 
-private val infos = SlideInfos(
+
+fun PresentationBuilder.opinion() = slide(
         stateCount = 2,
         notes = notes {
             0 ("Lorsque l'on développe une application mobile ou plus généralement cliente, la plus part du temps, SQL n'est pas nécéssaire à la gestion des données")
             1 ("**Opinion !!**")
         }
-)
-
-fun PresentationBuilder.opinion() = slide(infos) { props ->
+) { props ->
 
     styledDiv {
         css {

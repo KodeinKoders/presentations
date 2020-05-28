@@ -2,25 +2,21 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.*
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
+import org.kodein.kpres.sourceCode
 import react.dom.span
-import styled.StyledComponents.css
 import styled.css
 import styled.styledDiv
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
-import ws.kpres.sourceCode
 
 
-private val infos = SlideInfos(
+fun PresentationBuilder.mppModel() = slide(
         stateCount = 9,
         notes = notes {
             0 ("Kotlin/Native limite Kotlin/Multiplatform")
             3 ("Pas de reflexion, donc pas d'annotation")
         }
-)
-
-fun PresentationBuilder.mppModel() = slide(infos) { props ->
+) { props ->
 
     sourceCode(
             "kotlin",

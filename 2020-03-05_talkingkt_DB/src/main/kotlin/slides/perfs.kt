@@ -1,20 +1,17 @@
 package ws.slides
 
 import kotlinx.css.*
-import kotlinx.css.properties.TextDecoration
 import kotlinx.css.properties.border
 import kotlinx.css.properties.s
 import kotlinx.css.properties.transition
-import react.dom.br
-import react.dom.h1
-import react.dom.h2
-import styled.*
-import ws.kpres.PresentationBuilder
-import ws.kpres.SlideInfos
-import ws.kpres.notes
+import org.kodein.kpres.PresentationBuilder
+import org.kodein.kpres.notes
+import styled.css
+import styled.styledDiv
+import styled.styledImg
 
 
-private val infos = SlideInfos(
+fun PresentationBuilder.perfs() = slide(
         stateCount = 5,
         notes = notes {
             0 ("Avec le cache **désactivé** et en utilisant **KotinX Serialization**")
@@ -23,9 +20,7 @@ private val infos = SlideInfos(
             3 ("L'itération ne dépend pas du nombre de documents dans la collection mais du nombre de **documents lus**, donc pas de soucis sur une application.")
             4 ("L'itération sur un grand nombre d'élément est moins optimisé :\n\n - Pensez aux index !\n - Pas fait pour les analyses.")
         }
-)
-
-fun PresentationBuilder.perfs() = slide(infos) { props ->
+) { props ->
 
     styledImg(src = "images/perfs.png") {
         css {
