@@ -1,6 +1,5 @@
 plugins {
-    kotlin("js") version "1.3.61"
-    id("org.ajoberstar.git-publish") version "2.1.1"
+    kotlin("js") version "1.3.70"
 }
 
 version = "1.0"
@@ -12,15 +11,22 @@ repositories {
 
 kotlin {
     target {
-        browser()
+        browser {
+            webpackTask {
+                outputFileName = "pres.js"
+            }
+            runTask {
+                outputFileName = "pres.js"
+            }
+        }
         useCommonJs()
 
         sourceSets["main"].dependencies {
             implementation(kotlin("stdlib-js"))
 
-            val reactVersion = "16.9.0"
+            val reactVersion = "16.13.0"
             val reactRouterVersion = "4.3.1"
-            val kotlinWrapperVersion = "pre.88-kotlin-1.3.60"
+            val kotlinWrapperVersion = "pre.92-kotlin-1.3.61"
 
             api("org.jetbrains:kotlin-react-dom:$reactVersion-$kotlinWrapperVersion")
             api("org.jetbrains:kotlin-react-router-dom:$reactRouterVersion-$kotlinWrapperVersion")
@@ -42,34 +48,8 @@ kotlin {
     }
 }
 
-val processResources = tasks["processResources"] as ProcessResources
-val browserWebpack = tasks["browserWebpack"] as org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
-
-val copyResources = task<Sync>("copyResources") {
-    from(processResources.outputs.files)
-    from(browserWebpack.outputFile)
-
-    into("$buildDir/web")
+task<Sync>("publish") {
+    dependsOn("browserDistribution")
+    from("$buildDir/distributions")
+    into("$rootDir/../docs/${project.name}")
 }
-
-tasks.getByName("build") {
-    dependsOn(copyResources)
-    dependsOn("assemble")
-}
-
-gitPublish {
-    repoUri.set("git@github.com:romainbsl/deck-cloud-with-kotlin.git")
-    branch.set("gh-pages")
-
-    contents {
-        val processResources = tasks["processResources"] as ProcessResources
-        from(processResources.outputs.files)
-        val browserWebpack = tasks["browserWebpack"] as org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
-        from(browserWebpack.outputFile)
-    }
-
-    preserve {
-        include("CNAME")
-    }
-}
-tasks["gitPublishCopy"].dependsOn("assemble")

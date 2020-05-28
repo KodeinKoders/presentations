@@ -293,7 +293,8 @@ private fun PresentationBuilder.ktorBackendArch(step: Int) {
 }
 
 fun PresentationBuilder.ktor() {
-    slide(SlideInfos(10)) { child(WhatIsKtor, it) }
+    slide { slideTitle("What is Ktor?") }
+//    slide(SlideInfos(10)) { child(WhatIsKtor, it) }
 //    slide(SlideInfos(6)) { child(WhatIsKtorFor, it) }
     slide(SlideInfos(6)) { child(KtorExample, it) }
     for (i in 1..14) {

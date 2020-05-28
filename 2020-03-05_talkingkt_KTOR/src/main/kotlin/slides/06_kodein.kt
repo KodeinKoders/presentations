@@ -146,10 +146,10 @@ private val DIController by functionalComponent<SlideContentProps> { props ->
             »«repo«private val repository: DataRepository by instance()»«aware-block«    
             
             override fun Routing.installRoutes() {        
-                get("/version") {            
+                get("/version") {«repo«            
                     val version: String by constant()            
                     call.respondText(version)
-                }    
+                »}    
             }
         »}«usage«
         // Usage
