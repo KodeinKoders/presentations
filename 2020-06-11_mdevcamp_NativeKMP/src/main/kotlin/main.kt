@@ -71,6 +71,8 @@ fun main() {
             kodeinFramework()
             nativeCode()
             CVsOtherLanguages()
+            whatFor()
+            layers()
             thanks()
         }
     }

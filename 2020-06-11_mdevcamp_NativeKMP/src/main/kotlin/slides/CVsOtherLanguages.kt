@@ -15,8 +15,9 @@ import react.*
 import react.dom.b
 import react.dom.div
 import styled.*
-import ws.utils.getValue
-import ws.utils.li
+import ws.utils.*
+import ws.utils.fontSize
+import ws.utils.opacity
 
 
 fun CSSBuilder.listStyle() {
@@ -33,22 +34,6 @@ fun CSSBuilder.listStyle() {
                 marginTop = 0.3.em
             }
         }}
-    }
-}
-
-private inline fun RBuilder.s(block: StyledDOMBuilder<SPAN>.() -> Unit) = styledSpan(block)
-
-private inline fun StyledBuilder<*>.fontSize(transition: Boolean = true, value: () -> LinearDimension) {
-    css {
-        if (transition) transition(::fontSize, 0.3.s)
-        fontSize = value()
-    }
-}
-
-private inline fun StyledBuilder<*>.opacity(transition: Boolean = true, value: () -> Double) {
-    css {
-        if (transition) transition(::opacity, 0.3.s)
-        opacity = value()
     }
 }
 
