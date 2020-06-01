@@ -55,6 +55,10 @@ fun CSSBuilder.globalCSS() {
         listStyleType = ListStyleType.none
         textAlign = TextAlign.left
     }
+
+    "h1, h2, h3" {
+        margin(top = 0.2.em, bottom = 0.5.em, left = 0.em, right = 0.em)
+    }
 }
 
 fun main() {
@@ -73,6 +77,18 @@ fun main() {
             CVsOtherLanguages()
             whatFor()
             layers()
+            commonInterface()
+            commonTests()
+            nativeCFunction()
+            jni0()
+            jni1()
+            jni2()
+            jni2b()
+            jni2c()
+            jni3()
+            jni4a()
+            jni4b()
+            kn0()
             thanks()
         }
     }

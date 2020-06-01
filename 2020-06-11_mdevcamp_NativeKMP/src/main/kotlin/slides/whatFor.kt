@@ -8,7 +8,7 @@ import styled.styledLi
 import styled.styledUl
 import ws.utils.opacity
 
-fun PresentationBuilder.whatFor() = slide(stateCount = 3) { props ->
+fun PresentationBuilder.whatFor() = slide(stateCount = 4) { props ->
     h1 { +"What for?" }
 
     styledUl {
@@ -22,7 +22,7 @@ fun PresentationBuilder.whatFor() = slide(stateCount = 3) { props ->
 
         styledLi {
             opacity { if (props.state >= 1) 1.0 else 0.0 }
-            +"Use a native library"
+            +"Usability: access a native library"
             ul {
                 li { +"OpenCV" }
                 li { +"LevelDB" }
@@ -32,9 +32,13 @@ fun PresentationBuilder.whatFor() = slide(stateCount = 3) { props ->
         }
         styledLi {
             opacity { if (props.state >= 2) 1.0 else 0.0 }
-            +"Use your "
+            +"Performance: self produced "
             b { +"heavy computing" }
             +" native code"
+        }
+        styledLi {
+            opacity { if (props.state >= 3) 1.0 else 0.0 }
+            +"Secrecy: decompiling native code is... madness!"
         }
     }
 }

@@ -8,7 +8,7 @@ import ws.utils.d
 import ws.utils.opacity
 
 
-private val slideStyle: CSSBuilder.(Int) -> Unit = { state ->
+private val slideStyle: CSSBuilder.(Int) -> Unit = {
     div {
         +"root" {
             fontSize = 0.85.em
@@ -155,7 +155,7 @@ fun PresentationBuilder.layers() = slide(
 
         d("layer") {
             opacity { if (props.state >= 4) 1.0 else 0.0 }
-            d("entry kotlin") { +"Interface" }
+            d("entry kotlin") { +"Common interface" }
         }
 
         d("layer") {
@@ -196,7 +196,7 @@ fun PresentationBuilder.layers() = slide(
                 }
                 +"Kotlin/Js"
                 br {}
-                +"Facade"
+                +"Façade"
             }
         }
 

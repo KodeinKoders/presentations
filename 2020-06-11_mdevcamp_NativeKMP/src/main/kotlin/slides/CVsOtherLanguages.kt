@@ -2,9 +2,7 @@ package ws.slides
 
 import kotlinx.css.*
 import kotlinx.css.properties.ms
-import kotlinx.css.properties.s
 import kotlinx.css.properties.transition
-import kotlinx.html.SPAN
 import org.kodein.kpres.PresentationBuilder
 import org.kodein.kpres.SlideContentProps
 import org.kodein.kpres.sourceCode
