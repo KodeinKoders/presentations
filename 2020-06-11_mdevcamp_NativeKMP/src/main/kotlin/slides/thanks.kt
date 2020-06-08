@@ -3,6 +3,7 @@ package ws.slides
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import org.kodein.kpres.PresentationBuilder
+import react.dom.a
 import react.dom.br
 import react.dom.h1
 import styled.*
@@ -14,62 +15,69 @@ fun PresentationBuilder.thanks() = slide {
 
     styledDiv {
         css {
-            display = Display.flex
-            flexDirection = FlexDirection.row
-            width = 20.em
-            justifyContent = JustifyContent.spaceBetween
-            alignItems = Align.center
+            "a" {
+                color = Color("#A0C7ff")
+                textDecoration = TextDecoration.none
+            }
         }
-
         styledDiv {
             css {
                 display = Display.flex
-                flexDirection = FlexDirection.column
+                flexDirection = FlexDirection.row
+                width = 20.em
+                justifyContent = JustifyContent.spaceBetween
+                alignItems = Align.center
             }
 
-            styledH3 {
+            styledDiv {
                 css {
-                    fontSize = 0.8.em
-                    textAlign = TextAlign.left
+                    display = Display.flex
+                    flexDirection = FlexDirection.column
                 }
-                +"Salomon BRYS"
-                styledSpan {
+
+                styledH3 {
                     css {
-                        fontWeight = FontWeight.w400
+                        fontSize = 0.8.em
+                        textAlign = TextAlign.left
                     }
-                    br {}
-                    styledA(href = "https://twitter.com/salomonbrys") {
+                    +"Salomon BRYS"
+                    styledSpan {
                         css {
-                            color = Color("#007bfa")
-                            textDecoration = TextDecoration.none
+                            fontWeight = FontWeight.w400
                         }
-                        +" @salomonbrys"
-                    }
-                    br {}
-                    styledA(href = "mailto:salomon@kodein.net") {
-                        css {
-                            color = Color("#007bfa")
-                            textDecoration = TextDecoration.none
+                        br {}
+                        a(href = "https://twitter.com/salomonbrys") {
+                            +" @salomonbrys"
                         }
-                        +" salomon@kodein.net"
+                        br {}
+                        a(href = "mailto:salomon@kodein.net") {
+                            +" salomon@kodein.net"
+                        }
                     }
+                }
+            }
+
+            styledImg(src = "images/mdevcamp.svg") {
+                css {
+                    height = 2.em
                 }
             }
         }
 
-        styledImg(src = "images/mdevcamp.svg") {
+        styledP {
             css {
-                height = 2.em
+                margin(top = 2.5.em, bottom = 4.em)
+                fontSize = 0.8.em
+            }
+            +"kodeinkoders.github.io/pres/2020-06-11_mdevcamp_NativeKMP"
+
+            br {}
+            br {}
+
+            a(href = "https://github.com/SalomonBrys/demo-native-kmp") {
+                +"github.com/SalomonBrys/demo-native-kmp"
             }
         }
-    }
 
-    styledP() {
-        css {
-            margin(top = 2.5.em, bottom = 4.em)
-            fontSize = 0.7.em
-        }
-        +"kodeinkoders.github.io/pres/2020-06-11_mdevcamp_NativeKMP"
     }
-
 }

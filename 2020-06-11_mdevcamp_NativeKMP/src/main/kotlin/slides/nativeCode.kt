@@ -42,12 +42,12 @@ fun PresentationBuilder.nativeCode() = slide(
         }
         +"native "
         s {
-            fontSize { if (props.state <= 1) 1.em else 0.em }
-            +"dependencies"
+            fontSize(props.state >= 2)
+            +"code"
         }
         s {
-            fontSize { if (props.state <= 1) 0.em else 1.em }
-            +"code"
+            fontSize(props.state <= 1)
+            +"dependencies"
         }
         br {}
         s {

@@ -12,7 +12,7 @@ import ws.utils.opacity
 
 
 internal inline fun CSSBuilder.fontSize(transition: Boolean = true, value: () -> LinearDimension) {
-    if (transition) transition("fontSize", 0.3.s)
+    if (transition) transition("font-size", 0.3.s)
     fontSize = value()
 }
 

@@ -79,7 +79,7 @@ private val slideCode by functionalComponent<SlideCodeProps> { props ->
             }
 
             "span.c-marker" {
-                display = Display.inlineBlock
+//                display = Display.inlineBlock
             }
 
             "code" {
@@ -90,19 +90,23 @@ private val slideCode by functionalComponent<SlideCodeProps> { props ->
                 "span.c-marker.${it.className.escapeCss()}" {
                     when (it.command) {
                         "f" -> {
+                            display = Display.inlineBlock
                             position = Position.relative
                             transition("transform", 0.3.s)
                             transition("background-color", 0.3.s)
+                            transition("box-shadow", 0.3.s)
                             if (props.state in it.states) {
                                 zIndex = 100
                                 transform { scale(it.arg?.toDouble() ?: 1.1) }
                                 backgroundColor = Color("#2b2b2b")
+                                boxShadow(Color.black, blurRadius = 0.125.em)
                             }
                             "span.txt" {
                                 if (props.state in it.states) opacity = 1.0
                             }
                         }
                         "ff" -> {
+                            display = Display.inlineBlock
                             position = Position.relative
                             transition("transform", 0.3.s)
                             transition("background-color", 0.3.s)

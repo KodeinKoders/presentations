@@ -9,16 +9,16 @@ import styled.styledUl
 import ws.utils.opacity
 import ws.utils.s
 
-fun PresentationBuilder.kn0() = slide(stateCount = 5) { props ->
+fun PresentationBuilder.js0() = slide(stateCount = 5) { props ->
 
     h1 {
         s {
             css { fontWeight = FontWeight.w200 }
-            +"Native & iOS: "
+            +"Web & Deno: "
         }
         s {
             opacity { if (props.state >= 1) 1.0 else 0.0}
-            +"Kotlin/Native"
+            +"Web Assembly"
         }
     }
 
@@ -31,7 +31,7 @@ fun PresentationBuilder.kn0() = slide(stateCount = 5) { props ->
         }
         styledLi {
             opacity { if (props.state >= 2) 1.0 else 0.0}
-            +"1: C-interop"
+            +"1: Emscripten"
         }
         styledLi {
             opacity { if (props.state >= 3) 1.0 else 0.0}

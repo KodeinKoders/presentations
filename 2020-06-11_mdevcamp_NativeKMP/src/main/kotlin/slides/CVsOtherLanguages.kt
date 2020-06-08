@@ -18,7 +18,7 @@ import ws.utils.fontSize
 import ws.utils.opacity
 
 
-fun CSSBuilder.listStyle() {
+private fun CSSBuilder.listStyle() {
     li {
         paddingBottom = 1.em
         fontSize = 1.25.em

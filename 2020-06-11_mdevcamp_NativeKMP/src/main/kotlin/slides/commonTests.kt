@@ -20,7 +20,7 @@ import ws.utils.slideCode
 import ws.utils.transform
 
 
-fun PresentationBuilder.commonTests() = slide(stateCount = 4) { props ->
+fun PresentationBuilder.commonTests() = slide(stateCount = 5) { props ->
 
     h1 {
         s {
@@ -39,18 +39,18 @@ fun PresentationBuilder.commonTests() = slide(stateCount = 4) { props ->
                 lang = "kotlin",
                 code = """
                     class B64Tests {
-                        private val b64 = getCppNativeBase64()
+                    «f:1«    private val b64 = getCppNativeBase64()»
                     
-                    «f:1«    @Test fun simpleB64Encode() = initAndRun {
+                    «f:2«    @Test fun simpleB64Encode() = initAndRun {
                             assertEquals("U2Fsb21vbg==", b64.encode("Salomon".encodeToByteArray()))
                             assertEquals("AQIDBAU=", b64.encode(byteArrayOf(1, 2, 3, 4, 5)))
                         }»
                     
-                    «f:2«    @Test fun simpleB64Decode() = initAndRun {
+                    «f:3«    @Test fun simpleB64Decode() = initAndRun {
                             assertEquals("Salomon", b64.decode("U2Fsb21vbg==").decodeToString())
                             assertTrue(byteArrayOf(1, 2, 3, 4, 5).contentEquals(b64.decode("AQIDBAU=")))
                         }»
-                    «f:3«
+                    «f:4«
                         @Test fun invalidCharacter() = initAndRun {
                             val ex = assertFailsWith<NativeBase64.Error> { b64.decode("AB*CD") }
                             assertEquals("Input is incorrect: found non-base64 caracter 0x2a '*'.", ex.message)

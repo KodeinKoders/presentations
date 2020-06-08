@@ -71,4 +71,6 @@ fun PresentationBuilder.jni4b() = slide(stateCount = 4) { props ->
         transform(props.state < 3) { translate(0.px, -2.em) }
     }
 
+    br {}
+
 }

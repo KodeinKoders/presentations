@@ -16,7 +16,7 @@ fun PresentationBuilder.jni2c() = slide(stateCount = 4) { props ->
     styledH1 {
         s {
             css { fontWeight = FontWeight.w200 }
-            +"JNI part 2b:  "
+            +"JNI part 2c:  "
         }
         s {
             +"Android"
@@ -28,26 +28,28 @@ fun PresentationBuilder.jni2c() = slide(stateCount = 4) { props ->
     }
 
     slideCode(props.state, "Kotlin", """
+        // build.gradle.kts
+        
         android {
-            defaultConfig {
-                externalNativeBuild {
-                    cmake {
-    «f:2«                    arguments.addAll(listOf(
-                                "-DJAVA_AWT_LIBRARY=NotNeeded",
-                                "-DJAVA_JVM_LIBRARY=NotNeeded",
-                                "-DJAVA_INCLUDE_PATH2=NotNeeded",
-                                "-DJAVA_AWT_INCLUDE_PATH=NotNeeded"
-                        ))»
+                defaultConfig {
+                    externalNativeBuild {
+                        cmake {
+        «f:2«                    arguments.addAll(listOf(
+                                    "-DJAVA_AWT_LIBRARY=NotNeeded",
+                                    "-DJAVA_JVM_LIBRARY=NotNeeded",
+                                    "-DJAVA_INCLUDE_PATH2=NotNeeded",
+                                    "-DJAVA_AWT_INCLUDE_PATH=NotNeeded"
+                            ))»
+                        }
                     }
                 }
+                externalNativeBuild {
+        «f:3«            cmake {
+                        setPath("${'$'}rootDir/cpp_jni/CMakeLists.txt")
+                    }»
+                }
             }
-            externalNativeBuild {
-    «f:3«            cmake {
-                    setPath("${'$'}rootDir/cpp_jni/CMakeLists.txt")
-                }»
-            }
-        }
-    """.trimIndent()) {
+        """.trimIndent()) {
         opacity(props.state >= 1)
         transform(props.state < 1) { translate(0.px, -2.em) }
 
