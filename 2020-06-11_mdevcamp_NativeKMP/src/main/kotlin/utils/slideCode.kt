@@ -70,6 +70,7 @@ private val slideCode by functionalComponent<SlideCodeProps> { props ->
 
         css {
             position = Position.relative
+            props.style(this)
         }
 
         sourceCode(props.lang, props.code, onHighlight = { highlighted = true }) {
@@ -140,7 +141,7 @@ private val slideCode by functionalComponent<SlideCodeProps> { props ->
                 }
             }
 
-            props.style(this)
+//            props.style(this)
         }
 
     }

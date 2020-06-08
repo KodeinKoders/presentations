@@ -76,6 +76,8 @@ fun main() {
             nativeCode()
             CVsOtherLanguages()
             whatFor()
+            q1()
+            kotlinMultiplatform()
             layers()
             commonInterface()
             commonTests()
