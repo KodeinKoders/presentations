@@ -12,7 +12,7 @@ import ws.utils.s
 import ws.utils.slideCode
 import ws.utils.transform
 
-fun PresentationBuilder.js2b() = slide(stateCount = 3) { props ->
+fun PresentationBuilder.js2b() = slide(stateCount = 4) { props ->
 
     styledH1 {
         css {
@@ -36,13 +36,13 @@ fun PresentationBuilder.js2b() = slide(stateCount = 3) { props ->
                 private var loader: Promise<*>? = null
         
                 «f:2«fun init(): Promise<*>» {
-                    if (loader == null) {
+        «f:3«            if (loader == null) {
                         loader = cpp_base64_js().then(
                                 onFulfilled = { w = it },
                                 onRejected = { error("Could not load cpp_base64_js") }
                         )
                     }
-                    return loader!!
+                    return loader!!»
                 }
             }
             

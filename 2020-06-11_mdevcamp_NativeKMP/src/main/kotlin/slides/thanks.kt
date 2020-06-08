@@ -69,7 +69,7 @@ fun PresentationBuilder.thanks() = slide {
                 margin(top = 2.5.em, bottom = 4.em)
                 fontSize = 0.8.em
             }
-            +"kodeinkoders.github.io/pres/2020-06-11_mdevcamp_NativeKMP"
+            +"kodeinkoders.github.io/pres/2020-06-11_mdevcamp_NativeKMP/"
 
             br {}
             br {}
