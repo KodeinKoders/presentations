@@ -7,6 +7,8 @@ import kotlinx.html.tabIndex
 import org.kodein.kpres.utils.getValue
 import org.w3c.dom.BroadcastChannel
 import org.w3c.dom.HTMLDivElement
+import org.w3c.dom.HTMLElement
+import org.w3c.dom.events.Event
 import org.w3c.dom.url.URLSearchParams
 import react.*
 import react.dom.h1
@@ -40,7 +42,8 @@ internal data class SlideInfos(
 
 internal enum class Mode {
     OVERVIEW,
-    PRESENTER
+    PRESENTER,
+    ANTICIPATE
 }
 
 private fun Set<Mode>.params() = if (isEmpty()) "" else "mode=" + joinToString(separator = ",") { it.name.toLowerCase() }
@@ -71,6 +74,54 @@ internal class PresentationProps(
 internal fun PresentationProps.slideInfos(index: SlidePosition) = slides[index.slide].first
 internal fun PresentationProps.transitionSet(index: SlidePosition, select: SlideInfos.() -> Transition.Set?) = slideInfos(index).select() ?: defaultTransitions
 
+private fun PresentationProps.getNextPosition() = when {
+    position.state < (slides[position.slide].first.stateCount - 1) -> SlidePosition(position.slide, position.state + 1)
+    position.slide < slides.lastIndex -> SlidePosition(position.slide + 1, 0)
+    else -> position
+}
+
+private fun PresentationProps.getPreviousPos() = when {
+    position.state > 0 -> SlidePosition(position.slide, position.state - 1)
+    position.slide > 0 -> SlidePosition(position.slide - 1, slides[position.slide - 1].first.stateCount - 1)
+    else -> SlidePosition(0, 0)
+}
+
+private fun RBuilder.slide(props: PresentationProps, position: SlidePosition, transition: Transition?, transitionState: TransitionState?, keyPostfix: String = "") {
+    styledDiv {
+        key = "slide-${position.slide}$keyPostfix"
+
+        css {
+            width = 100.pct
+            height = 100.pct
+            this.position = Position.absolute
+            top = 0.pct
+            left = 0.pct
+            if (transition != null) {
+                when (transitionState) {
+                    is TransitionState.Prepare -> {
+                        with(transition) { prepare(transitionState.forward) }
+                    }
+                    is TransitionState.Execute -> {
+                        with(transition) { execute(transitionState.state, transitionState.duration, transitionState.forward) }
+                    }
+                }
+            }
+        }
+
+        val slidePair = position.slide.takeIf { it >= 0 } ?.let { props.slides[it] }
+        if (slidePair != null) {
+            val (slideInfos, slideHandler) = slidePair
+            child(component = Slide, props = jsObject { this.state = position.state ; this.style = slideInfos.style }) {
+                val shouldAnim = transitionState == null
+                        || (transitionState.forward && position.state != 0)
+                        || (!transitionState.forward && position.state != slideInfos.stateCount - 1)
+                slideHandler(SlideContentProps(position.state, shouldAnim))
+            }
+        }
+    }
+}
+
+
 private val Presentation by functionalComponent<PresentationProps> { props ->
     val containerDiv = useRef<HTMLDivElement?>(null)
     useEffect(emptyList()) {
@@ -100,17 +151,6 @@ private val Presentation by functionalComponent<PresentationProps> { props ->
         noBroadcast = false
     }
 
-    fun getNextPosition() = when {
-        props.position.state < (props.slides[props.position.slide].first.stateCount - 1) -> SlidePosition(props.position.slide, props.position.state + 1)
-        props.position.slide < props.slides.lastIndex -> SlidePosition(props.position.slide + 1, 0)
-        else -> props.position
-    }
-    fun getPreviousPos() = when {
-        props.position.state > 0 -> SlidePosition(props.position.slide, props.position.state - 1)
-        props.position.slide > 0 -> SlidePosition(props.position.slide - 1, props.slides[props.position.slide - 1].first.stateCount - 1)
-        else -> SlidePosition(0, 0)
-    }
-
     useEffect {
         containerDiv.current!!.onkeydown = {
             when (it.keyCode) {
@@ -121,7 +161,7 @@ private val Presentation by functionalComponent<PresentationProps> { props ->
                                 window.location.href = "#/${props.position.slide + 1}/0?${props.modes.params()}"
                             }
                         }
-                        else -> with(getNextPosition()) { window.location.href = "#/$slide/$state?${props.modes.params()}" }
+                        else -> with(props.getNextPosition()) { window.location.href = "#/$slide/$state?${props.modes.params()}" }
                     }
                 }
                 33, 37, 38 -> {
@@ -131,7 +171,7 @@ private val Presentation by functionalComponent<PresentationProps> { props ->
                                 window.location.href = "#/${props.position.slide - 1}/0?${props.modes.params()}"
                             }
                         }
-                        else -> with(getPreviousPos()) { window.location.href = "#/$slide/$state?${props.modes.params()}" }
+                        else -> with(props.getPreviousPos()) { window.location.href = "#/$slide/$state?${props.modes.params()}" }
                     }
                 }
                 27 -> {
@@ -145,7 +185,11 @@ private val Presentation by functionalComponent<PresentationProps> { props ->
                     if (it.ctrlKey && Mode.PRESENTER !in props.modes) {
                         window.open("#/${props.position.slide}/${props.position.state}?mode=presenter")
                     } else {
-                        val modes = if (Mode.PRESENTER in props.modes) props.modes - Mode.PRESENTER else props.modes + Mode.PRESENTER
+                        val modes = when {
+                            Mode.PRESENTER in props.modes -> props.modes - Mode.PRESENTER + Mode.ANTICIPATE
+                            Mode.ANTICIPATE in props.modes -> props.modes - Mode.ANTICIPATE
+                            else -> props.modes + Mode.PRESENTER
+                        }
                         window.location.href = "#/${props.position.slide}/${props.position.state}?${modes.params()}"
                     }
                 }
@@ -164,41 +208,6 @@ private val Presentation by functionalComponent<PresentationProps> { props ->
             height = 100.pct
             outline = Outline.none
             overflow = Overflow.hidden
-        }
-
-        fun RBuilder.slide(position: SlidePosition, transition: Transition?, transitionState: TransitionState?, keyPostfix: String = "") {
-            styledDiv {
-                key = "slide-${position.slide}$keyPostfix"
-
-                css {
-                    width = 100.pct
-                    height = 100.pct
-                    this.position = Position.absolute
-                    top = 0.pct
-                    left = 0.pct
-                    if (transition != null) {
-                        when (transitionState) {
-                            is TransitionState.Prepare -> {
-                                with(transition) { prepare(transitionState.forward) }
-                            }
-                            is TransitionState.Execute -> {
-                                with(transition) { execute(transitionState.state, transitionState.duration, transitionState.forward) }
-                            }
-                        }
-                    }
-                }
-
-                val slidePair = position.slide.takeIf { it >= 0 } ?.let { props.slides[it] }
-                if (slidePair != null) {
-                    val (slideInfos, slideHandler) = slidePair
-                    child(component = Slide, props = jsObject { this.state = position.state ; this.style = slideInfos.style }) {
-                        val shouldAnim = transitionState == null
-                                || (transitionState.forward && position.state != 0)
-                                || (!transitionState.forward && position.state != slideInfos.stateCount - 1)
-                        slideHandler(SlideContentProps(position.state, shouldAnim))
-                    }
-                }
-            }
         }
 
         when  {
@@ -235,7 +244,7 @@ private val Presentation by functionalComponent<PresentationProps> { props ->
                                         boxShadow(Color.black, blurRadius = 1.2.em, spreadRadius = if (overviewDelta == 0) 0.5.em else 0.em)
                                     }
                             ) {
-                                slide(it.currentPosition, null, null, keyPostfix = "$i"/*, overviewDelta = i - currentPosition.slide*/)
+                                slide(props, it.currentPosition, null, null, keyPostfix = "$i"/*, overviewDelta = i - currentPosition.slide*/)
                             }
                     ) {
                         key = "container-$i"
@@ -243,80 +252,10 @@ private val Presentation by functionalComponent<PresentationProps> { props ->
                 }
             }
             Mode.PRESENTER in props.modes -> {
-                child(
-                        component = slideContainer,
-                        props = SlideContainerProps(
-                                presProps = props,
-                                position = props.position,
-                                style = {
-                                    put("transform-origin", "top left")
-                                    transform {
-                                        translate(2.pct, 2.pct)
-                                        scale(0.50)
-                                    }
-                                    specific {
-                                        (props.slideInfos(props.position).containerStyle)(props.position.state)
-                                    }
-                                    boxShadow(Color.black, blurRadius = 1.2.em, spreadRadius = 0.5.em)
-                                }
-                        ) {
-                            if (it.disappearState != null) {
-                                val transitionSet = props.transitionSet(it.previousPosition) { if (it.disappearState.forward) outTransitions else inTransitions }
-                                slide(it.previousPosition, transitionSet.disappear, it.disappearState)
-                            }
-
-                            val transitionSet = props.transitionSet(it.currentPosition) { if (it.appearState?.forward == true) inTransitions else outTransitions }
-                            slide(it.currentPosition, transitionSet.appear, it.appearState)
-                        }
-                ) {
-                    key = "container-c"
-                }
-                val nextPosition = getNextPosition()
-                child(
-                        component = slideContainer,
-                        props = SlideContainerProps(
-                                presProps = props,
-                                position = nextPosition,
-                                style = {
-                                    put("transform-origin", "bottom left")
-                                    transform {
-                                        translate(4.5.pct, (-2).pct)
-                                        scale(0.44)
-                                    }
-                                    specific {
-                                        (props.slideInfos(nextPosition).containerStyle)(nextPosition.state)
-                                    }
-                                    boxShadow(Color.black, blurRadius = 1.2.em)
-                                    universal {
-                                        put("transition", "none !important")
-                                    }
-                                }
-                        ) {
-                            slide(it.currentPosition, null, null)
-                        }
-                ) {
-                    key = "container-n"
-                }
-
-                styledDiv {
-                    css {
-                        position = Position.absolute
-                        top = 2.pct
-                        right = 2.pct
-                        width = 45.pct - 1.5.em
-                        height = 96.pct
-                        paddingLeft = 1.5.em
-
-                        fontSize = 1.6.em
-                        color = Color.black
-
-                        "ul" {
-                            listStyleType = ListStyleType.disc
-                            padding(0.px)
-                        }
-                    }
-                    (props.slideInfos(props.position).notes)(props.position.state)
-                }
+                child(presenter, props)
+            }
+            Mode.ANTICIPATE in props.modes -> {
+                child(anticipate, props)
             }
             else -> {
                 child(
@@ -332,16 +271,190 @@ private val Presentation by functionalComponent<PresentationProps> { props ->
                         ) {
                             if (props.slideInfos(it.currentPosition).debugAlign || it.disappearState != null) {
                                 val transitionSet = props.transitionSet(it.previousPosition) { if (it.disappearState?.forward == true) outTransitions else inTransitions }
-                                slide(it.previousPosition, transitionSet.disappear, it.disappearState)
+                                slide(props, it.previousPosition, transitionSet.disappear, it.disappearState)
                             }
 
                             val transitionSet = props.transitionSet(it.currentPosition) { if (it.appearState?.forward == true) inTransitions else outTransitions }
-                            slide(it.currentPosition, transitionSet.appear, it.appearState)
+                            slide(props, it.currentPosition, transitionSet.appear, it.appearState)
                         }
                 ) {
                     key = "container"
                 }
             }
+        }
+    }
+}
+
+private val presenter = functionalComponent<PresentationProps> { props ->
+    child(
+            component = slideContainer,
+            props = SlideContainerProps(
+                    presProps = props,
+                    position = props.position,
+                    style = {
+                        put("transform-origin", "top left")
+                        transform {
+                            translate(2.pct, 2.pct)
+                            scale(0.50)
+                        }
+                        specific {
+                            (props.slideInfos(props.position).containerStyle)(props.position.state)
+                        }
+                        boxShadow(Color.black, blurRadius = 1.2.em)
+                    }
+            ) {
+                if (it.disappearState != null) {
+                    val transitionSet = props.transitionSet(it.previousPosition) { if (it.disappearState.forward) outTransitions else inTransitions }
+                    slide(props, it.previousPosition, transitionSet.disappear, it.disappearState)
+                }
+
+                val transitionSet = props.transitionSet(it.currentPosition) { if (it.appearState?.forward == true) inTransitions else outTransitions }
+                slide(props, it.currentPosition, transitionSet.appear, it.appearState)
+            }
+    ) {
+        key = "container-c"
+    }
+    val nextPosition = props.getNextPosition()
+    child(
+            component = slideContainer,
+            props = SlideContainerProps(
+                    presProps = props,
+                    position = nextPosition,
+                    style = {
+                        put("transform-origin", "bottom left")
+                        transform {
+                            translate(4.5.pct, (-2).pct)
+                            scale(0.44)
+                        }
+                        specific {
+                            (props.slideInfos(nextPosition).containerStyle)(nextPosition.state)
+                        }
+                        boxShadow(Color.black, blurRadius = 1.em)
+                        universal {
+                            put("transition", "none !important")
+                        }
+                    }
+            ) {
+                slide(props, it.currentPosition, null, null)
+            }
+    ) {
+        key = "container-n"
+    }
+
+    styledDiv {
+        css {
+            position = Position.absolute
+            top = 2.pct
+            right = 2.pct
+            width = 45.pct - 1.5.em
+            height = 96.pct
+            paddingLeft = 1.5.em
+
+            fontSize = 1.6.em
+            color = Color.black
+
+            "ul" {
+                listStyleType = ListStyleType.disc
+                padding(0.px)
+            }
+        }
+        (props.slideInfos(props.position).notes)(props.position.state)
+    }
+}
+
+private val anticipate = functionalComponent<PresentationProps> { props ->
+    val current = useRef<HTMLElement?>(null)
+    val next = useRef<HTMLElement?>(null)
+
+    fun update() {
+        val windowWidth = window.innerWidth.toDouble()
+        val windowHeight = window.innerHeight.toDouble()
+        val slidePadding = 20
+
+        val cRatio = min((windowWidth * 0.55 - 3 * slidePadding / 2) / 1024.0, (windowHeight - 2 * slidePadding) / 640.0)
+        current.current!!.style.apply {
+            transform = "scale($cRatio)"
+            top = ((windowHeight - 640.0 * cRatio) / 2.0).toInt().toString() + "px"
+            left = "20px"
+        }
+
+        val nRatio = min((windowWidth * 0.45 - 3 * slidePadding / 2) / 1024.0, (windowHeight - 2 * slidePadding) / 640.0)
+        next.current!!.style.apply {
+            transform = "scale($nRatio)"
+            top = ((windowHeight - 640.0 * nRatio) / 2.0).toInt().toString() + "px"
+            left = (windowWidth - (1024.0 * nRatio) - slidePadding).toInt().toString() + "px"
+        }
+    }
+
+    useEffectWithCleanup {
+        val listener = { e: Event -> update() }
+        window.addEventListener("resize", listener)
+
+        ({ window.removeEventListener("resize", listener) })
+    }
+
+    useEffect(emptyList()) { update() }
+
+    styledDiv {
+        css {
+            put("transform-origin", "top left")
+            position = Position.absolute
+        }
+        ref = current
+        child(
+                component = slideContainer,
+                props = SlideContainerProps(
+                        presProps = props,
+                        position = props.position,
+                        style = {
+                            width = 1024.px
+                            height = 640.px
+                            specific {
+                                (props.slideInfos(props.position).containerStyle)(props.position.state)
+                            }
+                            boxShadow(Color.black, blurRadius = 1.2.em)
+                        }
+                ) {
+                    if (it.disappearState != null) {
+                        val transitionSet = props.transitionSet(it.previousPosition) { if (it.disappearState.forward) outTransitions else inTransitions }
+                        slide(props, it.previousPosition, transitionSet.disappear, it.disappearState)
+                    }
+
+                    val transitionSet = props.transitionSet(it.currentPosition) { if (it.appearState?.forward == true) inTransitions else outTransitions }
+                    slide(props, it.currentPosition, transitionSet.appear, it.appearState)
+                }
+        ) {
+            key = "container-c"
+        }
+    }
+    styledDiv {
+        css {
+            put("transform-origin", "top left")
+            position = Position.absolute
+        }
+        ref = next
+        val nextPosition = props.getNextPosition()
+        child(
+                component = slideContainer,
+                props = SlideContainerProps(
+                        presProps = props,
+                        position = nextPosition,
+                        style = {
+                            width = 1024.px
+                            height = 640.px
+                            specific {
+                                (props.slideInfos(nextPosition).containerStyle)(nextPosition.state)
+                            }
+                            boxShadow(Color.black, blurRadius = 1.em)
+                            universal {
+                                put("transition", "none !important")
+                            }
+                        }
+                ) {
+                    slide(props, it.currentPosition, null, null)
+                }
+        ) {
+            key = "container-n"
         }
     }
 }
