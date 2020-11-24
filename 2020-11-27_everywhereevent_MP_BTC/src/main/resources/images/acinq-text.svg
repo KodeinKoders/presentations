@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="113" viewBox="0 0 520 113">
+    <path fill="#47BF94" d="M64.23.485H48.971l27.621 67.207H56.598v16.149h26.915l10.304 24.301h19.379z"/>
+    <path fill="#47BF94" d="M35.989 67.692l20.302-47.831L64.23.485H47.524L0 108.142h18.918l10.304-24.301h28.223V67.692z"/>
+    <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="161.365" y1="98.462" x2="185.981" y2="3.95">
+        <stop offset="0" stop-color="#47BF94"/>
+        <stop offset="1" stop-color="#47BF94"/>
+    </linearGradient>
+    <path fill="url(#a)" d="M177.071 16.171c-21.532 0-38.451 16.611-38.451 37.834 0 21.226 16.919 37.988 38.451 37.988 10.765 0 21.84-4.922 29.992-12.763l10.765 11.993c-10.92 10.768-26.454 17.688-41.679 17.688-31.53 0-55.985-23.838-55.985-54.751 0-30.606 24.762-54.138 56.6-54.138 15.228 0 30.451 6.306 40.909 16.611l-10.609 13.226c-7.845-8.46-19.073-13.688-29.993-13.688z"/>
+    <linearGradient id="b" gradientUnits="userSpaceOnUse" x1="242.817" y1="156.642" x2="253.016" y2="52.998">
+        <stop offset="0" stop-color="#47BF94"/>
+        <stop offset="1" stop-color="#47BF94"/>
+    </linearGradient>
+    <path fill="url(#b)" d="M261.963.485v107.657h-18.15V.485h18.15z"/>
+    <path fill="#47BF94" d="M364.954.485v77.358L307.583.485l-18.147 5.976 75.518 101.681h17.837V.485z"/>
+    <linearGradient id="c" gradientUnits="userSpaceOnUse" x1="297.788" y1="106.868" x2="299.132" y2="8.828">
+        <stop offset="0" stop-color="#47BF94"/>
+        <stop offset="1" stop-color="#47BF94"/>
+    </linearGradient>
+    <path fill="url(#c)" d="M289.436.485h18.147v107.657h-18.147z"/>
+    <g>
+        <linearGradient id="d" gradientUnits="userSpaceOnUse" x1="492.869" y1="97.022" x2="426.126" y2="3.086">
+            <stop offset="0" stop-color="#47BF94"/>
+            <stop offset="1" stop-color="#47BF94"/>
+        </linearGradient>
+        <path fill="url(#d)" d="M519.621 54.312c0 30.762-24.919 54.6-57.061 54.6-32.148 0-57.061-23.838-57.061-54.6 0-30.913 24.912-54.289 57.061-54.289 32.142-.001 57.061 23.531 57.061 54.289zm-95.664 0C423.957 75.692 441.93 92 463 92s38.008-16.308 38.008-37.688C501.008 32.935 484.07 17 463 17c-21.225 0-39.043 15.935-39.043 37.312z"/>
+    </g>
+    <path fill="#47BF94" d="M468.578 72.854l13.335-11.405 33.725 39.433-13.335 11.405z"/>
+</svg>
