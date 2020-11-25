@@ -167,7 +167,6 @@ fun PresentationBuilder.mvi() = slide(
                     opacity(props.state >= 4)
                     +"Single source of truth"
                 }
-
             }
         }
 
@@ -197,17 +196,17 @@ fun PresentationBuilder.mvi() = slide(
         subSlide(14..19, props.state, Swipe) {
             slideCode(props.state - 14, "kotlin",
                 """
-                    object Counter {«s:1-«
-                        data class Model(val count: Int) : MVI.Model()»«s:2-«
+                    object Counter {«l:1-«
+                        data class Model(val count: Int) : MVI.Model()»«l:2-«
                         sealed class Intent : MVI.Intent() {
                             data class Add(val delta: Int) : Intent()
                             object Reset : Intent()
-                        }»«s:3-«
+                        }»«l:3-«
 
                         class Controller : AbstractController<Model, Intent>(Model(0)) {
                             override fun process(intent: Intent) {
-                                when (intent) {«s:4-«
-                                    is Add -> model { copy(count = count + intent.delta) }»«s:5-«
+                                when (intent) {«l:4-«
+                                    is Add -> model { copy(count = count + intent.delta) }»«l:5-«
                                     is Reset -> model(Model(0))
                     »            }
                             }
@@ -222,24 +221,24 @@ fun PresentationBuilder.mvi() = slide(
         subSlide(20..27, props.state, Swipe) {
             slideCode(props.state - 20, "kotlin",
                 """
-                    object Chat {«s:1-«
+                    object Chat {«l:1-«
                         sealed class Model {
                             object Loading : Model()
                             data class Messages(val messages: List<Message>)
-                        }»«s:2-«
+                        }»«l:2-«
                         sealed class Intent {
                             data class Send(val text: String) : Intent()
-                        }»«s:3-«
+                        }»«l:3-«
                         
                         class Controller(val room: Room) : «f:4«AbstractController»<Model, Intent>(Model.Loading) {
                             init {
-                                «f:4«launch» {«s:5-«
+                                «f:4«launch» {«l:5-«
                                     room.newMessages().consumeEach {
                                         model { copy(messages = messages + it) }
                                     }
-                    »            }«s:6-«
+                    »            }«l:6-«
                                 model(room.getAllMessages())
-                    »        }«s:7-«
+                    »        }«l:7-«
                             override fun process(intent: Intent) {
                                 room.send((intent as! Intent.Send).text)
                             }

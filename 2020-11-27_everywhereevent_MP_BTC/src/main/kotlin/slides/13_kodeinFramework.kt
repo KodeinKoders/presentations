@@ -140,7 +140,7 @@ fun PresentationBuilder.kodeinFramework() = slide(
         styledLi {
             css { backgroundColor = Color("#8E4C97") }
             +"KODEIN"
-            span { +"MVI" }
+            span { +"Log" }
         }
         styledLi {
             css { backgroundColor = Color("#EB5A44") }

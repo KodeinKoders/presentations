@@ -23,18 +23,18 @@ fun PresentationBuilder.actors() = slide(
         subSlide(0..5, props.state, Swipe) {
 
             slideCode(props.state, "kotlin", """
-                class Peer() «s:4-«: CoroutineScope by MainScope()» {«s:1-«
-                    private val channel: Channel<Command>()»«s:2-«
+                class Peer()«s:4-« : CoroutineScope by MainScope()» {«l:1-«
+                    private val channel: Channel<Command>()»«l:2-«
                     
-                    private suspend fun send(cmd: Command) = channel.send(cmd)»«s:3-«
+                    private suspend fun send(cmd: Command) = channel.send(cmd)»«l:3-«
                     
                     init {
-                        launch {«s:5-«
+                        launch {«l:5-«
                             channel.consumeEach { command ->
                                 execute(command)
                             }»
                         }
-                    }«s:5-«
+                    }«l:5-«
 
                     private fun suspend execute(cmd: Command) {}
                 »»}
@@ -54,14 +54,14 @@ fun PresentationBuilder.actors() = slide(
         }
 
         subSlide(7..9, props.state, Swipe) {
-            slideCode(props.state, "kotlin", """
-                «s:8-«private var currentState: SMState = BeginSMState()
+            slideCode(props.state - 7, "kotlin", """
+                «l:1-«private var currentState: SMState = BeginSMState()
                 
-                »private suspend fun execute(cmd: Command) {«s:9-«
+                »private suspend fun execute(cmd: Command) {«l:2-«
                     var (nextState, action) = currentState.process(cmd)
                     currentState = nextState
                     execute(action)
-                »}«s:9-«
+                »}«l:2-«
 
                 private suspend fun execute(action: Action) {}»
             """.trimIndent()) {

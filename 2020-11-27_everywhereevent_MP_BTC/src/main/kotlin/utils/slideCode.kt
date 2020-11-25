@@ -31,6 +31,8 @@ private fun offsetUntil(element: HTMLElement?, until: HTMLElement, get: HTMLElem
  o: opacity
  s: font size
  f: focus
+ ff: large focus
+ l: line height
 */
 
 private data class Snippet(val top: Int, val left: Int, val html: String, val classNames: Set<String>, val focus: (Int) -> Boolean)

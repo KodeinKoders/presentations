@@ -4,6 +4,7 @@ import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import org.kodein.kpres.PresentationBuilder
 import react.dom.a
+import react.dom.br
 import styled.*
 import ws.charter.kodein
 import ws.comp.logo
@@ -65,7 +66,7 @@ fun PresentationBuilder.intro() = slide {
 
             flexColumn(alignItems = Align.center) {
                 css {
-                    padding(top = 4.em)
+                    padding(top = 3.em)
                     +kodein.body
                     color = Color.kodein.kaumon
                 }
@@ -80,7 +81,7 @@ fun PresentationBuilder.intro() = slide {
                     styledDiv {
                         css {
                             width = 1.rem
-                            backgroundColor = Color.kodein.kamethiste
+                            backgroundColor = Color.kodein.kinzolin
                             height = 0.05.rem
                             margin(horizontal = .5.rem)
                         }
@@ -106,7 +107,7 @@ fun PresentationBuilder.intro() = slide {
                     styledDiv {
                         css {
                             width = 1.rem
-                            backgroundColor = Color.kodein.kamethiste
+                            backgroundColor = Color.kodein.kinzolin
                             height = 0.05.rem
                             margin(horizontal = .5.rem)
                         }
@@ -124,7 +125,7 @@ fun PresentationBuilder.intro() = slide {
                     styledDiv {
                         css {
                             width = 1.rem
-                            backgroundColor = Color.kodein.kamethiste
+                            backgroundColor = Color.kodein.kinzolin
                             height = 0.05.rem
                             margin(horizontal = .5.rem)
                         }
@@ -139,6 +140,32 @@ fun PresentationBuilder.intro() = slide {
                         +"@KodeinKoders"
                     }
                 }
+            }
+        }
+
+        flexRow(JustifyContent.spaceBetween) {
+            css {
+                +kodein.body
+                marginTop = 3.em
+            }
+            styledA(href = "https://everywhereevent.com") {
+                css {
+                    color = Color.kodein.kinzolin
+                    textDecoration = TextDecoration.none
+                    alignSelf = Align.flexEnd
+                    textAlign = TextAlign.left
+                }
+                +"Everywhere Event"
+                br {}
+                +"nov. 27, 2020"
+            }
+            styledA(href = "https://cutt.ly/ee-mp-btc") {
+                css {
+                    color = Color.kodein.orange
+                    textDecoration = TextDecoration.none
+                    alignSelf = Align.flexEnd
+                }
+                +"cutt.ly/ee-mp-btc"
             }
         }
     }

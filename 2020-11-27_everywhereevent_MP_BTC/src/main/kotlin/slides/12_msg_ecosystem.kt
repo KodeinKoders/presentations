@@ -26,7 +26,7 @@ fun PresentationBuilder.msg_ecosystem() = slide(
 
         +"The Kotlin/Multiplatform"
         br {}
-        +"Ecosystem "
+        +"ecosystem "
         styledB {
             css {
                 color = Color.kodein.korail

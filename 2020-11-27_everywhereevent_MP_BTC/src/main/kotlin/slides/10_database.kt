@@ -37,17 +37,12 @@ fun PresentationBuilder.database() = slide(
                     +"No Schema"
                 }
 
-                styledDiv {
-                    css {
-                        width = 100.pct
-                        opacity(props.state >= 1)
-                    }
-                    sourceCode("kotlin", """
+                slideCode(props.state, "kotlin", """
                     val db = DB.inDir(getFilesDir()).open("channels")
                 """.trimIndent()) {
-                        width = 100.pct - 2.em
-                        specific { margin(0.5.em) }
-                    }
+                    width = 100.pct - 2.em
+                    specific { margin(0.5.em) }
+                    opacity(props.state >= 1)
                 }
 
                 styledH3 {
@@ -55,17 +50,12 @@ fun PresentationBuilder.database() = slide(
                     +"Works with KotlinX.Serialization"
                 }
 
-                styledDiv {
-                    css {
-                        width = 100.pct
-                        opacity(props.state >= 2)
-                    }
-                    sourceCode("kotlin", """
-                        db.put(channel)
-                    """.trimIndent()) {
-                        width = 100.pct - 2.em
-                        specific { margin(0.5.em) }
-                    }
+                slideCode(props.state, "kotlin", """
+                    db.put(channel)
+                """.trimIndent()) {
+                    width = 100.pct - 2.em
+                    specific { margin(0.5.em) }
+                    opacity(props.state >= 2)
                 }
 
                 styledH3 {
@@ -73,17 +63,12 @@ fun PresentationBuilder.database() = slide(
                     +"Simple query DSL"
                 }
 
-                styledDiv {
-                    css {
-                        width = 100.pct
-                        opacity(props.state >= 3)
-                    }
-                    sourceCode("kotlin", """
-                        val channels = db.find<Channel>().all().use { it.toList() }
-                    """.trimIndent()) {
-                        width = 100.pct - 2.em
-                        specific { margin(0.5.em) }
-                    }
+                slideCode(props.state, "kotlin", """
+                    val channels = db.find<Channel>().all().use { it.toList() }
+                """.trimIndent()) {
+                    width = 100.pct - 2.em
+                    specific { margin(0.5.em) }
+                    opacity(props.state >= 3)
                 }
 
             }

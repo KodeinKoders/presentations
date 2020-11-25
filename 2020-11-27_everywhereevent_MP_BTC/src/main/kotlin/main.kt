@@ -83,11 +83,16 @@ fun main() {
             actors()
             serialization()
             database()
+            log()
             msg_ecosystem()
             kodeinFramework()
 
             mvi()
             msg_mvi()
+            declarativeUi()
+
+            abstraction()
+            conclusion()
 
             thanks()
         }
