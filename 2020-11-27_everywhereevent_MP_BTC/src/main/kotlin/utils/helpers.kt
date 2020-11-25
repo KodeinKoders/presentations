@@ -22,6 +22,7 @@ fun RBuilder.slideTitle(title: String) {
         styledDiv {
             css {
                 fontSize = 1.5.em
+                fontFamily = kodein.piconExtended
                 fontWeight = FontWeight.lighter
                 textAlign = TextAlign.start
                 color = Color.kodein.orange

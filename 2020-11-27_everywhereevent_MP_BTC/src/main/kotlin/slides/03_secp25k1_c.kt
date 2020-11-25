@@ -3,8 +3,10 @@ package ws.slides
 import kotlinx.css.*
 import org.kodein.kpres.*
 import styled.css
+import styled.styledB
 import styled.styledH2
 import ws.charter.kodein
+import ws.utils.medium
 import ws.utils.titledSlide
 
 
@@ -99,10 +101,27 @@ fun PresentationBuilder.secp256k1_c() = slide(
         subSlide(3..3, props.state, Swipe) {
             styledH2 {
                 css {
-                    +kodein.display2
-                    color = Color.kodein.kaumon
+                    color = Color.kodein.klycine
+                    fontWeight = FontWeight.lighter
                 }
-                +"What about JNI extraction & distribution?"
+
+                +"What about JNI "
+                styledB {
+                    css {
+                        color = Color.kodein.korail
+                        fontWeight = FontWeight.medium
+                    }
+                    +"extraction"
+                }
+                +" & "
+                styledB {
+                    css {
+                        color = Color.kodein.korail
+                        fontWeight = FontWeight.medium
+                    }
+                    +"distribution"
+                }
+                +"?"
             }
         }
     }

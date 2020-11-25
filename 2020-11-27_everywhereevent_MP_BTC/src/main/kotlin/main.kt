@@ -87,6 +87,7 @@ fun main() {
             kodeinFramework()
 
             mvi()
+            msg_mvi()
 
             thanks()
         }
