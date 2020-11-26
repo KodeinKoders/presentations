@@ -13,7 +13,10 @@ import ws.utils.*
 import ws.utils.transform
 
 
-fun PresentationBuilder.next() = slide(stateCount = 2) { props ->
+fun PresentationBuilder.next() = slide(
+    stateCount = 2,
+    inTransitions = Flip
+) { props ->
     titledSlide("Where to go next?") {
         styledA(href = "https://kotlinlang.org/lp/mobile/", target = "_blank") {
             css {

@@ -12,7 +12,7 @@ import ws.charter.kodein
 import ws.utils.*
 
 fun PresentationBuilder.kotlin() = slide(
-    stateCount = 5,
+    stateCount = 7,
     inTransitions = Flip,
     inTransitionDuration = 1000
 ) { props ->
@@ -55,12 +55,12 @@ titledSlide("What is Kotlin ?") {
                         +"Android"
                     }
                     styledLi {
-                        opacity(props.state >= 3)
+                        opacity(props.state >= 4)
                         +"Server"
                     }
                 }
                 styledP {
-                    opacity(props.state >= 4)
+                    opacity(props.state >= 5)
                     +"JS"
                     styledDiv {
                         css {
@@ -71,7 +71,7 @@ titledSlide("What is Kotlin ?") {
                     }
                 }
                 styledUl {
-                    opacity(props.state >= 4)
+                    opacity(props.state >= 5)
                     li { +"Browser" }
                     li { +"Node" }
                 }
@@ -80,7 +80,7 @@ titledSlide("What is Kotlin ?") {
                 css { width = 50.pct }
 
                 styledP {
-                    opacity(props.state >= 4)
+                    opacity(props.state >= 6)
                     +"Native"
                     styledDiv {
                         css {
@@ -91,10 +91,11 @@ titledSlide("What is Kotlin ?") {
                     }
                 }
                 styledUl {
-                    opacity(props.state >= 4)
-                    li { +"Linux" }
-                    li { +"Windows" }
+                    opacity(props.state >= 6)
+                    li { +"Linux (x64, ARM, MIPS)" }
+                    li { +"Windows (mingw x64/x86)" }
                     li { +"MacOS / iOS / watchOS" }
+                    li { +"WebAssembly" }
                 }
             }
         }

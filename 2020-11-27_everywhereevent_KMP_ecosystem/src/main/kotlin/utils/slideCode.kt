@@ -31,13 +31,15 @@ private fun offsetUntil(element: HTMLElement?, until: HTMLElement, get: HTMLElem
  o: opacity
  s: font size
  f: focus
+ ff: large focus
+ l: line height
 */
 
 private data class Snippet(val top: Int, val left: Int, val html: String, val classNames: Set<String>, val focus: (Int) -> Boolean)
 private data class Command(val command: String, val arg: String?, val states: IntRange, val className: String)
 private data class Span(val span: HTMLSpanElement, val commands: List<Command>)
 
-private val slideCode by functionalComponent<SlideCodeProps> { props ->
+private val slideCode = functionalComponent<SlideCodeProps>("slideCode") { props ->
     val selfRef = useRef<HTMLDivElement?>(null)
     var highlighted by useState(false)
     var spans by useState<List<Span>>(emptyList())

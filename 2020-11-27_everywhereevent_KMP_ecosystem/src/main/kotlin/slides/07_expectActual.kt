@@ -18,35 +18,29 @@ import ws.utils.*
 fun PresentationBuilder.expectActual() = slide(
     stateCount = 5,
     outTransitions = Flip
-) { props ->
-    val (state, _) = props
+) { (state, _) ->
     titledSlide("Platform specifics") {
-        styledDiv {
-            css {
-                opacity = if (state >= 1) 1 else 0
-            }
-
-            kotlinSourceCode("""
-                «common«// Kotlin common code (src/commonMain/kotlin)
-                expect fun deviceIdentification() : String»«android«
+            slideCode(state, "kotlin",
+                """
+                «l:1-«// Kotlin common code (src/commonMain/kotlin)
+                expect fun saveValueLocally(value: String)»«l:2-«
                 
-                // Kotlin for Android (src/«platform-ul«androidMain»/kotlin)
-                import «platform«java.util.*»
-                actual fun deviceIdentification() = «platform«UUID».randomUUID().toString()»«ios«
+                // Kotlin for Android (src/androidMain/kotlin)
+                import «f:4«android.content.SharedPreferences»
+                actual fun saveValueLocally(value: String) {
+                    val sharedPreferences = …
+                    sharedPreferences.edit { putString("MyString", value) }
+                }»«l:3-«
                 
-                // Kotlin for iOS (src/«platform-ul«iosMain»/kotlin)
-                import «platform«platform.Foundation.NSUUID»
-                actual fun deviceIdentification() = «platform«NSUUID».UUID().UUIDString»
+                // Kotlin for iOS (src/iosMain/kotlin)
+                import «f:4«platform.Foundation.NSUserDefaults»
+                actual fun saveValueLocally(value: String) {
+                    NSUserDefaults.standardUserDefaults
+                            .setValue(value, forKey = "String")
+                }»
                 """.trimIndent()) {
-                +"c-common" { blockEffectFrom(state, 1) }
-                +"c-android" { blockEffectFrom(state, 2) }
-                +"c-ios" { blockEffectFrom(state, 3) }
-                +"c-platform" { highlightOn(state, 4, Color.kodein.orange) }
-                +"c-platform-ul" { if (state ==4) {
-                    color = Color.grey
-                    textDecoration = TextDecoration(setOf(TextDecorationLine.underline))
-                } }
+                opacity = if (state >= 1) 1 else 0
+                width = 100.pct
             }
-        }
     }
 }

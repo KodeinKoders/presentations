@@ -60,6 +60,16 @@ fun PresentationBuilder.thanks() = slide(stateCount = 1) {
             }
         }
 
+        styledA(href = "mailto://romain@kodein.net", target = "_blank") {
+            css {
+                +kodein.body
+                color = Color.kodein.kamethiste
+                textDecoration = TextDecoration.none
+                marginTop = .5.em
+            }
+            +"romain@kodein.net"
+        }
+
         flexRow(JustifyContent.flexEnd) {
             css {
                 +kodein.body

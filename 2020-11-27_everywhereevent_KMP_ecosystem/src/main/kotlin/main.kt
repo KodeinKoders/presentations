@@ -36,7 +36,7 @@ fun CSSBuilder.globalCSS() {
     pre {
         +"code" {
             textAlign = TextAlign.left
-            backgroundColor = Color.kodein.cute
+            backgroundColor = Color("#2b2b2b")
             alignSelf = Align.stretch
             margin(0.em, 2.em)
             padding(0.5.em)
@@ -46,11 +46,7 @@ fun CSSBuilder.globalCSS() {
                 fontFamily = "jetbrains mono"
                 fontSize = 0.65.em
                 lineHeight = LineHeight("1.2")
-                "&.hljs" {
-                    backgroundColor = Color.kodein.cute
-                }
             }
-
         }
     }
 

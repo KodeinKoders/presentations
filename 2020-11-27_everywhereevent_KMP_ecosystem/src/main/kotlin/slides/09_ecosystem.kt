@@ -126,7 +126,7 @@ fun PresentationBuilder.community() = slide(
                     span("explain") { +"(key-value settings)" }
                 }
                 styledLi {
-                    +"Sately"
+                    +"Stately"
                     span("explain") { +"(multi-threaded mutable collections)" }
                 }
                 styledLi {

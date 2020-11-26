@@ -73,7 +73,8 @@ fun PresentationBuilder.kodeinFramework(stateCount: Int = 1) = slide(
             }
         },
         inTransitions = Flip,
-        inTransitionDuration = 2000
+        inTransitionDuration = 2000,
+        outTransitions = Flip
 ) { props ->
     logo(
             light = "Framework",
@@ -150,7 +151,7 @@ fun PresentationBuilder.kodeinFramework(stateCount: Int = 1) = slide(
         styledLi {
             css { backgroundColor = Color("#8E4C97") }
             +"KODEIN"
-            span { +"MVI" }
+            span { +"Log" }
         }
         styledLi {
             css { backgroundColor = Color("#EB5A44") }
