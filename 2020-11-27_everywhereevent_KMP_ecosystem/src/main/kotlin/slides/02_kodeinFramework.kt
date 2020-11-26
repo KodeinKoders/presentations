@@ -64,8 +64,8 @@ private fun CSSBuilder.libsStyle() {
     }
 }
 
-fun PresentationBuilder.kodeinFramework() = slide(
-        stateCount = 4,
+fun PresentationBuilder.kodeinFramework(stateCount: Int = 1) = slide(
+        stateCount = stateCount,
         containerStyle = {
             ".inner-container" {
                 backgroundColor = Color("#46AF6D")
@@ -115,19 +115,20 @@ fun PresentationBuilder.kodeinFramework() = slide(
         }
     }
 
-    styledUl {
-        css {
-            transition(::opacity, duration = 0.3.s)
-            opacity = if (props.state == 0) 0.0 else 1.0
-            targetsStyle()
-        }
+    if(stateCount > 1)
+        styledUl {
+            css {
+                transition(::opacity, duration = 0.3.s)
+                opacity = if (props.state == 0) 0.0 else 1.0
+                targetsStyle()
+            }
 
-        li { +"Android" }
-        li { +"iOS" }
-        li("web") { +"Web" }
-        li("server") { +"Server" }
-        li { +"Desktop" }
-    }
+            li { +"Android" }
+            li { +"iOS" }
+            li("web") { +"Web" }
+            li("server") { +"Server" }
+            li { +"Desktop" }
+        }
 
     styledUl {
         css {

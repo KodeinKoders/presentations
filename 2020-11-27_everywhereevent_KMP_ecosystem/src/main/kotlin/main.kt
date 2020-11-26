@@ -9,12 +9,6 @@ import org.kodein.kpres.Move
 import org.kodein.kpres.presentation
 import ws.slides.*
 import kotlinx.browser.document
-import kotlinx.css.properties.ms
-import kotlinx.css.properties.transition
-import kotlinx.html.InputType
-import org.w3c.dom.ImageBitmap
-import org.w3c.dom.ImageBitmapSource
-import styled.css
 import ws.charter.kodein
 
 
@@ -42,7 +36,7 @@ fun CSSBuilder.globalCSS() {
     pre {
         +"code" {
             textAlign = TextAlign.left
-            backgroundColor = Color("#2b2b2b")
+            backgroundColor = Color.kodein.cute
             alignSelf = Align.stretch
             margin(0.em, 2.em)
             padding(0.5.em)
@@ -52,7 +46,11 @@ fun CSSBuilder.globalCSS() {
                 fontFamily = "jetbrains mono"
                 fontSize = 0.65.em
                 lineHeight = LineHeight("1.2")
+                "&.hljs" {
+                    backgroundColor = Color.kodein.cute
+                }
             }
+
         }
     }
 
@@ -77,10 +75,24 @@ fun main() {
             intro()
             kodeinKoders()
             kodeinFramework()
-
-            kmp()
-
-            whatNext()
+            // KMP ?
+            kotlin()
+            kotlinMultiplatform()
+            kmm()
+            sharableCode()
+            expectActual()
+            // Hands on!
+            handsOnSection()
+            problem()
+            initialUseCase()
+            showMeSomeCode()
+            // The ecosystem
+            ecosystemSection()
+            officialLibraries()
+            community()
+            kodeinFramework(3)
+            next()
+            // The End
             thanks()
         }
     }

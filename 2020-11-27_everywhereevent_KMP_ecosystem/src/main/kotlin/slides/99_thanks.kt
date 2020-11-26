@@ -3,12 +3,11 @@ package ws.slides
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import org.kodein.kpres.PresentationBuilder
-import styled.css
-import styled.styledA
-import styled.styledH1
-import styled.styledH2
+import react.dom.br
+import styled.*
 import ws.charter.kodein
 import ws.utils.flexColumn
+import ws.utils.flexRow
 
 fun PresentationBuilder.thanks() = slide(stateCount = 1) {
 
@@ -30,33 +29,50 @@ fun PresentationBuilder.thanks() = slide(stateCount = 1) {
             }
             +"Romain Boisselle"
         }
-        styledA(href = "https://twitter.com/romainbsl", target = "_blank") {
-            css {
-                +kodein.body
-                color = Color.kodein.kamethiste
-                textDecoration = TextDecoration.none
+
+        flexRow(JustifyContent.center, Align.center) {
+
+            styledA(href = "https://twitter.com/romainbsl", target = "_blank") {
+                css {
+                    +kodein.body
+                    color = Color.kodein.kamethiste
+                    textDecoration = TextDecoration.none
+                }
+                +"@romainbsl"
             }
-            +"@romainbsl"
+
+            styledDiv {
+                css {
+                    width = 1.rem
+                    backgroundColor = Color.kodein.kamethiste
+                    height = 0.05.rem
+                    margin(horizontal = .5.rem)
+                }
+            }
+
+            styledA(href = "https://twitter.com/KodeinKoders", target = "_blank") {
+                css {
+                    +kodein.body
+                    color = Color.kodein.kamethiste
+                    textDecoration = TextDecoration.none
+                }
+                +"@KodeinKoders"
+            }
         }
 
-        styledA(href = "https://twitter.com/KodeinKoders", target = "_blank") {
+        flexRow(JustifyContent.flexEnd) {
             css {
                 +kodein.body
-                color = Color.kodein.kamethiste
-                textDecoration = TextDecoration.none
-                padding(top = 0.2.rem, bottom = 3.rem)
+                marginTop = 3.em
             }
-            +"@KodeinKoders"
-        }
-
-        styledA(href = "http://[link here]", target = "_blank") {
-            css {
-                +kodein.body
-                textDecoration = TextDecoration.none
-                color = Color.kodein.cute
-                opacity = 0.7
+            styledA(href = "https://cutt.ly/ee-kmp") {
+                css {
+                    color = Color.kodein.orange
+                    textDecoration = TextDecoration.none
+                    alignSelf = Align.flexEnd
+                }
+                +"cutt.ly/ee-kmp"
             }
-            +"https://romainbsl.github.io/deck-advanced-di-on-mpp/"
         }
     }
 }
