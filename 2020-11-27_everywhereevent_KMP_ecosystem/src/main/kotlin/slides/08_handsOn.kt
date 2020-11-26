@@ -109,7 +109,7 @@ fun PresentationBuilder.initialUseCase() = slide(stateCount = 3) { (state, _) ->
 }
 
 fun PresentationBuilder.showMeSomeCode() = slide(
-    stateCount = 2,
+    stateCount = 3,
     outTransitions = Flip
 ) { (state, _) ->
     styledH1 {
@@ -128,6 +128,21 @@ fun PresentationBuilder.showMeSomeCode() = slide(
                 opacity = 0
                 transform { scale(0) }
             }
+        }
+    }
+    flexRow(JustifyContent.center) {
+        opacity(state >= 2)
+        css {
+            +kodein.body
+            marginTop = 3.em
+        }
+        styledA(href = "https://cutt.ly/ee-kmp-demo") {
+            css {
+                color = Color.kodein.orange
+                textDecoration = TextDecoration.none
+                alignSelf = Align.flexEnd
+            }
+            +"cutt.ly/ee-kmp-demo"
         }
     }
 }

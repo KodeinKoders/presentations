@@ -84,5 +84,20 @@ fun PresentationBuilder.thanks() = slide(stateCount = 1) {
                 +"cutt.ly/ee-kmp"
             }
         }
+
+        flexRow(JustifyContent.flexEnd) {
+            css {
+                +kodein.body
+                marginTop = 3.em
+            }
+            styledA(href = "https://cutt.ly/ee-kmp-demo") {
+                css {
+                    color = Color.kodein.orange
+                    textDecoration = TextDecoration.none
+                    alignSelf = Align.flexEnd
+                }
+                +"cutt.ly/ee-kmp-demo"
+            }
+        }
     }
 }
