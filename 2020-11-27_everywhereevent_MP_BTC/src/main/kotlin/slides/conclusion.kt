@@ -13,7 +13,7 @@ import ws.utils.opacity
 
 
 fun PresentationBuilder.conclusion() = slide(
-    stateCount = 2
+    stateCount = 3
 ) { props ->
     styledH4 {
         css {
@@ -30,20 +30,32 @@ fun PresentationBuilder.conclusion() = slide(
             }
         }
 
-        +"We estimate that, using "
-        b { +"Kotlin/Multiplatform" }
-        +", the amount of "
-        b { +"sharable code" }
-        +" in a multiplatform mobile application represents "
-        b { +"50 to 95 percent" }
-        +" of the total code base."
+        styledSpan {
+            +"We estimate that, using "
+            b { +"Kotlin/Multiplatform" }
+            +", the amount of "
+            b { +"sharable code" }
+            +" in a multiplatform mobile application represents "
+            b { +"50 to 95 percent" }
+            +" of the total code base."
+        }
+        br {}
+        br {}
+        styledSpan {
+            opacity(props.state >= 1)
+            +"The non-shareable code represents a "
+            b { +"necessary investment" }
+            +" into the quality of the app in order to make it "
+            b { +"natively integrated" }
+            +" into the host platform User Experience."
+        }
         br {}
         br {}
         styledSpan {
             css {
                 color = Color.kodein.orange
                 fontWeight = FontWeight.light
-                opacity(props.state >= 1)
+                opacity(props.state >= 2)
             }
             +"-- "
             styledB {

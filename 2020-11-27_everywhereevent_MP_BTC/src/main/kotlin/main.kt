@@ -73,10 +73,6 @@ fun main() {
 
             kodeinKoders()
 
-            secp256k1_c()
-            secp256k1_orga()
-            warning_cInterop()
-
             targets()
             separation()
 
