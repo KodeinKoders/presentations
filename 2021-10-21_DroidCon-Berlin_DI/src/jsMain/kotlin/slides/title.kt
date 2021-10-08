@@ -16,6 +16,13 @@ import org.jetbrains.compose.web.dom.*
 val title = Slide(
     name = "title"
 ) {
+    Img("img/gde.png") {
+        classes(PStyle.css {
+            height(1.4.em)
+            margin(1.em)
+        })
+    }
+
     H1 {
         Text("Advanced Multiplatform Dependency Injection")
     }
@@ -24,11 +31,17 @@ val title = Slide(
         classes(PStyle.css {
             color(KodeinColor.kaumon.css)
         })
-    }) { Text("Salomon BRYS") }
+    }) {
+        Text("Salomon BRYS")
+    }
 
     A(href = "https://kodein.net", {
         target(ATarget.Blank)
+        classes(PStyle.css {
+            margin(0.25.em)
+            fontSize(4.em)
+        })
     }) {
-        Logo(PStyle, 4.em)
+        Logo("Koders") {}
     }
 }
