@@ -1,0 +1,67 @@
+/*
+Kodein Kode
+*/
+
+
+.hljs {
+    display: block;
+    overflow-x: auto;
+}
+
+/* Cute */
+.hljs,
+.hljs-params {
+    color: #F7E1DE;
+}
+
+/* Kaumon */
+.hljs-strong,
+.hljs-emphasis,
+.hljs-code,
+.hljs-selector-class,
+.hljs-subst,
+.hljs-type,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-symbol,
+.hljs-selector-id,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-addition,
+.hljs-title {
+    color: /*#a8a8a2*/ #F0A698;
+}
+
+/* Korail */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-section,
+.hljs-attribute,
+.hljs-name,
+.hljs-variable {
+    color: /*#cb7832*/ #EC755B;
+}
+
+/* Klycine */
+.hljs-bullet,
+.hljs-quote,
+.hljs-link,
+.hljs-number,
+.hljs-regexp,
+.hljs-literal,
+.hljs-string {
+    color: /*#6896ba*/ #D39AB8;
+}
+
+/* Kamethiste */
+.hljs-comment,
+.hljs-deletion,
+.hljs-meta {
+    color: /*#7f7f7f*/ #B35C9D;
+}
+
+.hljs-emphasis {
+  font-weight: bold;
+}
