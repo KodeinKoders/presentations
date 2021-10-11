@@ -2,13 +2,16 @@ package slides
 
 import net.kodein.pres.Slide
 import net.kodein.pres.Transitions.fade
+import net.kodein.pres.Transitions.grow
 import net.kodein.pres.shownIf
 import net.kodein.pres.sourcecode.SourceCode
 import net.kodein.pres.sourcecode.fontGrow
 import net.kodein.pres.sourcecode.hiddenIf
 import net.kodein.pres.sourcecode.lineHeight
+import net.kodein.theme.KodeinColor
 import net.kodein.theme.compose.web.css
 import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.css.selectors.universal
 import org.jetbrains.compose.web.dom.*
 
 
@@ -74,11 +77,52 @@ val scopeSlides = listOf(
             """.trimIndent()
         ) {
             "weak" { fontGrow(state == 1) }
+            "colon" { fontGrow(state >= 1) }
             "strong" { fontGrow(state >= 2) }
             "map" { lineHeight(state >= 3) }
             "fun" { lineHeight(state >= 4) }
             "get" { lineHeight(state >= 5) }
             "close" { lineHeight(state >= 6) }
+        }
+    },
+
+    Slide(
+        name = "scoped-singleton",
+        stateCount = 5
+    ) { state ->
+        SourceCode(
+            lang = "kotlin",
+            code = """
+                val di = DI {
+                «b:    bind {
+                        scoped(SessionScope)
+                            .singleton { UserApi(context.id) }
+                    }
+                    
+                »«ct:    registerContextTranslator<Request, Session> {
+                        it.getSession()
+                    }
+                    
+                »«cf:    registerContextFinder {
+                        Globals.currentRequest
+                    }
+                »}
+            """.trimIndent()
+        ) {
+            "b" { lineHeight(state >= 1) }
+            "ct" { lineHeight(state >= 2) }
+            "cf" { lineHeight(state >= 3) }
+        }
+
+        H4({
+            style {
+                fontFamily("JetBrains Mono")
+                color(KodeinColor.kamethiste.css)
+                letterSpacing(0.em)
+            }
+            shownIf(state >= 4, grow)
+        }) {
+            Text("GLOBAL --> REQUEST --> SESSION")
         }
     }
 )
