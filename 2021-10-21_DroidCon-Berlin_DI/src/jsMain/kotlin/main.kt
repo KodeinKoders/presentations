@@ -1,8 +1,6 @@
 import net.kodein.pres.Slide
 import net.kodein.theme.compose.pres.kodeinPres
-import slides.kodeinFramework
-import slides.kodeinKoders
-import slides.title
+import slides.*
 
 
 fun main() {
@@ -10,10 +8,9 @@ fun main() {
         +title
         +kodeinKoders
         +kodeinFramework
-        +Slide(
-
-        ) {
-
-        }
+        +dependencyInjection
+        +multiplatformDI
+        +bindingTypes
+        +taggedBindings
     }
 }
