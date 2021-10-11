@@ -20,12 +20,6 @@ kotlin {
         binaries.executable()
     }
 
-    targets.all {
-        compilations.all {
-            kotlinOptions.allWarningsAsErrors = true
-        }
-    }
-
     sourceSets {
         val jsMain by getting {
             dependencies {
