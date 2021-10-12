@@ -2,9 +2,11 @@
 Kodein Kode
 */
 
+@import "../JetBrains-Mono/JetBrainsMono.css";
 
 .hljs {
     display: block;
+    font-family: "JetBrains Mono", "monospace";
 }
 
 /* Cute */
