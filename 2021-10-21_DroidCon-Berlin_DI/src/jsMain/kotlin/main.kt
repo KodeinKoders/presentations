@@ -10,5 +10,6 @@ fun main() {
         +multiplatformDI
         +bindingTypes
         +taggedBindings
+        +injectionRetrievalSlides
     }
 }
