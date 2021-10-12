@@ -6,14 +6,10 @@ import net.kodein.pres.Transitions.fontGrow
 import net.kodein.pres.Transitions.grow
 import net.kodein.pres.hiddenIf
 import net.kodein.pres.shownIf
-import net.kodein.pres.sourcecode.SourceCode
-import net.kodein.pres.sourcecode.fontGrow
-import net.kodein.pres.sourcecode.hiddenIf
-import net.kodein.pres.sourcecode.lineHeight
+import net.kodein.pres.sourcecode.*
 import net.kodein.theme.KodeinColor
 import net.kodein.theme.compose.web.css
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.css.selectors.universal
 import org.jetbrains.compose.web.dom.*
 
 
@@ -58,7 +54,7 @@ val scopeSlides = listOf(
 
     Slide(
         name = "scope-creation",
-        stateCount = 7
+        stateCount = 8
     ) { state ->
         SourceCode(
             lang = "Kotlin",
@@ -71,7 +67,7 @@ val scopeSlides = listOf(
                             val registry = StandardScopeRegistry()
                 «close:            session.onClose {
                                 registries.remove(context.id)
-                                registry.clear()
+                                «clear:registry.clear()»
                             }
                 »            registry
                         }
@@ -85,6 +81,7 @@ val scopeSlides = listOf(
             "fun" { lineHeight(state >= 4) }
             "get" { lineHeight(state >= 5) }
             "close" { lineHeight(state >= 6) }
+            "clear" { zoomed(state == 7) }
         }
     },
 
@@ -161,11 +158,12 @@ val scopeSlides = listOf(
 
     Slide(
         name = "scope-closeable",
-        stateCount = 2
+        stateCount = 3
     ) { state ->
         SourceCode(
             lang = "kotlin",
             code = """
+                «com:// Only works on cleared scope registry!»
                 class UserApi(val id: String)«sc: : ScopeCloseable» {
                 
                     val log = openLogFile("user.${"$"}id.txt")
@@ -179,6 +177,7 @@ val scopeSlides = listOf(
         ) {
             "sc" { fontGrow(state >= 1) }
             "cl" { lineHeight(state >= 1) }
+            "com" { fontGrow(state >= 2) }
         }
     }
 
