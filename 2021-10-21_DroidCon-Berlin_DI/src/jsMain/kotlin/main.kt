@@ -1,4 +1,3 @@
-import net.kodein.pres.Slide
 import net.kodein.theme.compose.pres.kodeinPres
 import slides.*
 
@@ -6,8 +5,7 @@ import slides.*
 fun main() {
     kodeinPres {
         +title
-        +kodeinKoders
-        +kodeinFramework
+        +kodeinSlides
         +dependencyInjection
         +multiplatformDI
         +bindingTypes
