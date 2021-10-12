@@ -2,7 +2,9 @@ package slides
 
 import net.kodein.pres.Slide
 import net.kodein.pres.Transitions.fade
+import net.kodein.pres.Transitions.fontGrow
 import net.kodein.pres.Transitions.grow
+import net.kodein.pres.hiddenIf
 import net.kodein.pres.shownIf
 import net.kodein.pres.sourcecode.SourceCode
 import net.kodein.pres.sourcecode.fontGrow
@@ -62,7 +64,7 @@ val scopeSlides = listOf(
             lang = "Kotlin",
             code = """
                 object SessionScope«colon: : »«weak:WeakContextScope<Session>()»«strong:Scope<Session> {»
-                «map:    private val registries = HashMap<Any, ScopeRegistry>()
+                «map:    private val registries = HashMap<String, ScopeRegistry>()
                 »«fun:
                     override fun getRegistry(context: Session): ScopeRegistry =
                 «get:        registries.getOrPut(context.id) {
@@ -87,31 +89,38 @@ val scopeSlides = listOf(
     },
 
     Slide(
-        name = "scoped-singleton",
-        stateCount = 5
+        name = "scoped-binding",
+        stateCount = 8
     ) { state ->
         SourceCode(
             lang = "kotlin",
             code = """
                 val di = DI {
-                «b:    bind {
-                        scoped(SessionScope)
-                            .singleton { UserApi(context.id) }
+                
+                «ls:    bindSingleton { UserApi() }
+                »«lc:    bind {
+                «b:        scoped(SessionScope)
+                »        «d:    .»singleton { UserApi(«c:context.id») }
                     }
-                    
-                »«ct:    registerContextTranslator<Request, Session> {
+                »    
+                «ct:    registerContextTranslator<Request, Session> {
                         it.getSession()
                     }
-                    
+                
                 »«cf:    registerContextFinder {
                         Globals.currentRequest
                     }
+                
                 »}
             """.trimIndent()
         ) {
-            "b" { lineHeight(state >= 1) }
-            "ct" { lineHeight(state >= 2) }
-            "cf" { lineHeight(state >= 3) }
+            "ls" { lineHeight(state < 1) }
+            "lc" { lineHeight(state >= 1) }
+            "b" { lineHeight(state >= 2) }
+            "d" { fontGrow(state >= 2) }
+            "c" { fontGrow(state >= 3) }
+            "ct" { lineHeight(state >= 4) }
+            "cf" { lineHeight(state in 5..6) }
         }
 
         H4({
@@ -120,9 +129,57 @@ val scopeSlides = listOf(
                 color(KodeinColor.kamethiste.css)
                 letterSpacing(0.em)
             }
-            shownIf(state >= 4, grow)
+            shownIf(state >= 6, grow)
         }) {
-            Text("GLOBAL --> REQUEST --> SESSION")
+            Span({
+                hiddenIf(state >= 7, fontGrow)
+            }) { Text("GLOBAL --> ") }
+            Text("REQUEST --> SESSION")
+        }
+    },
+
+    Slide(
+        name = "scoped-retrieval",
+        stateCount = 3
+    ) { state ->
+        SourceCode(
+            lang = "kotlin",
+            code = """
+                class Container( «def:// <-- DEFAULT CONTEXT»
+                    val req: Request
+                ) : DIAware {
+                
+                    val api: UserApi by «on:on(context = req).»instance()
+                
+                }
+            """.trimIndent()
+        ) {
+            "def" { fontGrow(state >= 1) }
+            "on" { fontGrow(state >= 2) }
+        }
+    },
+
+    Slide(
+        name = "scope-closeable",
+        stateCount = 2
+    ) { state ->
+        SourceCode(
+            lang = "kotlin",
+            code = """
+                class UserApi(val id: String)«sc: : ScopeCloseable» {
+                
+                    val log = openLogFile("user.${"$"}id.txt")
+                
+                «cl:    override fun close() {
+                        log.close()
+                    }
+                
+                »}
+            """.trimIndent()
+        ) {
+            "sc" { fontGrow(state >= 1) }
+            "cl" { lineHeight(state >= 1) }
         }
     }
+
 )
