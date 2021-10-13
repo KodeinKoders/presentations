@@ -11,5 +11,6 @@ fun main() {
         +bindingTypes
         +taggedBindings
         +scopeSlides
+        +externaSource
     }
 }
