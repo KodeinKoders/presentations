@@ -11,5 +11,7 @@ fun main() {
         +bindingTypes
         +taggedBindings
         +injectionRetrievalSlides
+        +scopeSlides
+        +externaSource
     }
 }
