@@ -42,7 +42,7 @@ fun main() {
         +externaSource
         +Todo("Android ViewModels")
         +Todo("Compose")
-        +Todo("Use in Swift")
+        +swift
         +Todo("Compiler plugin")
     }
 }
