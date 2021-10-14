@@ -17,6 +17,7 @@ val injectionRetrievalSlides = listOf(
         name = "injection-retrieval",
         stateCount = 3,
     ) { state ->
+        H2 { Text("Dependency access:") }
         H3({ shownIf(state >= 1, Transitions.fade) }) {
             B { Text("Injected") }
             Text(" as constructor's parameter(s)")
@@ -57,44 +58,40 @@ val injectionRetrievalSlides = listOf(
         }
     },
 
-    Slide(name = "retrieval", stateCount = 10) { state ->
-        Div({
-            shownIf(state > 0, Transitions.fade)
-        }) {
-            SourceCode(
-                lang = "kotlin",
-                code = """
-                class PersonRepository(
-                «inject:    private val db: DB, 
-                    private val service: PersonService
-                »«override:     override val di: DI
-                »)«diaware:: DIAware» {
-                «comment:    /* ... */
-                }»«retrieve:    private val db: DB by instance()
-                    private val service: PersonService by instance()
-                »«eoc:}»«fun:«lazy:    fun saveUser(person: Person) = db.put(person)»
-                }»«container:
-            
-                DI {
-                    bindSingleton { DB.open("personDB") }
-                    bindSingleton { PersonService() }
-                    «repo:bindSingleton { PersonRepository(«what:?»«passdi:di») }»
-                }»
-        """.trimIndent(),
-            ) {
-                "diaware" { fontGrow(state >= 2) }
-                "inject" { lineHeight(state < 3) }
-                "override" { lineHeight(state >= 3) }
-                "comment" { lineHeight(state < 4) }
-                "retrieve" { lineHeight(state >= 4) }
-                "eoc" { fontGrow(state == 4) }
-                "fun" { lineHeight(state >= 5) }
-                "lazy" { zoomed(state == 6) }
-                "container" { lineHeight(state >= 7) }
-                "what" { fontGrow(state <= 7) }
-                "passdi" { fontGrow(state >= 8) }
-                "repo" { zoomed(state == 8) }
-            }
+    Slide(name = "retrieval", stateCount = 9) { state ->
+        SourceCode(
+            lang = "kotlin",
+            code = """
+            class PersonRepository(
+            «inject:    private val db: DB, 
+                private val service: PersonService
+            »«override:     override val di: DI
+            »)«diaware:: DIAware» {
+            «comment:    /* ... */
+            }»«retrieve:    private val db: DB by instance()
+                private val service: PersonService by instance()
+            »«eoc:}»«fun:«lazy:    fun saveUser(person: Person) = db.put(person)»
+            }»«container:
+        
+            DI {
+                bindSingleton { DB.open("personDB") }
+                bindSingleton { PersonService() }
+                «repo:bindSingleton { PersonRepository(«what:?»«passdi:di») }»
+            }»
+    """.trimIndent(),
+        ) {
+            "diaware" { fontGrow(state >= 1) }
+            "inject" { lineHeight(state < 2) }
+            "override" { lineHeight(state >= 2) }
+            "comment" { lineHeight(state < 3) }
+            "retrieve" { lineHeight(state >= 3) }
+            "eoc" { fontGrow(state == 3) }
+            "fun" { lineHeight(state >= 4) }
+            "lazy" { zoomed(state == 5) }
+            "container" { lineHeight(state >= 6) }
+            "what" { fontGrow(state <= 6) }
+            "passdi" { fontGrow(state >= 7) }
+            "repo" { zoomed(state == 7) }
         }
     }
 )
