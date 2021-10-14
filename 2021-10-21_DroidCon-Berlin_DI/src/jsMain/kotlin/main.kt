@@ -43,6 +43,7 @@ fun main() {
         +Todo("Android ViewModels")
         +Todo("Compose")
         +swift
-        +Todo("Compiler plugin")
+        +compilerPlugin
+        +Todo("Thank you!")
     }
 }

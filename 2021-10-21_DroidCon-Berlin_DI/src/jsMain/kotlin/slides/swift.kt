@@ -47,7 +47,7 @@ val swift = listOf(
     Slide(
         name = "swift-needs",
         config = { KodeinAttrs(workInProgress = true) },
-        stateCount = 6
+        stateCount = 2
     ) { state ->
         H3 { Text("To support Swift, we need...") }
         Ul({
@@ -57,9 +57,7 @@ val swift = listOf(
                 }
             }
         }) {
-            Li({
-                shownIf(state >= 1, fade)
-            }) {
+            Li {
                 Span({
                     css {
                         display(DisplayStyle.InlineBlock)
@@ -67,11 +65,11 @@ val swift = listOf(
                     }
                 }) {
                     Text("...a way to distribute a compiled framework with a KLib.")
-                    strikeThrough(state >= 2)
+                    strikeThrough(state >= 1)
                 }
             }
             Li({
-                shownIf(state >= 3, fade)
+                shownIf(state >= 2, fade)
             }) {
                 Text("...a way to ")
                 B { Text("distribute") }
@@ -80,7 +78,7 @@ val swift = listOf(
                 Text(" with a KLib.")
             }
             Li({
-                shownIf(state >= 4, fade)
+                shownIf(state >= 3, fade)
             }) {
                 Text("...a way to ")
                 B { Text("modify") }
@@ -89,7 +87,7 @@ val swift = listOf(
                 Text(".")
             }
             Li({
-                shownIf(state >= 5, fade)
+                shownIf(state >= 4, fade)
             }) {
                 Text("...a way to ")
                 B { Text("compile") }
