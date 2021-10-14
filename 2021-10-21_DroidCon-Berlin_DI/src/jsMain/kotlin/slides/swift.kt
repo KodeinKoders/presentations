@@ -47,7 +47,7 @@ val swift = listOf(
     Slide(
         name = "swift-needs",
         config = { KodeinAttrs(workInProgress = true) },
-        stateCount = 2
+        stateCount = 5
     ) { state ->
         H3 { Text("To support Swift, we need...") }
         Ul({

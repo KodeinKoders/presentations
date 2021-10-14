@@ -15,7 +15,7 @@ val compilerPlugin = listOf(
     Slide(
         name = "generated-interface-usage",
         config = { KodeinAttrs(workInProgress = true) },
-        stateCount = 5
+        stateCount = 6
     ) { state ->
         SourceCode(
             lang = "kotlin",
@@ -30,8 +30,8 @@ val compilerPlugin = listOf(
                     bindSingleton { UserAPI(«instOut:«instIn:instance(API_BASE)»»«mdeps:httpClient(API_BASE)») }
                 }
 
-                // Completion check!
-                val deps: «di:DI»«deps:Dependencies» = DI«deps:.of<Dependencies>» {
+                «com:// Completion check!
+                »val deps: «di:DI»«deps:Dependencies» = DI«deps:.of<Dependencies>» {
                     import(module)
                 }
                 
@@ -40,9 +40,10 @@ val compilerPlugin = listOf(
             "itf" { lineHeight(state >= 1) }
             "di" { fontGrow(state < 2) }
             "deps" { fontGrow(state >= 2) }
-            "instIn" { zoomed(state == 3) }
-            "instOut" { fontGrow(state < 4) }
-            "mdeps" { fontGrow(state >= 4) }
+            "com" { lineHeight(state >= 3) }
+            "instIn" { zoomed(state == 4) }
+            "instOut" { fontGrow(state < 5) }
+            "mdeps" { fontGrow(state >= 5) }
         }
     },
     Slide(
