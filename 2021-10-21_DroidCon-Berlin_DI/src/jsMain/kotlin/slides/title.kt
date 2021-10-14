@@ -24,6 +24,15 @@ val title = Slide(
         Text("Advanced Multiplatform Dependency Injection")
     }
 
+    P({
+        css {
+            margin(0.1.em, 0.em, 1.em, 0.em)
+            fontWeight(200)
+        }
+    }) {
+        Text("DroidCon Berlin - 21/10/2021")
+    }
+
     H3({
         css {
             color(KodeinColor.kaumon.css)

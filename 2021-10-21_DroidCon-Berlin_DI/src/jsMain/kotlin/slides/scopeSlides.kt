@@ -7,6 +7,7 @@ import net.kodein.pres.Transitions.grow
 import net.kodein.pres.hiddenIf
 import net.kodein.pres.shownIf
 import net.kodein.pres.sourcecode.*
+import net.kodein.pres.util.d
 import net.kodein.theme.KodeinColor
 import net.kodein.theme.compose.web.css
 import org.jetbrains.compose.web.css.*
@@ -28,8 +29,9 @@ val scopeSlides = listOf(
         }
         Ul({
             css {
-                listStyleType("none")
-                padding(0.em)
+                d("li") {
+                    padding(0.3.em, 0.em)
+                }
             }
             shownIf(state >= 2, fade)
         }) {
