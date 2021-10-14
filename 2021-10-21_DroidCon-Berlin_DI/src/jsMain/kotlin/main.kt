@@ -35,7 +35,7 @@ fun main() {
         +bindingTypes
         +Todo("Tagged bindings")
         +injectionRetrievalSlides
-        +Todo("Modules and extensions")
+        +modulesAndExtensionsSlides
         +Todo("Debug")
         +Todo("Testing")
         +scopeSlides
