@@ -37,13 +37,11 @@ fun main() {
         +injectionRetrievalSlides
         +modulesAndExtensionsSlides
         +Todo("Debug")
-        +Todo("Testing")
         +scopeSlides
         +externaSource
-        +Todo("Android ViewModels")
         +Todo("Compose")
         +swift
         +compilerPlugin
-        +Todo("Thank you!")
+        +thankYou
     }
 }

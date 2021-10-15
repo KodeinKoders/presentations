@@ -45,7 +45,7 @@ val title = Slide(
         target(ATarget.Blank)
         css {
             margin(0.25.em)
-            fontSize(4.em)
+            fontSize(2.em)
         }
     }) {
         Logo { Text("Koders") }

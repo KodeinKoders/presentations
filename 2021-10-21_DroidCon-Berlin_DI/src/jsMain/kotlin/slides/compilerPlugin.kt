@@ -27,7 +27,7 @@ val compilerPlugin = listOf(
                 »
                 val module = Module«mdeps:.of<Dependencies>»("app") {
                     bindFactory { base: String -> HttpClient(base) }
-                    bindSingleton { UserAPI(«instOut:«instIn:instance(API_BASE)»»«mdeps:httpClient(API_BASE)») }
+                    bindSingleton { UserAPI(«instOut:«instIn:instance(base = API_BASE)»»«mdeps:httpClient(arg = API_BASE)») }
                 }
 
                 «com:// Completion check!
@@ -49,7 +49,7 @@ val compilerPlugin = listOf(
     Slide(
         name = "generated-interface-plugin",
         config = { KodeinAttrs(workInProgress = true) },
-        stateCount = 5
+        stateCount = 2
     ) { state ->
         H3 { Text("A compiler plugin to generate retrival interfaces...") }
         Ul({
