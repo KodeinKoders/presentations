@@ -19,21 +19,20 @@ val modulesAndExtensionsSlides = listOf(
         H3 { Text("Modularization vs Composition") }
     },
     Slide(
-        name = "modules-context"
+        name = "modules-usecase"
     ) {
-        H2 { Text("Some context") }
+        H2 { Text("A use case") }
         SourceCode(
             lang = "kotlin",
             code = """
-                class AppConfiguration {
-                    companion object {
-                        val applicationConfiguration = AppConfiguration()
-                    }
-                }
-                class PersonDataSource(val config: AppConfiguration)
-                class GetPersonUseCase(val dataSource: PersonDataSource)
-                class UpdatePersonUseCase(
-                    val dataSource: PersonDataSource, 
+                class AppConfiguration
+                
+                class FreeUserRepository(
+                    val config: AppConfiguration
+                ) : UserRepository
+                
+                class GetUserUseCase(
+                    val repository: UserRepository, 
                     val conf: AppConfiguration
                 )
             """.trimIndent(),
@@ -41,7 +40,7 @@ val modulesAndExtensionsSlides = listOf(
     },
     Slide(
         name = "modules",
-        stateCount = 9
+        stateCount = 4
     ) { state ->
         SourceCode(
             lang = "kotlin",
@@ -51,23 +50,19 @@ val modulesAndExtensionsSlides = listOf(
                 «bind-in:    bindInstance { applicationConfiguration }
                 »}
             
-                val dataSourceModule = DI.Module("DataSource") {
-                «imp-conf:    «import-zoom:import«once:Once»(configurationModule)»
-                »«bind-in:    bindSingleton<PersonDataSource> { PersonDataSource(instance()) }
+                val repositoryModule = DI.Module("Repository") {
+                «bind-in:    bindSingleton<UserRepository> { FreeUserRepository(instance()) }
                 »}
             
                 val useCaseModule = DI.Module("UseCase") {
-                «imp-conf:    «import-zoom:import«once:Once»(configurationModule)»
-                »«bind-in:    bindSingleton {  GetPersonUseCase(instance()) }
-                    bindSingleton {  UpdatePersonUseCase(instance(), instance()) }
+                «bind-in:    bindSingleton {  GetUserUseCase(instance(), instance()) }
                 »}
     
                 »val appContainer = DI {
                 «bind-out:    bindInstance { applicationConfiguration }
-                    bindSingleton {  PersonDataSource(instance()) }
-                    bindSingleton {  GetPersonUseCase(instance()) }
-                    bindSingleton {  UpdatePersonUseCase(instance(), instance()) }
-                »«imp-all:   importAll(«conf-out:configurationModule, »dataSourceModule, useCaseModule) 
+                    bindSingleton<UserRepository> {  FreeUserRepository(instance()) }
+                    bindSingleton {  GetUserUseCase(instance(), instance()) }
+                »«imp-all:   importAll(configurationModule, repositoryModule, useCaseModule) 
                 »}
             """.trimIndent(),
         ) {
@@ -75,19 +70,41 @@ val modulesAndExtensionsSlides = listOf(
             "bind-in" { lineHeight(state >= 2) }
             "bind-out" { lineHeight(state < 2) }
             "imp-all" { lineHeight(state >= 3) }
-            "imp-conf" { lineHeight(state >= 4) }
-            "conf-out" { fontGrow(state < 4) }
-            "import-zoom" { zoomed(state in 5..7) }
-            "once" { fontGrow(state >= 7) }
+        }
+    },
+    Slide(
+        name = "module-import-once",
+        stateCount = 5
+    ) { state ->
+        SourceCode(
+            lang = "kotlin",
+            code = """
+                val configurationModule = DI.Module("Configuration") {} 
+
+                val repositoryModule = DI.Module("Repository") {«conf-out:}»
+                «imp-conf:    «import-zoom:import«once:Once»(configurationModule)»
+                }»
+                val useCaseModule = DI.Module("UseCase") {«conf-out:}»
+                «imp-conf:    «import-zoom:import«once:Once»(configurationModule)»
+                }»
+                val appContainer = DI {
+                   «import-zoom:importAll(«conf-out:configurationModule, »repositoryModule, useCaseModule)»
+                }
+            """.trimIndent(),
+        ) {
+            "imp-conf" { lineHeight(state >= 1) }
+            "conf-out" { fontGrow(state < 1) }
+            "import-zoom" { zoomed(state in 2..4) }
+            "once" { fontGrow(state >= 4) }
         }
         Div({
             css {
                 position(Position.Fixed)
                 fontSize(2.em)
-                top(5.7.em)
+                top(5.4.em)
                 left(12.em)
             }
-            shownIf(state == 6, Transitions.stamp)
+            shownIf(state == 3, Transitions.stamp)
         }) {
             Text(Emoji.bomb)
         }
@@ -95,10 +112,10 @@ val modulesAndExtensionsSlides = listOf(
             css {
                 position(Position.Fixed)
                 fontSize(2.em)
-                top(5.7.em)
+                top(5.4.em)
                 left(12.em)
             }
-            shownIf(state == 7, Transitions.stamp)
+            shownIf(state == 4, Transitions.stamp)
         }) {
             Text(Emoji.slightly_smiling_face)
         }
@@ -110,25 +127,30 @@ val modulesAndExtensionsSlides = listOf(
         SourceCode(
             lang = "kotlin",
             code = """
-                val configurationModule = DI.Module("Configuration") {
-                    bindInstance { productionAppConfiguration }
+                «test-out:val configurationModule = DI.Module("Configuration") {
+                    bindInstance { productionConfiguration }
                 }
                 
-                val appContainer = DI {
-                    import(configurationModule)
-                }
+                »val appContainer = DI { import(configurationModule) }
                 
-                «test:val testContainer = DI«silent:(allowSilentOverride = true)» {
+                «test-in:val testContainer = DI«silent:(allowSilentOverride = true)» {
                     import(configurationModule)    
-                «bind:    bindInstance«override:(overrides = true)» { testApplicationConfiguration }
+                «bind:    bindInstance«override:(overrides = true)» { testConfiguration }
                 »}
-                
-                »«result:appContainer.instance<AppConfiguration>() == productionAppConfiguration   
-                testContainer.instance<AppConfiguration>() == testApplicationConfiguration
+                »«result:
+                assertEquals(
+                    appContainer.instance<AppConfiguration>(), 
+                    productionConfiguration
+                )
+                assertEquals(
+                    testContainer.instance<AppConfiguration>(), 
+                    testConfiguration
+                )
                 »
             """.trimIndent(),
         ) {
-            "test" { lineHeight(state >= 1) }
+            "test-in" { lineHeight(state >= 1) }
+            "test-out" { lineHeight(state < 1) }
             "bind" { lineHeight(state >= 2) }
             "override" { fontGrow(state in 3..4) }
             "result" { lineHeight(state >= 4) }
@@ -143,17 +165,22 @@ val modulesAndExtensionsSlides = listOf(
             lang = "kotlin",
             code = """
                 «main:val main = »DI {
-                    bindSingleton<CandyFactory> { GummiesFactory() }
-                }
+                «main-hide:    bindSingleton<UserRepository> { 
+                        FreeUserRepository(instance()) 
+                    }
+                »«main-com:    /* ... */
+                »}
                 «sub:
                 val sub = DI {
                     extend(main)
-                «override:    bindSingleton<CandyFactory>(overrides = true) { ChocolateFactory() }
+                «override:    bindSingleton<UserRepository>(overrides = true) { 
+                        PremiumUserRepository() 
+                    }
                 »}
                 »«result:
-                val mainFactory; CandyFactory by main.instance()
-                val subFactory; CandyFactory by sub.instance()
-                »«assert:assertEquals(mainFactory, subFactory) «true:// True!»«false:// False!»
+                val mainRepo; UserRepository by main.instance()
+                val subRepo; UserRepository by sub.instance()
+                »«assert:assertEquals(mainRepo, subRepo) «true:// True!»«false:// False!»
                 »
             """.trimIndent(),
         ) {
@@ -162,43 +189,40 @@ val modulesAndExtensionsSlides = listOf(
             "result" { lineHeight(state >= 2) }
             "assert" { lineHeight(state in listOf(3, 5)) }
             "true" { fontGrow(state == 3) }
+            "main-hide" { lineHeight(state < 4) }
+            "main-com" { lineHeight(state >= 4) }
             "override" { lineHeight(state >= 4) }
             "false" { fontGrow(state == 5) }
         }
     },
     Slide(
         name = "extension-copy",
-        stateCount = 11
+        stateCount = 6
     ) { state ->
         SourceCode(
             lang = "kotlin",
             code = """
-        «context:class CandyFactory(val env: String)
+        «context:class UserService(val path: String)
 
-        »val main = DI {
+        »val parent = DI {
             bindConstant("ENV") { "PROD" }
-            «singleton:bindSingleton»«provider:bindProvider» { CandyFactory(instance("ENV")) }
+            «singleton:bindSingleton»«provider:bindProvider» { UserService(instance("ENV")) }
         }
 
-        val sub = DI {
-        «ext:    extend(main«cpy:, copy = »«non-cached:«non-cached-zoom:Copy.NonCached»»«all:Copy.All»«none:Copy.None») «non-cached:// Default behavior»
-        »«specific:    extend(main, copy = Copy {
-                copy the binding<CandyFactory>()
-            })
+        val child = DI {
+        «ext:    extend(parent«non-cached:, copy = «non-cached-zoom:Copy.NonCached»») «non-cached:// Default behavior»
         »    bindConstant("ENV", overrides = true) { "TEST" }
         }
         
-        «retrieve:val candyFactory by sub.instance<CandyFactory>()
-        »«non-cached-single:
-        assertNotEquals("TEST", subFactory.env) // candyFactory is from 'parent'
-        »«non-cached-provider:
-        assertEquals("TEST", subFactory.env) // candyFactory is copied in 'child'
-        »«none-assert:
-        assertNotEquals("TEST", subFactory.env) // candyFactory is from 'parent'
-        »«all-assert:
-        assertEquals("TEST", subFactory.env) // candyFactory is copied in 'child'
-        »«specific-assert:
-        assertEquals("TEST", subFactory.env) // candyFactory is copied in 'child'
+        «retrieve:val repository: UserService by sub.instance()
+        »«non-cached-singleton:assertEquals(
+        «zoom:   "PROD", 
+            repository.env // repository is from 'parent'»
+        )
+        »«non-cached-provider:assertEquals(
+        «zoom:    "TEST", 
+            repository.env // repository is copied in 'child'»
+        )
         »
         """.trimIndent(),
         ) {
@@ -212,69 +236,105 @@ val modulesAndExtensionsSlides = listOf(
             "cpy" { fontGrow(state >= 1) }
             "non-cached-zoom" { zoomed(state in 4..5) }
             "retrieve" { lineHeight(state >= 2) }
-            "non-cached-single" { lineHeight(state == 3) }
+            "non-cached-singleton" { lineHeight(state in 3..4) }
+            "zoom" { zoomed(state in 4..5) }
             "provider" {
                 fontGrow(state >= 5)
                 zoomed(state == 5)
             }
-            "non-cached-provider" { lineHeight(state == 7) }
-            "none" { fontGrow(state == 8) }
-            "none-assert" { lineHeight(state == 8) }
-            "all" { fontGrow(state == 9) }
-            "all-assert" { lineHeight(state == 9) }
-            "specific" { lineHeight(state >= 10) }
-            "specific-assert" { lineHeight(state == 10) }
+            "non-cached-provider" { lineHeight(state == 5) }
         }
     },
+    Slide(
+        name = "extension-copy-none",
+        stateCount = 2
+    ) { state ->
+        SourceCode(
+            lang = "kotlin",
+            code = """
+        val parent = DI {
+            bindConstant("ENV") { "PROD" }
+            bindProvider { UserService(instance("ENV")) }
+        }
 
-//    Slide(
-//        name = "extension-copy",
-//        stateCount = 10
-//    ) { state ->
-//        SourceCode(
-//            lang = "kotlin",
-//            code = """
-//            «context:interface CandyFactory {
-//                val appConfiguration: AppConfiguration
-//            }
-//
-//            »val main = DI {
-//                bindInstance { productionConfiguration }
-//                bindSingleton<CandyFactory> { GummiesFactory() }
-//            }
-//
-//            val sub = DI {
-//                extend(main«non-cached:, copy = Copy.NonCached»«all:, copy = Copy.All»«none:, copy = Copy.None») «non-cached:// Default behavior»
-//                bindInstance(overrides = true) { testApplicationConfiguration }
-//            }
-//            «retrieve:
-//            val subFactory by sub.instance<CandyFactory>()
-//            »«non-cached-assert:
-//            assertSame(
-//                productionApplicationConfiguration,
-//                subFactory.appConfiguration // CandyFactory accessed from 'main'
-//            )
-//            »«none-assert:
-//            assertSame(
-//                productionApplicationConfiguration,
-//                subFactory.appConfiguration // CandyFactory accessed from 'main'
-//            )
-//            »«all-assert:
-//            assertSame(
-//                testApplicationConfiguration,
-//                subFactory.appConfiguration
-//            )
-//            »
-//            """.trimIndent(),
-//        ) {
-//            "context" { lineHeight(state < 3) }
-//            "non-cached" { fontGrow(state in 1..3) }
-//            "retrieve" { lineHeight(state >= 2f) }
-//            "non-cached-assert" { lineHeight(state == 3) }
-//            "none" { fontGrow(state in 4..5) }
-//            "all-assert" { lineHeight(state == 5) }
-//            "all" { fontGrow(state in 6..7) }
-//            "none-assert" { lineHeight(state == 7) }
-//        }
-//    },
+        val child = DI {
+            extend(parent, copy = «zoom:Copy.None»)
+            bindConstant("ENV", overrides = true) { "TEST" }
+        }
+        
+        «retrieve:val repository: UserService by sub.instance()
+        assertEquals(
+        «zoom:    "PROD", 
+            repository.env // repository is from 'parent'»
+        )
+        »
+        """.trimIndent(),
+        ) {
+            "retrieve" { lineHeight(state >= 1) }
+            "zoom" { zoomed(state == 1) }
+        }
+    },
+    Slide(
+        name = "extension-copy-specific",
+        stateCount = 2
+    ) { state ->
+        SourceCode(
+            lang = "kotlin",
+            code = """
+        val parent = DI {
+            bindConstant("ENV") { "PROD" }
+            bindProvider { UserService(instance("ENV")) }
+        }
+
+        val child = DI {
+            extend(
+                parent, 
+            «zoom:    copy = Copy {
+                    copy the binding<UserRepository>()
+                }»
+            )
+            bindConstant("ENV", overrides = true) { "TEST" }
+        }
+        
+        «retrieve:val repository: UserService by sub.instance()
+        assertEquals(
+        «zoom:    "TEST", 
+            repository.env // repository is copied in 'child'»
+        )
+        »
+        """.trimIndent(),
+        ) {
+            "retrieve" { lineHeight(state >= 1) }
+            "zoom" { zoomed(state == 1) }
+        }
+    },
+    Slide(
+        name = "extension-copy-all",
+        stateCount = 2
+    ) { state ->
+        SourceCode(
+            lang = "kotlin",
+            code = """
+        val parent = DI {
+            bindConstant("ENV") { "PROD" }
+            bindProvider { UserService(instance("ENV")) }
+        }
+
+        val child = DI {
+            extend(parent, «zoom:copy = Copy.All»)
+            bindConstant("ENV", overrides = true) { "TEST" }
+        }
+        
+        «retrieve:val repository: UserService by sub.instance()
+        assertEquals(
+        «zoom:    "TEST", 
+            repository.env // repository is copied in 'child'»
+        )
+        »
+        """.trimIndent(),
+        ) {
+            "retrieve" { lineHeight(state >= 1) }
+            "zoom" { zoomed(state == 1) }
+        }
+    },
 )
