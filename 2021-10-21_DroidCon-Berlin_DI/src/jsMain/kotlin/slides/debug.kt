@@ -83,18 +83,16 @@ val debug = listOf(
     },
     Slide(
         name = "binding-recursion",
-        stateCount = 4
+        stateCount = 2
     ) { state ->
         H4 { Text("Binding recursion") }
         SourceCode(
             lang = "kotlin",
             code = """
-            // Use case
             class A(val c: C)
             class B(val a: A)
             class C(val b: B)
             
-            // Binding
             bindSingleton { A(instance()) }
             bindSingleton { B(instance()) }
             bindSingleton { C(instance()) }
@@ -108,7 +106,7 @@ val debug = listOf(
             */»
             """.trimIndent()
         ) {
-            "exception" { lineHeight(state ==1 ) }
+            "exception" { lineHeight(state == 1 ) }
         }
     },
 )

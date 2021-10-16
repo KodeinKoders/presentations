@@ -39,7 +39,7 @@ fun main() {
         +debug
         +scopeSlides
         +externaSource
-        +Todo("Compose")
+        +compose
         +swift
         +compilerPlugin
         +thankYou
