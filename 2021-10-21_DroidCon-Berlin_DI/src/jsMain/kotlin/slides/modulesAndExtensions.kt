@@ -12,7 +12,7 @@ import org.w3c.dom.css.CSSMarginRule
 import kotlin.time.Duration
 
 
-val modulesAndExtensionsSlides = listOf(
+val modulesAndExtensions = listOf(
     Slide(
         name = "modules-vs-extensions"
     ) {

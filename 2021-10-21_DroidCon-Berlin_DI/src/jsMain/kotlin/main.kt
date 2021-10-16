@@ -34,9 +34,9 @@ fun main() {
         +Todo("Multiplatform DI")
         +bindingTypes
         +Todo("Tagged bindings")
-        +injectionRetrievalSlides
-        +modulesAndExtensionsSlides
-        +Todo("Debug")
+        +injectionRetrieval
+        +modulesAndExtensions
+        +debug
         +scopeSlides
         +externaSource
         +Todo("Compose")

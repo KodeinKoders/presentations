@@ -12,7 +12,7 @@ import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import kotlin.time.Duration
 
-val injectionRetrievalSlides = listOf(
+val injectionRetrieval = listOf(
     Slide(
         name = "injection-retrieval",
         stateCount = 3,
