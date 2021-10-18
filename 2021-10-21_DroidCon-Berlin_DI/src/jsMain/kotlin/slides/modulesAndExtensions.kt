@@ -197,147 +197,183 @@ val modulesAndExtensions = listOf(
     },
     Slide(
         name = "extension-copy",
-        stateCount = 6
+        stateCount = 4
     ) { state ->
+        H3 { Text("Copy strategies") }
         SourceCode(
             lang = "kotlin",
             code = """
-        «context:class UserService(val path: String)
-
-        »val parent = DI {
-            bindConstant("ENV") { "PROD" }
-            «singleton:bindSingleton»«provider:bindProvider» { UserService(instance("ENV")) }
-        }
-
         val child = DI {
-        «ext:    extend(parent«non-cached:, copy = «non-cached-zoom:Copy.NonCached»») «non-cached:// Default behavior»
-        »    bindConstant("ENV", overrides = true) { "TEST" }
+            extend(parent«copy:, copy = Copy.NonCached») «copy:// Default behavior»
+            /* «dot:...»«values:None / All / Custom» */
         }
-        
-        «retrieve:val repository: UserService by sub.instance()
-        »«non-cached-singleton:assertEquals(
-        «zoom:   "PROD", 
-            repository.env // repository is from 'parent'»
-        )
-        »«non-cached-provider:assertEquals(
-        «zoom:    "TEST", 
-            repository.env // repository is copied in 'child'»
-        )
-        »
         """.trimIndent(),
         ) {
-            "context" { lineHeight(state < 3) }
-            "singleton" {
-                fontGrow(state in 0..4)
-                zoomed(state == 4)
-            }
-            "ext" { lineHeight(state < 10) }
-            "non-cached" { fontGrow(state in 1..7) }
-            "cpy" { fontGrow(state >= 1) }
-            "non-cached-zoom" { zoomed(state in 4..5) }
-            "retrieve" { lineHeight(state >= 2) }
-            "non-cached-singleton" { lineHeight(state in 3..4) }
-            "zoom" { zoomed(state in 4..5) }
-            "provider" {
-                fontGrow(state >= 5)
-                zoomed(state == 5)
-            }
-            "non-cached-provider" { lineHeight(state == 5) }
+            "copy" { fontGrow(state >= 1) }
+            "dot" { fontGrow(state < 2) }
+            "values" { fontGrow(state >= 2) }
         }
-    },
-    Slide(
-        name = "extension-copy-none",
-        stateCount = 2
-    ) { state ->
-        SourceCode(
-            lang = "kotlin",
-            code = """
-        «shrink:val parent = DI {
-            bindConstant("ENV") { "PROD" }
-            bindProvider { UserService(instance("ENV")) }
+        P({
+            shownIf(state >= 2, Transitions.fade)
+        }) {
+            Text("bindings that are ")
+            B { Text("copied") }
+            Text(" represent ")
+            B { Text("new instances") }
         }
-
-        »val child = DI {
-            extend(parent, copy = «zoom:Copy.None»)
-            bindConstant("ENV", overrides = true) { "TEST" }
+        P({
+            shownIf(state >= 3, Transitions.fade)
+        }) {
+            Text("bindings that are ")
+            B { Text("NOT copied") }
+            Text(" represent ")
+            B { Text("references") }
+            Text(" to the parent's instances")
         }
-        
-        «retrieve:val repository: UserService by sub.instance()
-        assertEquals(
-        «zoom:    "PROD", 
-            repository.env // repository is from 'parent'»
-        )
-        »
-        """.trimIndent(),
-        ) {
-            "retrieve" { lineHeight(state >= 1) }
-            "zoom" { zoomed(state == 1) }
-            "shrink" { lineHeight(state < 1) }
-        }
-    },
-    Slide(
-        name = "extension-copy-specific",
-        stateCount = 2
-    ) { state ->
-        SourceCode(
-            lang = "kotlin",
-            code = """
-        «shrink:val parent = DI {
-            bindConstant("ENV") { "PROD" }
-            bindProvider { UserService(instance("ENV")) }
-        }
-
-        »val child = DI {
-            extend(
-                parent, 
-            «zoom:    copy = Copy {
-                    copy the binding<UserRepository>()
-                }»
-            )
-            bindConstant("ENV", overrides = true) { "TEST" }
-        }
-        
-        «retrieve:val repository: UserService by sub.instance()
-        assertEquals(
-        «zoom:    "TEST", 
-            repository.env // repository is copied in 'child'»
-        )
-        »
-        """.trimIndent(),
-        ) {
-            "retrieve" { lineHeight(state >= 1) }
-            "zoom" { zoomed(state == 1) }
-            "shrink" { lineHeight(state < 1) }
-        }
-    },
-    Slide(
-        name = "extension-copy-all",
-        stateCount = 2
-    ) { state ->
-        SourceCode(
-            lang = "kotlin",
-            code = """
-        «shrink:val parent = DI {
-            bindConstant("ENV") { "PROD" }
-            bindProvider { UserService(instance("ENV")) }
-        }
-
-        »val child = DI {
-            extend(parent, «zoom:copy = Copy.All»)
-            bindConstant("ENV", overrides = true) { "TEST" }
-        }
-        
-        «retrieve:val repository: UserService by sub.instance()
-        assertEquals(
-        «zoom:    "TEST", 
-            repository.env // repository is copied in 'child'»
-        )
-        »
-        """.trimIndent(),
-        ) {
-            "retrieve" { lineHeight(state >= 1) }
-            "zoom" { zoomed(state == 1) }
-            "shrink" { lineHeight(state < 1) }
-        }
-    },
+    }
+//    }    Slide(
+//        name = "extension-copy",
+//        stateCount = 6
+//    ) { state ->
+//        SourceCode(
+//            lang = "kotlin",
+//            code = """
+//        «context:class UserService(val path: String)
+//
+//        »val parent = DI {
+//            bindConstant("ENV") { "PROD" }
+//            «singleton:bindSingleton»«provider:bindProvider» { UserService(instance("ENV")) }
+//        }
+//
+//        val child = DI {
+//        «ext:    extend(parent«non-cached:, copy = «non-cached-zoom:Copy.NonCached»») «non-cached:// Default behavior»
+//        »    bindConstant("ENV", overrides = true) { "TEST" }
+//        }
+//
+//        «retrieve:val repository: UserService by sub.instance()
+//        »«non-cached-singleton:assertEquals(
+//        «zoom:   "PROD",
+//            repository.env // repository is from 'parent'»
+//        )
+//        »«non-cached-provider:assertEquals(
+//        «zoom:    "TEST",
+//            repository.env // repository is copied in 'child'»
+//        )
+//        »
+//        """.trimIndent(),
+//        ) {
+//            "context" { lineHeight(state < 3) }
+//            "singleton" {
+//                fontGrow(state in 0..4)
+//                zoomed(state == 4)
+//            }
+//            "ext" { lineHeight(state < 10) }
+//            "non-cached" { fontGrow(state in 1..7) }
+//            "cpy" { fontGrow(state >= 1) }
+//            "non-cached-zoom" { zoomed(state in 4..5) }
+//            "retrieve" { lineHeight(state >= 2) }
+//            "non-cached-singleton" { lineHeight(state in 3..4) }
+//            "zoom" { zoomed(state in 4..5) }
+//            "provider" {
+//                fontGrow(state >= 5)
+//                zoomed(state == 5)
+//            }
+//            "non-cached-provider" { lineHeight(state == 5) }
+//        }
+//    },
+//    Slide(
+//        name = "extension-copy-none",
+//        stateCount = 2
+//    ) { state ->
+//        SourceCode(
+//            lang = "kotlin",
+//            code = """
+//        «shrink:val parent = DI {
+//            bindConstant("ENV") { "PROD" }
+//            bindProvider { UserService(instance("ENV")) }
+//        }
+//
+//        »val child = DI {
+//            extend(parent, copy = «zoom:Copy.None»)
+//            bindConstant("ENV", overrides = true) { "TEST" }
+//        }
+//
+//        «retrieve:val repository: UserService by sub.instance()
+//        assertEquals(
+//        «zoom:    "PROD",
+//            repository.env // repository is from 'parent'»
+//        )
+//        »
+//        """.trimIndent(),
+//        ) {
+//            "retrieve" { lineHeight(state >= 1) }
+//            "zoom" { zoomed(state == 1) }
+//            "shrink" { lineHeight(state < 1) }
+//        }
+//    },
+//    Slide(
+//        name = "extension-copy-specific",
+//        stateCount = 2
+//    ) { state ->
+//        SourceCode(
+//            lang = "kotlin",
+//            code = """
+//        «shrink:val parent = DI {
+//            bindConstant("ENV") { "PROD" }
+//            bindProvider { UserService(instance("ENV")) }
+//        }
+//
+//        »val child = DI {
+//            extend(
+//                parent,
+//            «zoom:    copy = Copy {
+//                    copy the binding<UserRepository>()
+//                }»
+//            )
+//            bindConstant("ENV", overrides = true) { "TEST" }
+//        }
+//
+//        «retrieve:val repository: UserService by sub.instance()
+//        assertEquals(
+//        «zoom:    "TEST",
+//            repository.env // repository is copied in 'child'»
+//        )
+//        »
+//        """.trimIndent(),
+//        ) {
+//            "retrieve" { lineHeight(state >= 1) }
+//            "zoom" { zoomed(state == 1) }
+//            "shrink" { lineHeight(state < 1) }
+//        }
+//    },
+//    Slide(
+//        name = "extension-copy-all",
+//        stateCount = 2
+//    ) { state ->
+//        SourceCode(
+//            lang = "kotlin",
+//            code = """
+//        «shrink:val parent = DI {
+//            bindConstant("ENV") { "PROD" }
+//            bindProvider { UserService(instance("ENV")) }
+//        }
+//
+//        »val child = DI {
+//            extend(parent, «zoom:copy = Copy.All»)
+//            bindConstant("ENV", overrides = true) { "TEST" }
+//        }
+//
+//        «retrieve:val repository: UserService by sub.instance()
+//        assertEquals(
+//        «zoom:    "TEST",
+//            repository.env // repository is copied in 'child'»
+//        )
+//        »
+//        """.trimIndent(),
+//        ) {
+//            "retrieve" { lineHeight(state >= 1) }
+//            "zoom" { zoomed(state == 1) }
+//            "shrink" { lineHeight(state < 1) }
+//        }
+//    },
 )
