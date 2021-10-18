@@ -252,12 +252,12 @@ val modulesAndExtensions = listOf(
         SourceCode(
             lang = "kotlin",
             code = """
-        val parent = DI {
+        «shrink:val parent = DI {
             bindConstant("ENV") { "PROD" }
             bindProvider { UserService(instance("ENV")) }
         }
 
-        val child = DI {
+        »val child = DI {
             extend(parent, copy = «zoom:Copy.None»)
             bindConstant("ENV", overrides = true) { "TEST" }
         }
@@ -272,6 +272,7 @@ val modulesAndExtensions = listOf(
         ) {
             "retrieve" { lineHeight(state >= 1) }
             "zoom" { zoomed(state == 1) }
+            "shrink" { lineHeight(state < 1) }
         }
     },
     Slide(
@@ -281,12 +282,12 @@ val modulesAndExtensions = listOf(
         SourceCode(
             lang = "kotlin",
             code = """
-        val parent = DI {
+        «shrink:val parent = DI {
             bindConstant("ENV") { "PROD" }
             bindProvider { UserService(instance("ENV")) }
         }
 
-        val child = DI {
+        »val child = DI {
             extend(
                 parent, 
             «zoom:    copy = Copy {
@@ -306,6 +307,7 @@ val modulesAndExtensions = listOf(
         ) {
             "retrieve" { lineHeight(state >= 1) }
             "zoom" { zoomed(state == 1) }
+            "shrink" { lineHeight(state < 1) }
         }
     },
     Slide(
@@ -315,12 +317,12 @@ val modulesAndExtensions = listOf(
         SourceCode(
             lang = "kotlin",
             code = """
-        val parent = DI {
+        «shrink:val parent = DI {
             bindConstant("ENV") { "PROD" }
             bindProvider { UserService(instance("ENV")) }
         }
 
-        val child = DI {
+        »val child = DI {
             extend(parent, «zoom:copy = Copy.All»)
             bindConstant("ENV", overrides = true) { "TEST" }
         }
@@ -335,6 +337,7 @@ val modulesAndExtensions = listOf(
         ) {
             "retrieve" { lineHeight(state >= 1) }
             "zoom" { zoomed(state == 1) }
+            "shrink" { lineHeight(state < 1) }
         }
     },
 )
