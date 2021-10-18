@@ -11,8 +11,7 @@ import org.jetbrains.compose.web.dom.Text
 val debug = listOf(
     Slide(
         name = "debug",
-        stateCount = 3
-    ) { state ->
+    ) {
         H3 { Text("Demystifying common mistakes") }
     },
     Slide(

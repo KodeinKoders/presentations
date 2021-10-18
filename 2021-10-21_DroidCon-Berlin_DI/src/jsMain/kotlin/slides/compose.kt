@@ -20,13 +20,14 @@ val compose = listOf(
         Div {
             H1 { Text("Kodein-DI") }
             H1 { Text(Emoji.heart) }
-            H1 { Text("Compose") }
+            H1 { Text("Declarative UIs") }
         }
     },
     Slide(
         name = "compose-local",
         stateCount = 4
     ) { state ->
+        H4 { Text("With Jetpack / JetBrains Compose") }
         SourceCode(
             lang = "kotlin",
             code = """
@@ -36,10 +37,7 @@ val compose = listOf(
             bindInstance { productionConfiguration }
             bindSingleton { UserController(instance()) }
         }) {
-        »    MyView { 
-                ContentView() 
-                BottomView() 
-            }
+        »    ContentView() 
         }
         
         «local:@Composable
@@ -48,12 +46,10 @@ val compose = listOf(
             val appConfig: AppConfiguration by di.instance()
         }
         »«sub:@Composable
-        fun BottomView() {
+        fun ContentView() {
             subDI( {  // Extends container from CompositionLocal
                 bindSingleton { AccountController(instance()) }
-            }) {
-                BottomNav()
-            }
+            }) { /* .. */ }
         }»
       """.trimIndent()
         ) {
@@ -94,23 +90,25 @@ val compose = listOf(
             code = """
         class MainActivity : ComponentActivity(), «aware:DIAware» {  
             override val di = DI { importAll(/* .. */) }
-
+        «out:    
             override fun onCreate(savedInstanceState: Bundle?) {
                 super.onCreate(savedInstanceState)
                 setContent { App() }
             }
-        }
+        »}
         
         @Composable
         fun App() {
         «di:    val di = «aware:androidContextDI()» 
         »«remember:    val userController: UserController by «aware:rememberInstance()»
-            userController.model.collect { /* ... */ }
+            val state = userController.model.collectAsState()
+            /* ... */
         »}
       """.trimIndent()
         ) {
             "di" { lineHeight(state in 1..2) }
             "aware" { zoomed(state in listOf(2,4)) }
+            "out" { lineHeight(state < 3) }
             "remember" { lineHeight(state >= 3) }
         }
     },
