@@ -24,25 +24,24 @@ val debug = listOf(
             code = """
             val di = DI {
             «full:    fullContainerTreeOnError = true
-            »    importAll(configModule, «forgotten:repositoryModule, »useCaseModule)
-            }
+            »    importAll(«forgotten:internalModule, »businessModule)
+            }«repo:
             
-            val useCase: GetUserUseCase by di.instance()
-            «exception:
+            val repository: UserRepository by di.instance()
+            »«exception:
             /* DI.NotFoundException: 
-                No binding found for bind<UserRepository> { ? { ? } }
+                No binding found for bind<HttpClient> { ? { ? } }
             «full:    Registered in this DI container:
-                    module Configuration {
-                        bind<AppConfiguration> ...
-                    }
-                    module UseCase {
-                        bind<GetFreeUserUseCase> ...
+                    module Business {
+                        bind<DB> ...
+                        bind<UserRepository> ...
                     }
             »*/»
             """.trimIndent()
         ) {
             "forgotten" { fontGrow(state < 1) }
             "exception" { lineHeight(state >= 2) }
+            "repo" { lineHeight(state < 3) } // TODO SALOMON
             "full" { lineHeight(state >= 3) }
         }
     },
@@ -75,7 +74,7 @@ val debug = listOf(
                 */»
             """.trimIndent()
         ) {
-            "exception" { lineHeight(state >= 1) }
+            "exception" { lineHeight(state == 1) }
             "app" { lineHeight(state < 1) }
             "override" { fontGrow(state >= 2) }
         }

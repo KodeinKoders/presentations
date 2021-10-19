@@ -36,15 +36,15 @@ val injectionRetrieval = listOf(
         SourceCode(
             lang = "kotlin",
             code = """
-            class PersonRepository(«empty:) { /* ... */ }»
+            class UserRepository(«empty:) { /* ... */ }»
             «db:    private val db: DB,
-            »«service:    private val service: PersonService,
+            »«service:    private val httpClient: HttpClient,
             »«db:) { /* ... */ }»«container:
             
             DI {
-                bindSingleton { DB.open("personDB") }
-                bindSingleton { PersonService() }
-                «repo:bindSingleton { PersonRepository(«what:?»«inject:instance(), instance()») }»
+                bindSingleton<DB> { DB.open("userDB") }
+                bindSingleton<HttpClient { AppHttpClient() }
+                «repo:bindSingleton { UserRepository(«what:?»«inject:instance(), instance()») }»
             }»
         """.trimIndent(),
         ) {
@@ -62,21 +62,21 @@ val injectionRetrieval = listOf(
         SourceCode(
             lang = "kotlin",
             code = """
-            class PersonRepository(
+            class UserRepository(
             «inject:    private val db: DB, 
-                private val service: PersonService
+                private val httpClient: HttpClient
             »«override:     override val di: DI
             »)«diaware:: DIAware» {
             «comment:    /* ... */
             }»«retrieve:    private val db: DB by instance()
-                private val service: PersonService by instance()
-            »«eoc:}»«fun:«lazy:    fun saveUser(person: Person) = db.put(person)»
+                private val httpClient: HttpClient by instance()
+            »«eoc:}»«fun:«lazy:    fun saveUser(user: User) = db.put(user)»
             }»«container:
         
             DI {
-                bindSingleton { DB.open("personDB") }
-                bindSingleton { PersonService() }
-                «repo:bindSingleton { PersonRepository(«what:?»«passdi:di») }»
+                bindSingleton<DB> { DB.open("userDB") }
+                bindSingleton<HttpClient> { AppHttpClient() }
+                «repo:bindSingleton { UserRepository(«what:?»«passdi:di») }»
             }»
     """.trimIndent(),
         ) {

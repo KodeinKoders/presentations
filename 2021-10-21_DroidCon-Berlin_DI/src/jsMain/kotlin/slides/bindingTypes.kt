@@ -23,7 +23,7 @@ val bindingTypes = Slide(
             »«lFa:
                 «bFa:bind«bBind:Factory» { id: String -> UserAPI(id«par:, instance()») }»
             »«lSi:
-                «bSi:bind«bBind:Singleton» { AppDB() }»
+                «bSi:bind«bBind:Singleton» { UserDB() }»
             »«lIn:
                 «bIn:bind«bBind:Instance» { applicationParameters }»
             »«lMu:

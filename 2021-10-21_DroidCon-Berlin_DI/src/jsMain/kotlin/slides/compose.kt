@@ -34,7 +34,7 @@ val compose = listOf(
         @Composable
         «fun: fun App( ) {
         »«with: fun App() = withDI({ 
-            bindInstance { productionConfiguration }
+            bindInstance { productionParameters }
             bindSingleton { UserController(instance()) }
         }) {
         »    ContentView() 
@@ -43,7 +43,7 @@ val compose = listOf(
         «local:@Composable
         fun ContentView() {
             val di = LocalDI.current // Accessed through CompositionLocal
-            val appConfig: AppConfiguration by di.instance()
+            val parameters: AppParameters by di.instance()
         }
         »«sub:@Composable
         fun ContentView() {
@@ -70,9 +70,9 @@ val compose = listOf(
         fun ContentView() {
         «local:    val di = LocalDI.current
             // Computed for every recomposition
-            val appConfig: AppConfiguration by di.instance()
+            val parameters: AppParameters by di.instance()
         »«remember:     // Kept as state
-            val appConfig: AppConfiguration by rememberInstance()
+            val parameters: AppParameters by rememberInstance()
         »}
       """.trimIndent()
         ) {
