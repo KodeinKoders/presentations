@@ -107,7 +107,7 @@ val modulesAndExtensions = listOf(
             }
             shownIf(state == 3, Transitions.stamp)
         }) {
-            Text(Emoji.x)
+            Text(Emoji.bomb)
         }
         Div({
             css {
@@ -118,7 +118,7 @@ val modulesAndExtensions = listOf(
             }
             shownIf(state == 4, Transitions.stamp)
         }) {
-            Text(Emoji.white_check_mark)
+            Text(Emoji.slightly_smiling_face)
         }
     },
     Slide(
