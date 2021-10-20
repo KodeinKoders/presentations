@@ -31,9 +31,7 @@ fun main() {
         +title
         +kodeinSlides
         +dependencyInjection
-        +Todo("Multiplatform DI")
         +bindingTypes
-        +Todo("Tagged bindings")
         +injectionRetrieval
         +modulesAndExtensions
         +debug
