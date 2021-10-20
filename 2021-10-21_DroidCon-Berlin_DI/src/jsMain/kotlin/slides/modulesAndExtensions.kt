@@ -75,60 +75,60 @@ val modulesAndExtensions = listOf(
             "imp-all" { lineHeight(state >= 3) }
         }
     },
-    Slide(
-        name = "module-import-once",
-        stateCount = 5
-    ) { state ->
-        SourceCode(
-            lang = "kotlin",
-            code = """
-                val accountModule = DI.Module("Account") {«conf-out:}»
-                «imp-conf:    «import-zoom:import«once:Once»(internalModule)»
-                }»
-                val checkoutModule = DI.Module("Checkout") {«conf-out:}»
-                «imp-conf:    «import-zoom:import«once:Once»(internalModule)»
-                }»
-                val appContainer = DI {
-                   «import-zoom:importAll(«conf-out:internalModule, »accountModule, checkoutModule)»
-                }
-            """.trimIndent(),
-        ) {
-            "imp-conf" { lineHeight(state >= 1) }
-            "conf-out" { fontGrow(state < 1) }
-            "import-zoom" { zoomed(state in 2..4) }
-            "once" { fontGrow(state >= 4) }
-        }
-        Div({
-            css {
-                position(Position.Fixed)
-                fontSize(2.em)
-                top(4.8.em)
-                right(7.em)
-            }
-            shownIf(state == 3, Transitions.stamp)
-        }) {
-            Text(Emoji.bomb)
-        }
-        Div({
-            css {
-                position(Position.Fixed)
-                fontSize(2.em)
-                top(4.8.em)
-                right(5.em)
-            }
-            shownIf(state == 4, Transitions.stamp)
-        }) {
-            Text(Emoji.slightly_smiling_face)
-        }
-    },
+//    Slide(
+//        name = "module-import-once",
+//        stateCount = 5
+//    ) { state ->
+//        SourceCode(
+//            lang = "kotlin",
+//            code = """
+//                val accountModule = DI.Module("Account") {«conf-out:}»
+//                «imp-conf:    «import-zoom:import«once:Once»(internalModule)»
+//                }»
+//                val checkoutModule = DI.Module("Checkout") {«conf-out:}»
+//                «imp-conf:    «import-zoom:import«once:Once»(internalModule)»
+//                }»
+//                val appContainer = DI {
+//                   «import-zoom:importAll(«conf-out:internalModule, »accountModule, checkoutModule)»
+//                }
+//            """.trimIndent(),
+//        ) {
+//            "imp-conf" { lineHeight(state >= 1) }
+//            "conf-out" { fontGrow(state < 1) }
+//            "import-zoom" { zoomed(state in 2..4) }
+//            "once" { fontGrow(state >= 4) }
+//        }
+//        Div({
+//            css {
+//                position(Position.Fixed)
+//                fontSize(2.em)
+//                top(4.8.em)
+//                right(7.em)
+//            }
+//            shownIf(state == 3, Transitions.stamp)
+//        }) {
+//            Text(Emoji.bomb)
+//        }
+//        Div({
+//            css {
+//                position(Position.Fixed)
+//                fontSize(2.em)
+//                top(4.8.em)
+//                right(5.em)
+//            }
+//            shownIf(state == 4, Transitions.stamp)
+//        }) {
+//            Text(Emoji.slightly_smiling_face)
+//        }
+//    },
     Slide(
         name = "modules-override",
-        stateCount = 7
+        stateCount = 6
     ) { state ->
         SourceCode(
             lang = "kotlin",
             code = """
-                «containers:«test-out:val internalModule = DI.Module("Internal") {
+                «test-out:val internalModule = DI.Module("Internal") {
                     bindInstance { productionParameters }
                 }
                 
@@ -138,12 +138,12 @@ val modulesAndExtensions = listOf(
                     import(internalModule)    
                 «bind:    bindInstance«override:(overrides = true)» { testParameters }
                 »}
-                »»«result:
-                assertEquals(
+                »«result:
+                assertSame(
                     appContainer.instance<AppConfiguration>(), 
                     productionConfiguration
                 )
-                assertEquals(
+                assertSame(
                     testContainer.instance<AppConfiguration>(), 
                     testConfiguration
                 )
@@ -153,13 +153,9 @@ val modulesAndExtensions = listOf(
             "test-in" { lineHeight(state >= 1) }
             "test-out" { lineHeight(state < 1) }
             "bind" { lineHeight(state >= 2) }
-            "override" { fontGrow(state in 3..5) }
-            "containers" { lineHeight(state != 4) }
-            "result" {
-                lineHeight(state >= 4)
-                zoomed(state == 4)
-            }
-            "silent" { fontGrow(state >= 6) }
+            "override" { fontGrow(state in 3..4) }
+            "result" { lineHeight(state >= 4) }
+            "silent" { fontGrow(state >= 5) }
         }
     },
     Slide(
@@ -203,7 +199,7 @@ val modulesAndExtensions = listOf(
                 »«result:
                 val mainRepo: UserRepository by main.instance()
                 val subRepo: UserRepository by sub.instance()
-                »«assert:assertEquals(mainRepo, subRepo) «true:// True!»«false:// False!»
+                »«assert:assertSame(mainRepo, subRepo) «true:// True!»«false:// False!»
                 »
             """.trimIndent(),
         ) {

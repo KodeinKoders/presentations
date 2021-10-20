@@ -10,7 +10,7 @@ import org.jetbrains.compose.web.dom.*
 val bindingTypes = listOf(
     Slide(
         "binding-types",
-        stateCount = 10
+        stateCount = 9
     ) { state ->
         H1 {
             Text("Types of bindings")
@@ -20,15 +20,15 @@ val bindingTypes = listOf(
             code = """
                 val di = DI {
                 «lPr:
-                    «bPr:bind«bBind:Provider» { AppHttpClient(«par:instance()») }»
+                    «bPr:bind«bBind:Provider» { AppHttpClient() }»
                 »«lFa:
-                    «bFa:bind«bBind:Factory» { id: String -> UserAPI(id«par:, instance()») }»
+                    «bFa:bind«bBind:Factory» { id: String -> UserAPI(id) }»
                 »«lSi:
                     «bSi:bind«bBind:Singleton»«gen:<DB>» { UserDB() }»
                 »«lIn:
                     «bIn:bind«bBind:Instance»«gen:<Params>» { applicationParameters }»
                 »«lMu:
-                    «bMu:bind«bBind:Multiton» { sc: Secret -> CrypDB(sc«par:, instance()») }»
+                    «bMu:bind«bBind:Multiton» { sc: Secret -> CrypDB(sc) }»
                 »
                 }
             """.trimIndent()
@@ -43,9 +43,8 @@ val bindingTypes = listOf(
             "bIn" { zoomed(state == 4, 1.2) }
             "lMu" { lineHeight(state >= 5) }
             "bMu" { zoomed(state == 5, 1.2) }
-            "par" { fontGrow(state >= 7) }
-            "gen" { fontGrow(state >= 8) }
-            "bBind" { zoomed(state == 9) }
+            "gen" { fontGrow(state >= 7) }
+            "bBind" { zoomed(state == 8) }
         }
     },
     Slide(

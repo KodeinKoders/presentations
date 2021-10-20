@@ -36,7 +36,7 @@ fun main() {
         +modulesAndExtensions
         +debug
         +scopeSlides
-        +externaSource
+//        +externaSource
         +compose
         +swift
         +compilerPlugin

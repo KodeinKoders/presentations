@@ -32,8 +32,8 @@ val swift = listOf(
                     }
                 }
                 »
-                // Binding
-                «b:let module = DIModule { (b: binder) -> Void in
+                «b:// Binding
+                let module = DIModule { (b: binder) -> Void in
                     b.bind(Ctrl.self, singleton { Ctrl() }
                 }
                 »

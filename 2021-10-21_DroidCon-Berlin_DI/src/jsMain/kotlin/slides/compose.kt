@@ -32,7 +32,7 @@ val compose = listOf(
             lang = "kotlin",
             code = """
         @Composable
-        «fun: fun App( ) {
+        «fun: fun App() {
         »«with: fun App() = withDI({ 
             bindInstance { productionParameters }
             bindSingleton { UserController(instance()) }
@@ -47,7 +47,7 @@ val compose = listOf(
         }
         »«sub:@Composable
         fun ContentView() {
-            subDI( {  // Extends container from CompositionLocal
+            subDI({  // Extends container from CompositionLocal
                 bindSingleton { AccountController(instance()) }
             }) { /* .. */ }
         }»
@@ -101,7 +101,6 @@ val compose = listOf(
         fun App() {
         «di:    val di = «aware:androidContextDI()» 
         »«remember:    val userController: UserController by «aware:rememberInstance()»
-            val state = userController.model.collectAsState()
             /* ... */
         »}
       """.trimIndent()

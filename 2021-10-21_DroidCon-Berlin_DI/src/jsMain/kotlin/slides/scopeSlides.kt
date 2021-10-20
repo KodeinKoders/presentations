@@ -49,7 +49,7 @@ val scopeSlides = listOf(
             }
             Li {
                 B { Text("Compose") }
-                Text(": Work In Progress!")
+                Text(": Android & Multiplatform!")
             }
         }
     },
@@ -89,7 +89,7 @@ val scopeSlides = listOf(
 
     Slide(
         name = "scoped-binding",
-        stateCount = 8
+        stateCount = 5
     ) { state ->
         SourceCode(
             lang = "kotlin",
@@ -105,11 +105,6 @@ val scopeSlides = listOf(
                 «ct:    registerContextTranslator<Request, Session> {
                         it.getSession()
                     }
-                
-                »«cf:    registerContextFinder {
-                        Globals.currentRequest
-                    }
-                
                 »}
             """.trimIndent()
         ) {
@@ -118,8 +113,6 @@ val scopeSlides = listOf(
             "b" { lineHeight(state >= 2) }
             "d" { fontGrow(state >= 2) }
             "c" { fontGrow(state >= 3) }
-            "ct" { lineHeight(state >= 4) }
-            "cf" { lineHeight(state in 5..6) }
         }
 
         H4({
@@ -128,11 +121,8 @@ val scopeSlides = listOf(
                 color(KodeinColor.kamethiste.css)
                 letterSpacing(0.em)
             }
-            shownIf(state >= 6, grow)
+            shownIf(state >= 4, grow)
         }) {
-            Span({
-                hiddenIf(state >= 7, fontGrow)
-            }) { Text("GLOBAL --> ") }
             Text("REQUEST --> SESSION")
         }
     },

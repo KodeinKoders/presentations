@@ -68,8 +68,8 @@ val injectionRetrieval = listOf(
             »«override:     override val di: DI
             »)«diaware:: DIAware» {
             «comment:    /* ... */
-            }»«retrieve:    private val db: DB by instance()
-                private val httpClient: HttpClient by instance()
+            }»«retrieve:    private val db: DB «lazy:by» instance()
+                private val httpClient: HttpClient «lazy:by» instance()
             »«eoc:}»«fun:«lazy:    fun saveUser(user: User) = db.put(user)»
             }»«container:
         
