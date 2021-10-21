@@ -89,7 +89,7 @@ val scopeSlides = listOf(
 
     Slide(
         name = "scoped-binding",
-        stateCount = 5
+        stateCount = 6
     ) { state ->
         SourceCode(
             lang = "kotlin",
@@ -113,6 +113,7 @@ val scopeSlides = listOf(
             "b" { lineHeight(state >= 2) }
             "d" { fontGrow(state >= 2) }
             "c" { fontGrow(state >= 3) }
+            "ct" { lineHeight(state >= 4) }
         }
 
         H4({
@@ -121,7 +122,7 @@ val scopeSlides = listOf(
                 color(KodeinColor.kamethiste.css)
                 letterSpacing(0.em)
             }
-            shownIf(state >= 4, grow)
+            shownIf(state >= 5, grow)
         }) {
             Text("REQUEST --> SESSION")
         }

@@ -24,8 +24,8 @@ val swift = listOf(
         SourceCode(
             lang = "swift",
             code = """
-                // Retrieval
-                «r:struct MyView : View {
+                «r:// Retrieval
+                struct MyView : View {
                     @ViewBuilder var view: some View {
                         withInstance(Ctrl.self) { (c: Ctrl) -> Void in
                         }
