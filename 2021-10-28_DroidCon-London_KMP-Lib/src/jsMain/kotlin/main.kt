@@ -1,6 +1,5 @@
 import net.kodein.pres.Slide
 import net.kodein.pres.emojis.Emoji
-import net.kodein.theme.compose.pres.kodeinKodersSlide
 import net.kodein.theme.compose.pres.kodeinPres
 import net.kodein.theme.compose.pres.kodeinSlides
 import org.jetbrains.compose.web.css.em
@@ -35,9 +34,9 @@ fun main() {
         +example
         +stage0
         +stage1
-        +Todo("Stage 2.0: Compile a C library")
-        +Todo("Stage 2.1: Android with JNI")
-        +Todo("Stage 2.2: iOS with C/Interop")
+        +stage2_0
+        +stage2_1
+        +stage2_2
         +Todo("Stage 3.0: Android advanced API")
         +Todo("Stage 3.1: iOS Swift-only API")
         +Todo("Stage 4: Publish!")
