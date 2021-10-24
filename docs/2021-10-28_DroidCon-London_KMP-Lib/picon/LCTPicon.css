@@ -1,0 +1,294 @@
+@font-face {
+    font-family: 'Picon-Condensed';
+    src: url(LCTPicon/CondensedHairline/LCTPicon-CondensedHairline.eot),
+    url(LCTPicon/CondensedHairline/LCTPicon-CondensedHairline.woff) format('woff'),
+    url(LCTPicon/CondensedHairline/LCTPicon-CondensedHairline.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 100;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Condensed';
+    src: url(LCTPicon/CondensedUltra-light/LCTPicon-CondensedUltra-light.eot),
+    url(LCTPicon/CondensedUltra-light/LCTPicon-CondensedUltra-light.woff) format('woff'),
+    url(LCTPicon/CondensedUltra-light/LCTPicon-CondensedUltra-light.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 200;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Condensed';
+    src: url(LCTPicon/CondensedLight/LCTPicon-CondensedLight.eot),
+    url(LCTPicon/CondensedLight/LCTPicon-CondensedLight.woff) format('woff'),
+    url(LCTPicon/CondensedLight/LCTPicon-CondensedLight.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 300;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Condensed';
+    src: url(LCTPicon/CondensedRegular/LCTPicon-CondensedRegular.eot),
+    url(LCTPicon/CondensedRegular/LCTPicon-CondensedRegular.woff) format('woff'),
+    url(LCTPicon/CondensedRegular/LCTPicon-CondensedRegular.woff2) format('woff2');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Condensed';
+    src: url(LCTPicon/CondensedMedium/LCTPicon-CondensedMedium.eot),
+    url(LCTPicon/CondensedMedium/LCTPicon-CondensedMedium.woff) format('woff'),
+    url(LCTPicon/CondensedMedium/LCTPicon-CondensedMedium.woff2) format('woff2');
+    font-weight: 500;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Condensed';
+    src: url(LCTPicon/CondensedSemi-bold/LCTPicon-CondensedSemi-bold.eot),
+    url(LCTPicon/CondensedSemi-bold/LCTPicon-CondensedSemi-bold.woff) format('woff'),
+    url(LCTPicon/CondensedSemi-bold/LCTPicon-CondensedSemi-bold.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 600;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Condensed';
+    src: url(LCTPicon/CondensedBold/LCTPicon-CondensedBold.eot),
+    url(LCTPicon/CondensedBold/LCTPicon-CondensedBold.woff) format('woff'),
+    url(LCTPicon/CondensedBold/LCTPicon-CondensedBold.woff2) format('woff2');
+    font-style: normal;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Condensed';
+    src: url(LCTPicon/CondensedExtra-bold/LCTPicon-CondensedExtra-bold.eot),
+    url(LCTPicon/CondensedExtra-bold/LCTPicon-CondensedExtra-bold.woff) format('woff'),
+    url(LCTPicon/CondensedExtra-bold/LCTPicon-CondensedExtra-bold.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 800;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Condensed';
+    src: url(LCTPicon/CondensedBlack/LCTPicon-CondensedBlack.eot),
+    url(LCTPicon/CondensedBlack/LCTPicon-CondensedBlack.woff) format('woff'),
+    url(LCTPicon/CondensedBlack/LCTPicon-CondensedBlack.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 900;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon';
+    src: url(LCTPicon/Hairline/LCTPicon-Hairline.eot),
+    url(LCTPicon/Hairline/LCTPicon-Hairline.woff) format('woff'),
+    url(LCTPicon/Hairline/LCTPicon-Hairline.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 100;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon';
+    src: url(LCTPicon/Ultra-light/LCTPicon-Ultra-light.eot),
+    url(LCTPicon/Ultra-light/LCTPicon-Ultra-light.woff) format('woff'),
+    url(LCTPicon/Ultra-light/LCTPicon-Ultra-light.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 200;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon';
+    src: url(LCTPicon/Light/LCTPicon-Light.eot),
+    url(LCTPicon/Light/LCTPicon-Light.woff) format('woff'),
+    url(LCTPicon/Light/LCTPicon-Light.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 300;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon';
+    src: url(LCTPicon/Regular/LCTPicon-Regular.eot),
+    url(LCTPicon/Regular/LCTPicon-Regular.woff) format('woff'),
+    url(LCTPicon/Regular/LCTPicon-Regular.woff2) format('woff2');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon';
+    src: url(LCTPicon/Medium/LCTPicon-Medium.eot),
+    url(LCTPicon/Medium/LCTPicon-Medium.woff) format('woff'),
+    url(LCTPicon/Medium/LCTPicon-Medium.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 500;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon';
+    src: url(LCTPicon/Semi-bold/LCTPicon-Semi-bold.eot),
+    url(LCTPicon/Semi-bold/LCTPicon-Semi-bold.woff) format('woff'),
+    url(LCTPicon/Semi-bold/LCTPicon-Semi-bold.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 600;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon';
+    src: url(LCTPicon/Bold/LCTPicon-Bold.eot),
+    url(LCTPicon/Bold/LCTPicon-Bold.woff) format('woff'),
+    url(LCTPicon/Bold/LCTPicon-Bold.woff2) format('woff2');
+    font-style: normal;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon';
+    src: url(LCTPicon/Extra-bold/LCTPicon-Extra-bold.eot),
+    url(LCTPicon/Extra-bold/LCTPicon-Extra-bold.woff) format('woff'),
+    url(LCTPicon/Extra-bold/LCTPicon-Extra-bold.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 800;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon';
+    src: url(LCTPicon/Black/LCTPicon-Black.eot),
+    url(LCTPicon/Black/LCTPicon-Black.woff) format('woff'),
+    url(LCTPicon/Black/LCTPicon-Black.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 900;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Extended';
+    src: url(LCTPicon/ExtendedHairline/LCTPicon-ExtendedHairline.eot),
+    url(LCTPicon/ExtendedHairline/LCTPicon-ExtendedHairline.woff) format('woff'),
+    url(LCTPicon/ExtendedHairline/LCTPicon-ExtendedHairline.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 100;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Extended';
+    src: url(LCTPicon/ExtendedUltra-light/LCTPicon-ExtendedUltra-light.eot),
+    url(LCTPicon/ExtendedUltra-light/LCTPicon-ExtendedUltra-light.woff) format('woff'),
+    url(LCTPicon/ExtendedUltra-light/LCTPicon-ExtendedUltra-light.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 200;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Extended';
+    src: url(LCTPicon/ExtendedLight/LCTPicon-ExtendedLight.eot),
+    url(LCTPicon/ExtendedLight/LCTPicon-ExtendedLight.woff) format('woff'),
+    url(LCTPicon/ExtendedLight/LCTPicon-ExtendedLight.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 300;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Extended';
+    src: url(LCTPicon/ExtendedRegular/LCTPicon-ExtendedRegular.eot),
+    url(LCTPicon/ExtendedRegular/LCTPicon-ExtendedRegular.woff) format('woff'),
+    url(LCTPicon/ExtendedRegular/LCTPicon-ExtendedRegular.woff2) format('woff2');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Extended';
+    src: url(LCTPicon/ExtendedMedium/LCTPicon-ExtendedMedium.eot),
+    url(LCTPicon/ExtendedMedium/LCTPicon-ExtendedMedium.woff) format('woff'),
+    url(LCTPicon/ExtendedMedium/LCTPicon-ExtendedMedium.woff2) format('woff2');
+    font-weight: 500;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Extended';
+    src: url(LCTPicon/ExtendedSemi-bold/LCTPicon-ExtendedSemi-bold.eot),
+    url(LCTPicon/ExtendedSemi-bold/LCTPicon-ExtendedSemi-bold.woff) format('woff'),
+    url(LCTPicon/ExtendedSemi-bold/LCTPicon-ExtendedSemi-bold.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 600;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Extended';
+    src: url(LCTPicon/ExtendedBold/LCTPicon-ExtendedBold.eot),
+    url(LCTPicon/ExtendedBold/LCTPicon-ExtendedBold.woff) format('woff'),
+    url(LCTPicon/ExtendedBold/LCTPicon-ExtendedBold.woff2) format('woff2');
+    font-style: normal;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Extended';
+    src: url(LCTPicon/ExtendedExtra-bold/LCTPicon-ExtendedExtra-bold.eot),
+    url(LCTPicon/ExtendedExtra-bold/LCTPicon-ExtendedExtra-bold.woff) format('woff'),
+    url(LCTPicon/ExtendedExtra-bold/LCTPicon-ExtendedExtra-bold.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 800;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Picon-Extended';
+    src: url(LCTPicon/ExtendedBlack/LCTPicon-ExtendedBlack.eot),
+    url(LCTPicon/ExtendedBlack/LCTPicon-ExtendedBlack.woff) format('woff'),
+    url(LCTPicon/ExtendedBlack/LCTPicon-ExtendedBlack.woff2) format('woff2');
+    font-style: normal;
+    font-weight: 900;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}

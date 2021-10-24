@@ -2,6 +2,7 @@ package slides
 
 import net.kodein.pres.Slide
 import net.kodein.pres.Transitions
+import net.kodein.pres.Transitions.grow
 import net.kodein.pres.emojis.Emoji
 import net.kodein.pres.shownIf
 import net.kodein.pres.sourcecode.SourceCode
@@ -110,7 +111,7 @@ val stage1 = listOf(
             Text("Use Platform APIs")
         }
 
-        H1({ shownIf(state >= 1, Transitions.grow) }) { Text(Emoji.stars) }
+        H1({ shownIf(state >= 1, grow) }) { Text(Emoji.stars) }
 
     }
 )

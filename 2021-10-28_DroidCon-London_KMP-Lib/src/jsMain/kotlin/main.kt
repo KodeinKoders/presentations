@@ -37,9 +37,9 @@ fun main() {
         +stage2_0
         +stage2_1
         +stage2_2
-        +Todo("Stage 3.0: Android advanced API")
-        +Todo("Stage 3.1: iOS Swift-only API")
-        +Todo("Stage 4: Publish!")
+        +stage3_0
+        +stage3_1
+        +stage4
         +thankYou
     }
 }
