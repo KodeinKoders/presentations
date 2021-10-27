@@ -4,6 +4,8 @@ import net.kodein.pres.Slide
 import net.kodein.theme.KodeinColor
 import net.kodein.theme.compose.web.Logo
 import net.kodein.theme.compose.web.css
+import org.jetbrains.compose.web.attributes.ATarget
+import org.jetbrains.compose.web.attributes.target
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 
@@ -39,6 +41,17 @@ val thankYou = Slide(
                 }
             }) {
                 Text("DroidCon London - 28/10/2021")
+            }
+
+            H4 {
+                A(href = "https://github.com/KodeinKoders/Playground-Demo-Crypto", {
+                    target(ATarget.Blank)
+                }) {
+                    Span({ style { fontWeight(300) } }) { Text("https://github.com/") }
+                    Span({ style { fontWeight(600) } }) { Text("KodeinKoders/") }
+                    Br()
+                    Span({ style { fontWeight(600) } }) { Text("Playground-Demo-Crypto") }
+                }
             }
 
             P({
