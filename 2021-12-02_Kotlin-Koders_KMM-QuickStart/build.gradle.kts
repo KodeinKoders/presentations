@@ -42,7 +42,6 @@ kotlin {
 
 dependencies {
     resourceFiles("net.kodein.themes:compose-pres-resources:$kodeinThemeVersion")
-    resourceFiles("net.kodein.themes:illustrations:$kodeinThemeVersion")
 }
 
 // https://youtrack.jetbrains.com/issue/KT-49124
