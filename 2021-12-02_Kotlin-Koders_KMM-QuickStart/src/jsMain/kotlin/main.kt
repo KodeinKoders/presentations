@@ -41,6 +41,7 @@ fun main() {
         +mvi
         +kodeinDI
         +gradleFinal
+        +conclusion
 
         +thankYou
     }
