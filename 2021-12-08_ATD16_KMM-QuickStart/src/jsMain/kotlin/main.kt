@@ -30,7 +30,9 @@ fun Todo(name: String): Slide = Slide(
 fun main() {
     kodeinPres {
         +title
+        +atd
         +kodeinSlides()
+        +kotlin
 
         +kmm
         +gradle

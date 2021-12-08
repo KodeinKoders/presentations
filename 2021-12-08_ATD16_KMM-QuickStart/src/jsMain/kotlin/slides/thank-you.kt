@@ -62,6 +62,12 @@ val thankYou = Slide(
                     }
                 }) {
                     Text("Salomon BRYS")
+                    Br()
+                    A(href = "https://twitter.com/salomonbrys", {
+                        css { fontSize(0.8.em) }
+                    }) {
+                        Text("@salomonbrys")
+                    }
                 }
                 A(href = "https://kodein.net") {
                     Logo(KodeinColor.kaumon) { Text("Koders") }
@@ -81,25 +87,16 @@ val thankYou = Slide(
         }
 
         Div({
-            style {
+            css {
                 display(DisplayStyle.Flex)
-                flexDirection(FlexDirection.Column)
-                padding(0.em, 0.em, 0.em, 1.em)
-                alignItems(AlignItems.Center)
                 justifyContent(JustifyContent.Center)
+                alignItems(AlignItems.Center)
             }
         }) {
-            H1({
-                style {
-                    position(Position.Relative)
-                    color(KodeinColor.purple.css)
-                    fontWeight(700)
-                    fontSize(4.em)
-                    margin(0.em)
-                    transform { rotate(25.deg) }
+            Img(src = "img/atd/atd16.png") {
+                css {
+                    width(10.em)
                 }
-            }) {
-                Text("ADT16")
             }
         }
     }
