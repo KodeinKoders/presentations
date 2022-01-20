@@ -34,7 +34,15 @@ fun main() {
         +title
         +kodeinSlides(KodeinOpenSourceComponent("MocKMP", "mocking", Color("#EB5A44")))
 
-        Todo("Presentation")
+        +mockWithReflection
+        +ksp
+        +generation
+        +mockmpApi
+        +injection
+        +apiSpecifics
+        +argumentConstraints
+        +captureLists
+        +multiplatform
 
         +thankYou
     }
