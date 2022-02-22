@@ -17,7 +17,8 @@ val mockmpApi = Slide(
         lang = "kotlin",
         code = """
             «class:class MyTests : TestsWithMocks() {
-                override fun setUpMocks() = «gen:injectMocks(mocker)»»
+                override fun setUpMocks() =
+                    «gen:injectMocks(mocker)»»
 
             «mocks:    «gen:@Mock» lateinit var view: View
                 «gen:@Fake» lateinit var model: Model
