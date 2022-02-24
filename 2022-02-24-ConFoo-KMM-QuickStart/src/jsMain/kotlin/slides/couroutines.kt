@@ -13,6 +13,7 @@ import net.kodein.theme.compose.web.css
 import org.jetbrains.compose.web.css.em
 import org.jetbrains.compose.web.css.fontFamily
 import org.jetbrains.compose.web.css.fontSize
+import org.jetbrains.compose.web.css.fontWeight
 import org.jetbrains.compose.web.dom.*
 
 
@@ -64,7 +65,12 @@ val coroutines = listOf(
                     fontFamily(KodeinFont.main.name)
                 }
             }) {
-                Text("At the moment (December 2021)!")
+                Text("At the moment (February 2022)!")
+                Br()
+                Span({
+                    css { fontWeight(100) }
+                })
+                Text("Change is coming soon!")
             }
         }
 
