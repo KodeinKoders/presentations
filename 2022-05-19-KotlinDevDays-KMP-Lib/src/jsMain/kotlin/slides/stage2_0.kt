@@ -56,8 +56,7 @@ val stage2_0 = listOf(
                 B { Text("iOS") }
                 Text(": ")
                 Span { Text("arm64, x86_64") }
-                Text(" ")
-                Span({ shownIf(state >= 3, fade) }) { Text("(or universal)") }
+                Span({ shownIf(state >= 3, fade) }) { Text(", simulatorArm64") }
             }
         }
     },
