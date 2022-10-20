@@ -28,17 +28,17 @@ val mocKMP = listOf(
         SourceCode(
             lang = "kotlin",
             """
-                class UserControllerTests : TestsWithMocks() {
+                class BreweryControllerTests : TestsWithMocks() {
                     override fun setUpMocks() = «z:injectMocks(mocker)»
                 
-                    «z:@Mock lateinit var» repo: UsersRepository
-                    «z:@Fake lateinit var» user: User
-                    val controller «z: by withMocks» { UsersController(repo) }
+                    «z:@Mock lateinit var» repo: BreweriesRepository
+                    «z:@Fake lateinit var» brewery: Brewery
+                    val controller «z:by withMocks» { BreweriesController(repo) }
     
                     @Test fun testPrintUserInfos() {
-                        «z:every {» repo.getUser(isAny()) «z:} returns» user
-                        controller.printUserInfos(42)
-                        «z:verify {» repo.getUser(42) «z:}»
+                        «z:every {» repo.getBrewery(isAny()) «z:} returns» brewery
+                        controller.printBreweryInfos(42)
+                        «z:verify {» repo.getBrewery(42) «z:}»
                     }
                 }
             """.trimIndent()

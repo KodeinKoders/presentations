@@ -36,7 +36,7 @@ import org.kodein.cic.css
 val thankYou = Slide(
     name = "thank-you",
     stateCount = 1
-) { state ->
+) { _ ->
     Div({
         css {
             display(DisplayStyle.Flex)
@@ -64,7 +64,7 @@ val thankYou = Slide(
                     fontWeight(200)
                 }
             }) {
-                Text("DevCon Kotlin - 03/11/2022")
+                Text("DevCon #15 Kotlin - 03/11/2022")
             }
 
             P({

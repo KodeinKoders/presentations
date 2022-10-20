@@ -13,58 +13,30 @@ val android_head =
         H2 { Text("Use it on Android!") }
     }
 
-val android_vm = Slide(name = "android-vm", stateCount = 4) { state ->
+val android_view = Slide(name = "android-view", stateCount = 3) { state ->
     SourceCode(
         "kotlin",
         """
-                class BreweryViewModel : ViewModel() {«obs:
-                    private val service = Service()
-
-                    «z:private val _breweries = 
-                        MutableStateFlow<List<Brewery>>(emptyList())»
-                    val breweries = _breweries.asStateFlow()
-                    »     fun fetchBreweries() {«launch:
-                        viewModelScope.launch {
-                            «z:_breweries.emit(service.getBreweries())»
-                        }
-               »     }
-                }
+            @Composable
+            fun ContentView(store: BreweryStore) {
+                «z:val state = store.stateFlow.collectAsState()»
+                Column(modifier = Modifier.fillMaxHeight()) {
+                   Text(
+                        «z:text = "Brewery List (${'$'}{state.breweries.count()})",»
+                        modifier = Modifier.padding(6.dp)
+                    )
+                   LazyColumn {
+                        «z:items(state.breweries) {
+                Text(
+                    text = ${"\"\"\""}${'$'}{it.name} : ${'$'}{it.type}
+                        |${'$'}{it.city} ${'$'}{it.state}${"\"\"\""}.trimMargin(),
+                )
+            }»
+                    }
+               }
+            }
             """.trimIndent()
     ) {
-        "obs" { lineHeight(state >= 1) }
-        "launch" { lineHeight(state >= 2) }
-        "z" { zoomed(state == 3) }
-    }
-}
-
-val android_view = Slide(name = "android-view", stateCount = 6) { state ->
-    SourceCode(
-        "kotlin",
-        """
-                @Composable
-                fun ContentView(«vm:viewModel: BreweryViewModel») {«s:
-                    val breweries = viewModel.breweries.collectAsState()»«col:
-                    Column(modifier = Modifier.fillMaxHeight()) {»«count:
-                       Text(
-                            text = "Brewery List (${'$'}{breweries.value.count()})",
-                            modifier = Modifier.padding(6.dp)
-                        )»«list:
-                       LazyColumn {
-                            items(breweries.value) {
-                                Text(
-                                    text = ${"\"\"\""}${'$'}{it.name} : ${'$'}{it.type}
-                                        |${'$'}{it.city} ${'$'}{it.state}${"\"\"\""}.trimMargin(),
-                                )
-                            }
-                        }»«col:
-                   }
-                »}
-            """.trimIndent()
-    ) {
-        "vm" { fontGrow(state >= 1) }
-        "s" { lineHeight(state >= 2) }
-        "col" { lineHeight(state >= 3) }
-        "count" { lineHeight(state >= 4) }
-        "list" { lineHeight(state >= 5) }
+        "z" { zoomed(state == 1) }
     }
 }

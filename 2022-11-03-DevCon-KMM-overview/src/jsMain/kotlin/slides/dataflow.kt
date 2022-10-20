@@ -32,7 +32,7 @@ val redux = listOf(
 
     Slide(
         name = "uniflow-by-hand",
-        stateCount = 8
+        stateCount = 15
     ) { state ->
         SubSlide(state in 0..5, fade) {
             SourceCode(
@@ -63,7 +63,7 @@ val redux = listOf(
                 "a4-out" { shownIf(state <= 4, grow) }
             }
         }
-        SubSlide(state == 6, fade) {
+        SubSlide(state in 6..9, fade) {
             SourceCode(
                 lang = "kotlin",
                 """
@@ -71,50 +71,54 @@ val redux = listOf(
                         private val actionFlow: MutableSharedFlow<A>()
                         private val stateFlow: MutableStateFlow<S>()
                         
-                        fun subscribe(onState: (S) -> Unit): () -> Unit {
-                            val subscription = launch {
-                                stateFlow.collect { onState(it) }
-                            }
+                        «sub:fun subscribe(onState: (S) -> Unit): () -> Unit {
+                        val subscription = launch {
+                            stateFlow.collect { onState(it) }
+                        }
 
-                            return ({ subscription.cancel() })
-                        }
+                        return ({ subscription.cancel() })
+                    }»
                         
-                        fun sendAction(action: A) {
-                            launch { actionFlow.emit(action) }
-                        }
+                        «act:fun sendAction(action: A) {
+                        launch { actionFlow.emit(action) }
+                    }»
                         
-                        fun stop() { job.cancel() }
+                        «stop:fun stop() { job.cancel() }»
                     }
                 """.trimIndent()
             ) {
-                "z" { zoomed(state == 2) }
+                "sub" { zoomed(state == 7) }
+                "act" { zoomed(state == 8) }
+                "stop" { zoomed(state == 9) }
             }
         }
-        SubSlide(state == 7, fade) {
+        SubSlide(state in 10..14, fade) {
             SourceCode(
                 lang = "kotlin",
                 """
-                    abstract class Store<S : State, A : Action>(...) {
+                    abstract class Store<S : State, A : Action>(...) : CoroutineScope {
                         private val actionFlow: MutableSharedFlow<A>()
-                        private val stateFlow: MutableStateFlow<S>()
+                        private val «emit:stateFlow»: MutableStateFlow<S>()
                         
                         init {
                             launch {
                                 actionFlow
-                                    .flatMapMerge { action ->
-                                        allUseCases
-                                            .flatMapMerge { useCase ->
-                                                useCase(action)
-                                            }
-                                    }
-                                    .mapNotNull { reducer.reduce(stateFlow.value, it) }
-                                    .collect { stateFlow.emit(it) }
+                                    «act:.flatMapMerge { action ->
+                        allUseCases
+                           .flatMapMerge { useCase ->
+                                useCase(action)
+                            }
+                    }»
+                                    .mapNotNull { «red:reducer.reduce(stateFlow.value, it)» }
+                                    «emit:.collect { stateFlow.emit(it) }»
                             }
                         }
                     }
                 """.trimIndent()
             ) {
-                "z" { zoomed(state == 2) }
+                "act" { zoomed(state == 11) }
+                "red" { zoomed(state == 12) }
+                "emit" { zoomed(state == 13) }
             }
         }
     }

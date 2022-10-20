@@ -1,35 +1,43 @@
 package slides
 
+import net.kodein.pres.OverlayAttrs
 import net.kodein.pres.Slide
 import net.kodein.theme.KodeinColor
-import net.kodein.theme.compose.web.Logo
 import net.kodein.theme.compose.web.css
-import org.jetbrains.compose.web.attributes.ATarget
-import org.jetbrains.compose.web.attributes.target
 import org.jetbrains.compose.web.css.AlignItems
 import org.jetbrains.compose.web.css.DisplayStyle
 import org.jetbrains.compose.web.css.FlexDirection
 import org.jetbrains.compose.web.css.JustifyContent
 import org.jetbrains.compose.web.css.alignItems
+import org.jetbrains.compose.web.css.backgroundColor
 import org.jetbrains.compose.web.css.color
 import org.jetbrains.compose.web.css.display
 import org.jetbrains.compose.web.css.em
 import org.jetbrains.compose.web.css.flexDirection
 import org.jetbrains.compose.web.css.fontSize
 import org.jetbrains.compose.web.css.fontWeight
+import org.jetbrains.compose.web.css.height
 import org.jetbrains.compose.web.css.justifyContent
 import org.jetbrains.compose.web.css.margin
-import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H1
-import org.jetbrains.compose.web.dom.H3
+import org.jetbrains.compose.web.dom.H4
+import org.jetbrains.compose.web.dom.Img
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 import org.kodein.cic.css
 
 
 val title = Slide(
-    name = "title"
+    name = "title",
+    config = {
+        OverlayAttrs {
+            css {
+                backgroundColor(KodeinColor.cute.css)
+                color(KodeinColor.dark.css)
+            }
+        }
+    }
 ) {
     Div({
         css {
@@ -50,15 +58,15 @@ val title = Slide(
 
             P({
                 css {
-                    fontWeight(200)
+                    fontWeight(300)
                 }
             }) {
-                Text("DevCon Kotlin - 03/11/2022")
+                Text("DevCon #15 Kotlin - 03/11/2022")
             }
         }
     }
 
-    H3({
+    H4({
         css {
             color(KodeinColor.kaumon.css)
             display(DisplayStyle.Flex)
@@ -70,13 +78,33 @@ val title = Slide(
         Text("Romain BOISSELLE")
     }
 
-    A(href = "https://kodein.net", {
-        target(ATarget.Blank)
+    Div({
         css {
-            margin(0.5.em)
-            fontSize(2.em)
+            display(DisplayStyle.Flex)
+            flexDirection(FlexDirection.Row)
+            justifyContent(JustifyContent.Center)
+            alignItems(AlignItems.Center)
         }
     }) {
-        Logo { Text("Koders") }
+        Img("img/logos/programmez.png") {
+            css {
+                height(3.em)
+                margin(0.5.em)
+            }
+        }
+
+        Img("img/logos/esgi.png") {
+            css {
+                height(6.em)
+                margin(0.5.em)
+            }
+        }
+
+        Img("img/logos/jb_square.png") {
+            css {
+                height(6.em)
+                margin(0.5.em)
+            }
+        }
     }
 }

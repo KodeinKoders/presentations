@@ -4,6 +4,7 @@ import net.kodein.pres.Slide
 import net.kodein.pres.Transitions.fade
 import net.kodein.pres.shownIf
 import net.kodein.pres.sourcecode.SourceCode
+import net.kodein.pres.sourcecode.zoomed
 import net.kodein.pres.util.transition
 import org.jetbrains.compose.web.css.em
 import org.jetbrains.compose.web.css.fontSize
@@ -23,20 +24,22 @@ import org.kodein.cic.css
 val sqlDelight = listOf(
     Slide(
         name = "sql-delight",
-        stateCount = 2,
+        stateCount = 4,
     ) { state ->
         H2 { Text("SQL-Delight") }
 
         SourceCode(
             lang = "text",
             """
-                selectAll:
-                SELECT * FROM breweries;
+                «qry:selectAll»:
+                SELECT * FROM brewery;
     
-                insert:
-                INSERT INTO breweries(id, name, type) VALUES (?, ?, ?);
+                «qry:insert»:
+                INSERT INTO brewery(id, name, type) VALUES (?, ?, ?);
             """.trimIndent()
-        )
+        ) {
+            "qry" { zoomed(state == 2) }
+        }
 
         Div({ shownIf(state >= 1, fade) }) {
             Hr {
@@ -48,11 +51,13 @@ val sqlDelight = listOf(
             SourceCode(
                 lang = "kotlin",
                 """
-                    val playerQueries: PlayerQueries = database.playerQueries
-                    println(playerQueries.selectAll().executeAsList())
-                    playerQueries.insert(number = 10, name = "Corey Perry")
+                    val breweryQueries: BreweryQueries = database.breweryQueries
+                    println(«qry:breweryQueries.selectAll»().executeAsList())
+                    «qry:breweryQueries.insert»(id = 1, name = "Saint-Feuillien", type = PROPRIETOR)
                 """.trimIndent()
-            )
+            ) {
+                "qry" { zoomed(state == 2) }
+            }
         }
     },
 

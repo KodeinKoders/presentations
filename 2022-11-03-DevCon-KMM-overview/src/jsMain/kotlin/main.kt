@@ -11,7 +11,6 @@ import org.jetbrains.compose.web.dom.H3
 import org.jetbrains.compose.web.dom.Text
 import slides.android_head
 import slides.android_view
-import slides.android_vm
 import slides.conclusion
 import slides.devExperience
 import slides.downsides
@@ -68,14 +67,13 @@ fun main() {
         +repository
         +redux
         +kodein
+        +mocKMP
         +ios_head
         +ios_vm
-        +android_head
-        +android_vm
         +ios_view
+        +android_head
         +android_view
         +tada
-        +mocKMP
         +downsides
         +conclusion
         +thankYou
