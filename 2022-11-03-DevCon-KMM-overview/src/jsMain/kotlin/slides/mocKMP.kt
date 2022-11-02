@@ -35,7 +35,7 @@ val mocKMP = listOf(
                     «z:@Fake lateinit var» brewery: Brewery
                     val controller «z:by withMocks» { BreweriesController(repo) }
     
-                    @Test fun testPrintUserInfos() {
+                    @Test fun testPrintBreweryInfos() {
                         «z:every {» repo.getBrewery(isAny()) «z:} returns» brewery
                         controller.printBreweryInfos(42)
                         «z:verify {» repo.getBrewery(42) «z:}»

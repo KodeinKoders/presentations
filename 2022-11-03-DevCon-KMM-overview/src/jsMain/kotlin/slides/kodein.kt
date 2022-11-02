@@ -10,11 +10,9 @@ import net.kodein.pres.sourcecode.zoomed
 import org.jetbrains.compose.web.css.em
 import org.jetbrains.compose.web.css.marginBottom
 import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.H2
 import org.jetbrains.compose.web.dom.H3
 import org.jetbrains.compose.web.dom.H4
 import org.jetbrains.compose.web.dom.P
-import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
 
 
@@ -33,7 +31,7 @@ val kodein = listOf(
         SourceCode(
             lang = "kotlin",
             """
-                store:class BreweryStore(val httpClient: HttpClient, val db: DB)
+                class BreweryStore(val httpClient: HttpClient, val db: DB)
                 «di:
                 val di = DI {
                     bind«z1:Singleton»<HttpClient> { HttpClient() }

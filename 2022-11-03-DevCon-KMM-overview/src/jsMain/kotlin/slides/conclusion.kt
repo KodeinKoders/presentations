@@ -29,7 +29,7 @@ import org.kodein.cic.css
 
 val conclusion = Slide(
     name = "conclusion",
-    stateCount = 4
+    stateCount = 2
 ) { state ->
         H4({
             css { opacity(if (state == 0) 1 else 0.8) }
@@ -46,7 +46,7 @@ val conclusion = Slide(
 
 
     P({
-        shownIf(state >= 2, Transitions.fade)
+        shownIf(state >= 1, Transitions.fade)
         css {
             marginTop(0.em)
         }
@@ -55,7 +55,7 @@ val conclusion = Slide(
     }
 
     Div({
-        shownIf(state >= 3, Transitions.fontGrow)
+        shownIf(state >= 1, Transitions.fontGrow)
         css {
             display(DisplayStyle.Flex)
             flexDirection(FlexDirection.Column)

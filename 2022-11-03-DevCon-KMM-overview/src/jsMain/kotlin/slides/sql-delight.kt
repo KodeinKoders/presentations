@@ -53,7 +53,7 @@ val sqlDelight = listOf(
                 """
                     val breweryQueries: BreweryQueries = database.breweryQueries
                     println(«qry:breweryQueries.selectAll»().executeAsList())
-                    «qry:breweryQueries.insert»(id = 1, name = "Saint-Feuillien", type = PROPRIETOR)
+                    «qry:breweryQueries.insert»(1, "Saint-Feuillien", PROPRIETOR)
                 """.trimIndent()
             ) {
                 "qry" { zoomed(state == 2) }

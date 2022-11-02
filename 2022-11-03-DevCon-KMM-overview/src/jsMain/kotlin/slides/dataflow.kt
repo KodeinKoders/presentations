@@ -4,6 +4,7 @@ import net.kodein.pres.Slide
 import net.kodein.pres.Transitions.fade
 import net.kodein.pres.Transitions.grow
 import net.kodein.pres.sourcecode.SourceCode
+import net.kodein.pres.sourcecode.fontGrow
 import net.kodein.pres.sourcecode.lineHeight
 import net.kodein.pres.sourcecode.shownIf
 import net.kodein.pres.sourcecode.zoomed
@@ -32,7 +33,7 @@ val redux = listOf(
 
     Slide(
         name = "uniflow-by-hand",
-        stateCount = 15
+        stateCount = 14
     ) { state ->
         SubSlide(state in 0..5, fade) {
             SourceCode(
@@ -71,28 +72,33 @@ val redux = listOf(
                         private val actionFlow: MutableSharedFlow<A>()
                         private val stateFlow: MutableStateFlow<S>()
                         
-                        «sub:fun subscribe(onState: (S) -> Unit): () -> Unit {
-                        val subscription = launch {
-                            stateFlow.collect { onState(it) }
+                        fun subscribe(onState: (S) -> Unit): () -> Unit «sub-out:{ ... }»«sub-in1:{ »«sub-in2:
+                            val subscription = launch {
+                                stateFlow.collect { onState(it) }
+                            }
+    
+                            return ({ subscription.cancel() })
                         }
-
-                        return ({ subscription.cancel() })
-                    }»
                         
-                        «act:fun sendAction(action: A) {
-                        launch { actionFlow.emit(action) }
-                    }»
+                        »    fun sendAction(action: A) «act-out:{ ... }»«act-in1:{ »«act-in2:
+                            launch { actionFlow.emit(action) }
+                        }
                         
-                        «stop:fun stop() { job.cancel() }»
+                        »    fun stop() «stop-out:{ ... }»«stop-in:{ job.cancel() }»
                     }
                 """.trimIndent()
             ) {
-                "sub" { zoomed(state == 7) }
-                "act" { zoomed(state == 8) }
-                "stop" { zoomed(state == 9) }
+                "sub-out" { fontGrow(state != 7) }
+                "sub-in1" { fontGrow(state == 7) }
+                "sub-in2" { lineHeight(state == 7) }
+                "act-out" { fontGrow(state != 8) }
+                "act-in1" { fontGrow(state == 8) }
+                "act-in2" { lineHeight(state == 8) }
+                "stop-out" { fontGrow(state != 9) }
+                "stop-in" { fontGrow(state == 9) }
             }
         }
-        SubSlide(state in 10..14, fade) {
+        SubSlide(state in 10..13, fade) {
             SourceCode(
                 lang = "kotlin",
                 """
@@ -102,23 +108,21 @@ val redux = listOf(
                         
                         init {
                             launch {
-                                actionFlow
-                                    «act:.flatMapMerge { action ->
-                        allUseCases
-                           .flatMapMerge { useCase ->
-                                useCase(action)
-                            }
-                    }»
-                                    .mapNotNull { «red:reducer.reduce(stateFlow.value, it)» }
-                                    «emit:.collect { stateFlow.emit(it) }»
+                                «act-in:            actionFlow.flatMapMerge { action ->
+                                    allUseCases.flatMapMerge { useCase ->
+                                        useCase(action)
+                                    }
+                                }»«red-in:            .mapNotNull { 
+                                    reducer.reduce(stateFlow.value, it) 
+                                }»«emit-in:           .collect { stateFlow.emit(it) }»
                             }
                         }
                     }
                 """.trimIndent()
             ) {
-                "act" { zoomed(state == 11) }
-                "red" { zoomed(state == 12) }
-                "emit" { zoomed(state == 13) }
+                "act-in" { lineHeight(state >= 11) }
+                "red-in" { lineHeight(state >= 12) }
+                "emit-in" { lineHeight(state >= 13) }
             }
         }
     }
