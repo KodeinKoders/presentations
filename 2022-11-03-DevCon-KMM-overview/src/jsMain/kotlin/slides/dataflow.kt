@@ -33,7 +33,7 @@ val redux = listOf(
 
     Slide(
         name = "uniflow-by-hand",
-        stateCount = 14
+        stateCount = 18
     ) { state ->
         SubSlide(state in 0..5, fade) {
             SourceCode(
@@ -51,7 +51,7 @@ val redux = listOf(
                         «a3:val reducer: Reducer<S>»,
                         «a2:val useCases: Collection<UseCase>»,
                     «a4-in:) : CoroutineScope {
-                        fun subscribe(onState: (S) -> Unit): () -> Unit
+                        val stateFlow: StateFlow<S>
                         fun sendAction(action: A)
                         fun stop()
                     }»«a4-out:) : CoroutineScope»
@@ -70,17 +70,11 @@ val redux = listOf(
                 """
                     abstract class Store<S : State, A : Action>(...) : CoroutineScope {
                         private val actionFlow: MutableSharedFlow<A>()
-                        private val stateFlow: MutableStateFlow<S>()
+                        private val internalStateFlow: MutableStateFlow<S>()
                         
-                        fun subscribe(onState: (S) -> Unit): () -> Unit «sub-out:{ ... }»«sub-in1:{ »«sub-in2:
-                            val subscription = launch {
-                                stateFlow.collect { onState(it) }
-                            }
-    
-                            return ({ subscription.cancel() })
-                        }
+                        «state:val state = internalStateFlow.asStateFlow()»
                         
-                        »    fun sendAction(action: A) «act-out:{ ... }»«act-in1:{ »«act-in2:
+                        fun sendAction(action: A) «act-out:{ ... }»«act-in1:{ »«act-in2:
                             launch { actionFlow.emit(action) }
                         }
                         
@@ -88,14 +82,12 @@ val redux = listOf(
                     }
                 """.trimIndent()
             ) {
-                "sub-out" { fontGrow(state != 7) }
-                "sub-in1" { fontGrow(state == 7) }
-                "sub-in2" { lineHeight(state == 7) }
-                "act-out" { fontGrow(state != 8) }
-                "act-in1" { fontGrow(state == 8) }
-                "act-in2" { lineHeight(state == 8) }
-                "stop-out" { fontGrow(state != 9) }
-                "stop-in" { fontGrow(state == 9) }
+                "state" { zoomed(state == 7) }
+                "act-out" { fontGrow(state < 8) }
+                "act-in1" { fontGrow(state >= 8) }
+                "act-in2" { lineHeight(state >= 8) }
+                "stop-out" { fontGrow(state < 9) }
+                "stop-in" { fontGrow(state >= 9) }
             }
         }
         SubSlide(state in 10..13, fade) {
@@ -104,17 +96,17 @@ val redux = listOf(
                 """
                     abstract class Store<S : State, A : Action>(...) : CoroutineScope {
                         private val actionFlow: MutableSharedFlow<A>()
-                        private val «emit:stateFlow»: MutableStateFlow<S>()
+                        private val «emit:internalStateFlow»: MutableStateFlow<S>()
                         
                         init {
-                            launch {
-                                «act-in:            actionFlow.flatMapMerge { action ->
+                            launch {«act-in:        
+                                actionFlow.flatMapMerge { action ->
                                     allUseCases.flatMapMerge { useCase ->
                                         useCase(action)
                                     }
                                 }»«red-in:            .mapNotNull { 
-                                    reducer.reduce(stateFlow.value, it) 
-                                }»«emit-in:           .collect { stateFlow.emit(it) }»
+                                    reducer.reduce(internalStateFlow.value, it) 
+                                }»«emit-in:            .collect { internalStateFlow.emit(it) }»
                             }
                         }
                     }
@@ -123,6 +115,35 @@ val redux = listOf(
                 "act-in" { lineHeight(state >= 11) }
                 "red-in" { lineHeight(state >= 12) }
                 "emit-in" { lineHeight(state >= 13) }
+            }
+        }
+        SubSlide(state in 14..17, fade) {
+            SourceCode(
+                lang = "kotlin",
+                """
+                    data class BreweryState(
+                        val breweries: List<Breweries> = emptyList(),
+                    ): State
+                    «action:
+                    sealed interface BreweryAction: Action {
+                        object GetBreweries: Action
+                    }
+                    »«mutation: 
+                    object UpdateBreweries(
+                        val breweries: List<Breweries>
+                    ): Mutation
+                    »«store:
+                    class BreweryStore() : Store<BreweryState, BreweryAction>(
+                        initialState = BreweryState(),
+                        useCases = listOf(GetBreweriesUseCase()),
+                        reducer = BreweryReducer()
+                    )
+                    »
+                """.trimIndent()
+            ) {
+                "action" { lineHeight(state >= 15) }
+                "mutation" { lineHeight(state >= 16) }
+                "store" { lineHeight(state >= 17) }
             }
         }
     }

@@ -16,7 +16,7 @@ import utils.SweepingHeader
 
 val downsides = Slide(
     name = "downsides",
-    stateCount = 4
+    stateCount = 5
 ) { state ->
     SweepingHeader(state, "So, is there some downsides?")
 
@@ -49,4 +49,12 @@ val downsides = Slide(
             margin(1.em)
         }
     }) { Text("Build System - configuration and DX") }
+
+    Div({
+        shownIf(state >= 4, fade)
+        css {
+            fontSize(1.25.em)
+            margin(1.em)
+        }
+    }) { Text("Onboard every team with you.") }
 }
