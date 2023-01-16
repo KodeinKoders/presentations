@@ -9,7 +9,7 @@ import org.kodein.cic.css
 
 public enum class Illustration(private val filename: String) {
     OSS("open-source"),
-    Services("serivces"),
+    Services("services"),
     Team("team"),
     Training("training");
 
