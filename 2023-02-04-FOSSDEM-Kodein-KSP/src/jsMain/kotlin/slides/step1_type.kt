@@ -34,6 +34,7 @@ val typed = listOf(
     ) { state ->
         SourceCode(
             lang = "kotlin", code = """
+        /* Generated in build/generated/ksp */
         class GeneratedAppDependencies(val di: DI): AppDependencies {
             // This is a factory (String) -> BreweriesService
             fun breweriesService(«f-param:basUrl: String»): BreweriesService «f-eq:=»«f-return:       di.direct.instance<BreweriesService>(«f-param:arg = baseUrl») 
@@ -55,8 +56,10 @@ val typed = listOf(
     ) { state ->
         SourceCode(
             lang = "kotlin", code = """
+            /* Generated in build/generated/ksp */
             class GeneratedAppDependencies(val di: DI): AppDependencies { ... }
             «typed:
+            /* In your code */
             val di = DI {
             «bind:    bindFactory { url: String -> BreweriesService(url)  }
                 bindSingleton { BreweriesController(instance())  }

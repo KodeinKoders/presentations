@@ -52,6 +52,7 @@ val testing = listOf(
     ) { state ->
         SourceCode(
             lang = "kotlin", code = """
+            /* Generated in build/generated/ksp */
             class GeneratedAppDependencies(val di: DI): AppDependencies { 
                 // accessors
                 «override:    override fun check() {«req1:        require(di.hasFactory<String, BreweriesService>()) {
@@ -73,6 +74,7 @@ val testing = listOf(
     ) { state ->
         SourceCode(
             lang = "kotlin", code = """
+            /* In your code */
             val di = DI {
                 bindFactory { url: String -> BreweriesService(url)  }
                 bindSingleton { BreweriesController(instance())  }

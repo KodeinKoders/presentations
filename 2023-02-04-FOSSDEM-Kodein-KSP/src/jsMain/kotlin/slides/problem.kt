@@ -53,7 +53,7 @@ val problem = listOf(
     },
     Slide(
         name = "problem:di",
-        stateCount = 8
+        stateCount = 9
     ) { state ->
         SourceCode(
             lang = "kotlin",
@@ -63,26 +63,27 @@ val problem = listOf(
                 bindSingleton { UseCase(«what: ??? »«di-arg:instance()») }
                 bindSingleton { WhateverViewModel(«what: ??? »«di-arg:instance()») }
             }
-            »
+            »«retrieve:
             «get:// get() | inject() | ¯\_(ツ)_/¯
             »val ds: NetworkDataSource by di.instance()
             «ann:// @Inject | @Provide
             »val uc: UseCase by di.instance()
             «wtf:// Singleton? | Factory?
             »val viewModel: WhateverViewModel by di.instance(«arg:arg = ???»)
-            """.trimIndent()
+            »""".trimIndent()
         ) {
-            "get" { lineHeight(state > 0) }
-            "ann" { lineHeight(state > 1) }
-            "wtf" { lineHeight(state > 2) }
-            "arg" { fontGrow(state > 2) }
-            "di-out" { fontGrow(state <= 4) }
-            "di-in" { lineHeight(state > 4) }
-            "what" { fontGrow(state <= 5) }
-            "di-arg" { fontGrow(state > 5) }
+            "retrieve" { lineHeight(state > 0) }
+            "get" { lineHeight(state > 1) }
+            "ann" { lineHeight(state > 2) }
+            "wtf" { lineHeight(state > 3) }
+            "arg" { fontGrow(state > 3) }
+            "di-out" { fontGrow(state <= 5) }
+            "di-in" { lineHeight(state > 5) }
+            "what" { fontGrow(state <= 6) }
+            "di-arg" { fontGrow(state > 6) }
         }
-        Stamp(state == 4) { Text("Misleading API") }
-        Stamp(state == 7) { Text("No compile-time check") }
+        Stamp(state == 5) { Text("Misleading API") }
+        Stamp(state == 8) { Text("No compile-time check") }
     },
     Slide(name = "problem:monster") {
         H1 { Text("Did we just create a monster?") }
