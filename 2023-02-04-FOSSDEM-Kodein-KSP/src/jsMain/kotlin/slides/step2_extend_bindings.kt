@@ -7,8 +7,15 @@ import net.kodein.pres.sourcecode.SourceCode
 import net.kodein.pres.sourcecode.fontGrow
 import net.kodein.pres.sourcecode.lineHeight
 import net.kodein.pres.sourcecode.zoomed
+import org.jetbrains.compose.web.dom.H2
+import org.jetbrains.compose.web.dom.Text
 
 val extendedBindings = listOf(
+    Slide(
+        name = "binding-title",
+    ) {
+        H2 { Text("One more thing...") }
+    },
     Slide(
         name = "binding-ctx",
     ) {
@@ -57,7 +64,7 @@ val extendedBindings = listOf(
             "ctx" { lineHeight(state > 3) }
             "itf" { lineHeight(state <= 4) }
             "z3" { zoomed(state == 5) }
-            "of" { fontGrow(state > 3) }
+            "of" { fontGrow(state > 4) }
             "val-out" { fontGrow(state <= 4) }
             "val-in" { fontGrow(state > 4) }
             "ctx-out" { fontGrow(state <= 4) }
