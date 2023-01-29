@@ -43,7 +43,7 @@ val ksp = listOf(
             
             // build/generated/ksp
             class GeneratedFoo : Foo {
-                fun check() {
+                override fun check() {
                     TODO("Assert something.")
                 }
             }»
