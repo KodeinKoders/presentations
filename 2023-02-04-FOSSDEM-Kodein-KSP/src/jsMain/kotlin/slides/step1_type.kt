@@ -52,7 +52,7 @@ val typed = listOf(
     },
     Slide(
         name = "step1:use",
-        stateCount = 6,
+        stateCount = 7,
     ) { state ->
         SourceCode(
             lang = "kotlin", code = """
@@ -77,6 +77,7 @@ val typed = listOf(
             "ctrl" { lineHeight(state > 3) }
             "new-out" { fontGrow(state <= 4) }
             "new-in" { fontGrow(state > 4) }
+            "new-in" { zoomed(state > 5) }
         }
     }
 ).animatedWith(Animations.Move(towards = Animations.Move.Towards.Bottom))

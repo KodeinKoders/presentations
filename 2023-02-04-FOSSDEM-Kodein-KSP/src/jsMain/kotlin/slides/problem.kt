@@ -82,7 +82,7 @@ val problem = listOf(
             "what" { fontGrow(state <= 6) }
             "di-arg" { fontGrow(state > 6) }
         }
-        Stamp(state == 5) { Text("Misleading API") }
+        Stamp(state == 5) { Text("Confusing") }
         Stamp(state == 8) { Text("No compile-time check") }
     },
     Slide(name = "problem:monster") {
