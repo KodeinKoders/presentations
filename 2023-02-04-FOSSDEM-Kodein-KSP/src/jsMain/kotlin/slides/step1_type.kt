@@ -65,7 +65,7 @@ val typed = listOf(
                 bindSingleton { BreweriesController(instance())  }
             »}
             
-            «deps:val deps: AppDependencies = «new-in:di.newAppDependencies()»«new-out:GeneratedAppDependencies(di)»
+            «deps:val deps: AppDependencies = «new-in:«exfun:di.newAppDependencies()»»«new-out:GeneratedAppDependencies(di)»
             »«ctrl:
             val controller: BreweriesController = deps.breweriesController()
             »»
@@ -77,7 +77,7 @@ val typed = listOf(
             "ctrl" { lineHeight(state > 3) }
             "new-out" { fontGrow(state <= 4) }
             "new-in" { fontGrow(state > 4) }
-            "new-in" { zoomed(state > 5) }
+            "exfun" { zoomed(state == 6) }
         }
     }
 ).animatedWith(Animations.Move(towards = Animations.Move.Towards.Bottom))
