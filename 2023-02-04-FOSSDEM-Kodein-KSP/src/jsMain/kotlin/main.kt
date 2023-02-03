@@ -18,15 +18,16 @@ fun main() {
     kodeinPres {
         +title
         +kodeinSlides(KodeinOpenSourceComponent("KODEIN", "dependency injection", Color("#EF822B")))
-        +Illustration.Team() // Let's talk Dependency Injection?
+        +Illustration.Team()
         +problem
-        +Illustration.Services() // Not quite! There is still room for improvement :)
+        +Illustration.Services()
         +ksp
         +goals
         +typed
         +testing
         +extendedBindings
         +state
+        +Illustration.OSS()
         +thankYou
     }
 }
