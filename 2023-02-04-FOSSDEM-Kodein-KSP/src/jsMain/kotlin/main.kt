@@ -15,7 +15,7 @@ import slides.typed
 import utils.Illustration
 
 fun main() {
-    kodeinPres {
+    kodeinPres(nextOnClick = true) {
         +title
         +kodeinSlides(KodeinOpenSourceComponent("KODEIN", "dependency injection", Color("#EF822B")))
         +Illustration.Team()
