@@ -1,7 +1,7 @@
 plugins {
     id("net.kodein.gradle.resources.resource-files") version "1.0.0"
-    kotlin("multiplatform") version "1.7.20"
-    id("org.jetbrains.compose") version "1.2.2"
+    kotlin("multiplatform") version "1.8.0"
+    id("org.jetbrains.compose") version "1.3.0"
 }
 
 repositories {
@@ -11,7 +11,7 @@ repositories {
     google()
 }
 
-val kodeinThemeVersion = "1.8.1"
+val kodeinThemeVersion = "1.9.0"
 
 kotlin {
     js(IR) {
