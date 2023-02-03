@@ -48,7 +48,7 @@ val state = listOf(
     ) { state ->
         SourceCode(
             lang = "kotlin", code = """
-            val oldWay: String = di.instance(tag = "breweries-api")
+            val oldWay: String by di.instance(tag = "breweries-api")
            «tag:
             // ------------------------------------------------ //
             
@@ -92,7 +92,7 @@ val state = listOf(
     ) { state ->
         SourceCode(
             lang = "kotlin", code = """
-            val ctrl: Controller = di.on<MyScope>.instance()
+            val ctrl: Controller by di.on<MyScope>.instance()
             «scope:
              // ----------------------------------------- //
             
