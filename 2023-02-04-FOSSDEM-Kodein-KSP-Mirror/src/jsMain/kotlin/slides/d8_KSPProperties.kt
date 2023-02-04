@@ -58,12 +58,25 @@ val d8_KSPProperties = listOf(
             }) { Text(" (As opposed to a Kotlin Compiler plugin.)") }
         }
 
-        Ul {
+        Ul({
+            css {
+                "li" {
+                    padding(0.5.em, 0.em)
+                    "li" {
+                        padding(0.em)
+                    }
+                }
+            }
+        }) {
             Li({ shownIf(state >= 1, fade) }) {
                 Text("\"Stable\" API")
             }
             Li({ shownIf(state >= 2, fade) }) {
-                Text("Kotlin Gradle compiler toolchain easy integration")
+                Text("Kotlin compiler plugin:")
+                Ul {
+                    Li { Text("Compiler integration") }
+                    Li { Text("Gradle integration") }
+                }
             }
             Li({ shownIf(state >= 3, fade) }) {
                 Text("Simplicity for generator use-cases")
