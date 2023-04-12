@@ -4,7 +4,7 @@ import slides.*
 
 
 fun main() {
-    kodeinPres {
+    kodeinPres(nextOnClick = true) {
         +title
         +d1_multiplatform
         +illus("team")
