@@ -42,7 +42,7 @@ val d3_communication = listOf(
         stateCount = 6
     ) { state ->
         H1 {
-            Img(src = "img/Kotlin.svg") {
+            Img(src = "img/kotlin.svg") {
                 css {
                     width(1.em)
                     height(1.em)
@@ -64,7 +64,7 @@ val d3_communication = listOf(
             Span({ shownIf(state >= 3, fontGrow) }) { Text("and") }
             Br()
             Span({ shownIf(state in 1..2, fontGrow) }) { Text("will ") }
-            Img(src = "img/Kotlin.svg") {
+            Img(src = "img/kotlin.svg") {
                 css {
                     width(1.em)
                     height(1.em)

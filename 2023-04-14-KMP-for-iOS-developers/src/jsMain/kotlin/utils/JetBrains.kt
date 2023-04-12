@@ -29,7 +29,7 @@ fun JetBrains(
         }
         attrs?.invoke(this)
     }) {
-        Img(src = "img/Jetbrains.svg") {
+        Img(src = "img/JetBrains.svg") {
             css {
                 width(6.em)
                 height(6.em)

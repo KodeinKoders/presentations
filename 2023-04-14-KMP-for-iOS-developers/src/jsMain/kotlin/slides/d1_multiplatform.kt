@@ -100,7 +100,7 @@ private fun plt(d: Dir) = object : Transition {
 
 // Kotlin Layer Transition
 private val klt = object : Transition {
-    override val cssTransitions: org.jetbrains.compose.web.css.Transitions.() -> Unit = {
+    override val cssTransitions: Transitions.() -> Unit = {
         "opacity" { duration = 1.s }
         "transform" { duration = 1.s }
     }
@@ -185,7 +185,7 @@ val d1_multiplatform = listOf(
                     }
                 }
             ) {
-                LayerLogo("Kotlin.svg") {
+                LayerLogo("kotlin.svg") {
                     css {
                         if (state < 1) opacity(0)
                         if (state < 6) transform { translateY(2.8.em) }
