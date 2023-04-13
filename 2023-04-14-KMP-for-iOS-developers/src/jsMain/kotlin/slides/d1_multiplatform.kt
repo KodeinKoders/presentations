@@ -185,7 +185,7 @@ val d1_multiplatform = listOf(
                     }
                 }
             ) {
-                LayerLogo("kotlin.svg") {
+                LayerLogo("Kotlin.svg") {
                     css {
                         if (state < 1) opacity(0)
                         if (state < 6) transform { translateY(2.8.em) }

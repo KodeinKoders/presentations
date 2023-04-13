@@ -45,7 +45,19 @@ val d6_swiftApiInSwift = listOf(
     },
 
     Slide(
-        name = "mp-flow-swift",
+        name = "mp-flow-swift-class"
+    ) {
+        SourceCode("swift", """
+            public class MPFlow<T> : KotlinBase where T : AnyObject {
+                open func subscribe(
+                    next: @escaping (T) -> Void,
+                    completion: @escaping (KotlinThrowable?) -> Void
+                ) -> () -> Void
+            }
+        """.trimIndent())
+    },
+    Slide(
+        name = "mp-flow-swift-util",
         stateCount = 2
     ) { state ->
         SubSlide(state == 0, fade) {

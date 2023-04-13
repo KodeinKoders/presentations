@@ -31,7 +31,7 @@ val d3_communication = listOf(
             Text("do to improve")
             Br()
             Span({ css { color(KodeinColor.orange.css) } }) {
-                Text("communication & engagement")
+                Text("communication")
             }
             Br()
             Text("with iOS developers?")
@@ -42,7 +42,7 @@ val d3_communication = listOf(
         stateCount = 6
     ) { state ->
         H1 {
-            Img(src = "img/kotlin.svg") {
+            Img(src = "img/Kotlin.svg") {
                 css {
                     width(1.em)
                     height(1.em)
@@ -64,7 +64,7 @@ val d3_communication = listOf(
             Span({ shownIf(state >= 3, fontGrow) }) { Text("and") }
             Br()
             Span({ shownIf(state in 1..2, fontGrow) }) { Text("will ") }
-            Img(src = "img/kotlin.svg") {
+            Img(src = "img/Kotlin.svg") {
                 css {
                     width(1.em)
                     height(1.em)
@@ -174,10 +174,10 @@ val d3_communication = listOf(
         SubSlide(state == 0, fade) {
             LangMarker("Kotlin")
             SourceCode("kotlin", """
-                enum class PlaneEquipment {
-                    AutoPilot,
-                    GlassCockpit,
-                    GPS
+                interface Plane {
+                    val make: String
+                    val model: String
+                    fun equipments(): List<PlaneEquipment>
                 }
             """.trimIndent())
         }

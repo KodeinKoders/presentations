@@ -161,8 +161,8 @@ val d5_deployment = listOf(
                         .«f:binary»«s:t»«f:T»arget(
                             name: "MyAmazingSharedLib",
                 «l:            url: "https://bin.kompa.ny/framework.zip",
-                            checksum: "6d988a1a27418674b4d7c31732f6d..."»
-                        ),
+                            checksum: "6d988a1a27418674b4d7c31732f6d..."
+                »        ),
                     ]
                 )
             """.trimIndent()) {

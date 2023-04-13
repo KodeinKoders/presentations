@@ -262,7 +262,7 @@ val d2_api = listOf(
                     «s:    fun subscribe(
                             next: (T) -> Unit,
                             completion: (Throwable?) -> Unit
-                        ) {
+                        ): () -> Unit {
                             val job = MainScope().launch {
                                 flow.onCompletion { completion(it) }
                                     .collect { next(it) }
