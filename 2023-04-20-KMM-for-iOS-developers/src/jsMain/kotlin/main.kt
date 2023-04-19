@@ -9,14 +9,13 @@ fun main() {
         +problem
         +multiplatform
         +expect_actual
-        +ecosystem
-        +kotlin_native
         +DX
         +redux
         +ios
         +android
         +tada
-//        +faq
+        +ecosystem
+        +kotlin_native
         +kodeinSlides()
         +thankYou
     }
