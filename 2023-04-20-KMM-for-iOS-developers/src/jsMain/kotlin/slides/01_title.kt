@@ -6,11 +6,7 @@ import net.kodein.theme.compose.web.Logo
 import net.kodein.theme.compose.web.css
 import org.jetbrains.compose.web.attributes.ATarget
 import org.jetbrains.compose.web.attributes.target
-import org.jetbrains.compose.web.css.color
-import org.jetbrains.compose.web.css.em
-import org.jetbrains.compose.web.css.fontSize
-import org.jetbrains.compose.web.css.fontWeight
-import org.jetbrains.compose.web.css.margin
+import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.Br
 import org.jetbrains.compose.web.dom.H1
@@ -23,6 +19,17 @@ import org.kodein.cic.css
 val title = Slide(
     name = "title"
 ) {
+
+    A(href = "https://kodein.net", {
+        target(ATarget.Blank)
+        css {
+            margin(1.em)
+            fontSize(2.em)
+        }
+    }) {
+        Logo { Text("Koders") }
+    }
+
     H1({
         style {
             fontSize(2.1.em)
@@ -52,13 +59,12 @@ val title = Slide(
         Text("Romain BOISSELLE")
     }
 
-    A(href = "https://kodein.net", {
-        target(ATarget.Blank)
+    A(href = "https://p.kodein.net/ch-gdg-lyon", {
         css {
-            margin(0.25.em)
-            fontSize(2.em)
+            paddingTop(1.em)
+            fontWeight(200)
         }
     }) {
-        Logo { Text("Koders") }
+        Text("https://p.kodein.net/ch-gdg-lyon")
     }
 }

@@ -80,15 +80,13 @@ val thankYou = Slide(
             }
         }
 
-        A(href = "https://kodeinkoders.github.io/presentations/2023-04-20-KMM-for-iOS-developers", {
+        A(href = "https://p.kodein.net/ch-gdg-lyon", {
             css {
                 paddingTop(1.em)
                 fontWeight(200)
             }
         }) {
-            Text("https://kodeinkoders.github.io/presentations/")
-            Br()
-            Text("2023-04-20-KMM-for-iOS-developers")
+            Text("https://p.kodein.net/ch-gdg-lyon")
         }
     }
 }
