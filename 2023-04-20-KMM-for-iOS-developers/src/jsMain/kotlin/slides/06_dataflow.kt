@@ -2,15 +2,11 @@ package slides
 
 import net.kodein.pres.Animations
 import net.kodein.pres.Slide
-import net.kodein.pres.Transitions.fade
-import net.kodein.pres.Transitions.grow
 import net.kodein.pres.animatedWith
 import net.kodein.pres.sourcecode.SourceCode
 import net.kodein.pres.sourcecode.fontGrow
 import net.kodein.pres.sourcecode.lineHeight
-import net.kodein.pres.sourcecode.shownIf
 import net.kodein.pres.sourcecode.zoomed
-import net.kodein.pres.widget.SubSlide
 import org.jetbrains.compose.web.css.em
 import org.jetbrains.compose.web.css.height
 import org.jetbrains.compose.web.dom.H3
@@ -35,7 +31,7 @@ val redux = listOf(
 
     Slide(
         name = "uniflow-structure",
-        stateCount = 6
+        stateCount = 5
     ) { state ->
         SourceCode(
             lang = "kotlin",
@@ -51,18 +47,12 @@ val redux = listOf(
                         «a1:val initialState: S»,
                         «a3:val reducer: Reducer<S>»,
                         «a2:val useCases: Collection<UseCase>»,
-                    «a4-in:) : CoroutineScope {
-                        val stateFlow: StateFlow<S>
-                        fun sendAction(action: A)
-                        fun stop()
-                    }»«a4-out:) : CoroutineScope»
+                    ) : CoroutineScope
                 """.trimIndent()
         ) {
             "a1" { zoomed(state == 1) }
             "a2" { zoomed(state == 2) }
             "a3" { zoomed(state == 3) }
-            "a4-in" { lineHeight(state > 4) }
-            "a4-out" { shownIf(state <= 4, grow) }
         }
     },
             Slide(
