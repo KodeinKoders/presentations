@@ -8,6 +8,10 @@ repositories {
     mavenLocal()
 }
 
+compose.desktop {
+    application.mainClass = "MainKt"
+}
+
 dependencies {
     implementation(compose.runtime)
     implementation(compose.foundation)
@@ -16,5 +20,4 @@ dependencies {
     implementation(compose.desktop.currentOs)
 
     implementation("org.kodein.pres:cup:0.1.0")
-    implementation("io.github.kevinnzou:compose-webview-multiplatform:1.7.6")
 }
